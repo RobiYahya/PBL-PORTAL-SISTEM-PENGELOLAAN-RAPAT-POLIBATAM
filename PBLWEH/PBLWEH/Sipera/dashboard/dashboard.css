@@ -1,0 +1,428 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* =================================
+1. GLOBAL & GENERAL STYLES
+================================= */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background-color: #f8f9fa; 
+    line-height: 1.6; 
+    min-height: 100vh; 
+    background: url(foto/kantor.jpg) no-repeat center center/cover;
+}
+
+/* =================================
+2. HEADER / TOP NAVBAR
+================================= */
+.top-navbar {
+    background: linear-gradient(to left , #e78c15, #e2d13b);
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.top-navbar .logo { 
+    width: 100px; 
+}
+
+.navbar-right { 
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+}
+
+.nav-link { 
+    color: #333; 
+    text-decoration: none; 
+    font-weight: 500; 
+}
+
+.user-profile { 
+    background-color: rgba(0,0,0,0.05); 
+    color: white; 
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    font-weight: 500; 
+}
+
+/* =================================
+3. MAIN LAYOUT (CONTAINER, SIDEBAR, MAIN CONTENT)
+================================= */
+.dashboard-container { 
+    display: flex; 
+    padding-top: 70px;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: #ffffff;
+    height: calc(100vh - 70px);
+    position: fixed;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+.main-content {
+    margin-left: 280px;
+    padding: 30px;
+    width: calc(100% - 280px);
+}
+
+/* =================================
+4. SIDEBAR COMPONENTS
+================================= */
+.sidebar-feature { 
+    margin-bottom: 25px; 
+}
+
+.sidebar-feature label { 
+    font-weight: 600; 
+    margin-bottom: 8px; 
+    display: block; 
+}
+
+.sidebar-feature .input-group { 
+    display: flex; 
+}
+
+.sidebar-feature input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+}
+
+.sidebar-nav ul { 
+    list-style: none; 
+}
+
+.sidebar-nav ul li a {
+    display: block; 
+    padding: 12px 15px; 
+    color: #333; 
+    text-decoration: none;
+    border-radius: 5px; 
+    font-weight: 500;
+}
+
+.sidebar-nav ul li.active a {
+    background-color: #EBA753;
+    color: rgb(0, 0, 0);
+}
+
+.sidebar-nav ul li a:hover,
+.sidebar-nav ul li.active a:hover {
+    background-color: #e6c49d;
+    color: rgb(0, 0, 0);
+}
+
+.sidebar-footer { 
+    position: absolute; 
+    bottom: 20px; 
+    width: calc(100% - 40px); 
+}
+
+.logout-btn {
+    display: block; 
+    text-align: center; 
+    background-color: #e71b04;
+    color: white; 
+    padding: 10px; 
+    border-radius: 5px; 
+    text-decoration: none;
+}
+
+.logout-btn:hover { 
+    background-color: #EBA; 
+}
+
+/* =================================
+5. MAIN CONTENT COMPONENTS
+================================= */
+/* --- General Titles --- */
+.main-title { 
+    text-align: center; 
+    margin-bottom: 10px; 
+}
+.main-subtitle { 
+    text-align: center; 
+    margin-bottom: 30px; 
+    color: #666; 
+}
+
+/* --- List Ruangan View --- */
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.room-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.room-card:hover { 
+    transform: translateY(-5px); 
+}
+
+.room-card-image {
+    height: 180px;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-style: italic;
+}
+
+.room-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.room-card-content { 
+    padding: 20px; 
+}
+
+.room-card-content h3 { 
+    margin-bottom: 15px; 
+}
+
+.room-card-actions { 
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px; 
+}
+
+/* --- Rapat Saya View (Table) --- */
+.table-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    overflow-x: auto; /* Agar tabel bisa di-scroll di layar kecil */
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse; /* Menghilangkan spasi antar border */
+}
+
+.table-container th,
+.table-container td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #eee; /* Garis pemisah antar baris */
+}
+
+.table-container thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
+
+.table-container tbody tr:hover {
+    background-color: #f5f5f5; /* Efek hover pada baris */
+}
+
+.table-container .actions-btn {
+    text-align: center;
+    display: flex;
+    gap: 10px; /* Jarak antar tombol */
+    justify-content: center;
+}
+
+/* --- Styling untuk tombol di dalam tabel --- */
+.edit-btn, .delete-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    color: white;
+}
+
+.edit-btn {
+    background-color: #ffc107; /* Warna kuning untuk edit */
+    color: #000;
+}
+
+.edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Warna merah untuk hapus */
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* --- Reservasi & Detail View (Forms & Cards) --- */
+.form-view-container, .detail-view-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.form-card {
+    background: #9b9b9b;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.form-logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.form-card h2 {
+    margin-bottom: 30px;
+}
+
+.form-card .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-card .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-card .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-card .form-group input:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.form-card .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.form-card .form-actions button {
+    flex-grow: 1;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.detail-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.detail-card h3 {
+    margin-bottom: 20px;
+}
+
+.detail-card p {
+    margin-bottom: 10px;
+}
+
+.kode-rapat-display {
+    background: #f8f9fa;
+    border: 2px dashed #ddd;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 5px;
+}
+
+.kode-rapat-display strong {
+    font-size: 2rem;
+    color: #007bff;
+    letter-spacing: 2px;
+}
+
+/* =================================
+6. BUTTONS & UTILITY
+================================= */
+.btn-primary {
+    padding: 8px 15px;
+    background-color: #0F3CA5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
+
+.btn-primary:hover { 
+    background-color: #466994; 
+}
+
+.btn-secondary, .btn-danger {
+    padding: 8px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: 500;
+}
+
+.btn-secondary { 
+    background-color: #007bff; 
+    color: white; 
+}
+
+.btn-secondary:hover { 
+    background-color: #466994; 
+}
+
+.btn-danger { 
+    background-color: #dc3545; 
+    color: white; 
+}
+
+.submit-btn {
+    width: auto; /* Dihapus width: 70px; */
+    background-color: #0F3CA5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.submit-btn:hover {
+    background-color: #466994;
+}
+
+.hidden {
+    display: none !important;
+}
