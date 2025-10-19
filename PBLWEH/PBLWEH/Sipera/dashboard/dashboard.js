@@ -248,4 +248,5 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('kembali-ke-list').addEventListener('click', renderRapatSayaView);
         updateDynamicMenus();
     };
+    initializeDashboard();
 });
