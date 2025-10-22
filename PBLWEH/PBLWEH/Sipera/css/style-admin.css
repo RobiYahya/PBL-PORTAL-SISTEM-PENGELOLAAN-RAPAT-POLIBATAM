@@ -1,0 +1,510 @@
+/* Palet Warna & Font */
+:root {
+  --main-bg-color: #f0f0f3; /* Warna latar belakang terang (dasar neumorphism) */
+  --primary-color: #ff8c00; /* Oranye gelap - Dominan */
+  --secondary-color: #ffa726; /* Oranye sedang */
+  --tertiary-color: #ffcd7a; /* Oranye terang */
+  --shadow-light: #ffffff; /* Warna bayangan terang */
+  --shadow-dark: #c4c4c4; /* Warna bayangan gelap */
+  --border-radius: 15px;
+  --neumorphism-distance: 8px;
+  --transition-speed: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  color: #333;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+/* --- Neumorphism Styles --- */
+
+/* Card: Konsep desain 3D timbul (raised) */
+.neumorphism-card {
+  background: var(--main-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: 
+    var(--neumorphism-distance) var(--neumorphism-distance) calc(2 * var(--neumorphism-distance)) var(--shadow-dark),
+    calc(-1 * var(--neumorphism-distance)) calc(-1 * var(--neumorphism-distance)) calc(2 * var(--neumorphism-distance)) var(--shadow-light);
+  padding: 20px;
+  transition: all var(--transition-speed);
+}
+
+/* Inset: Konsep desain 3D tenggelam (pressed) */
+.neumorphism-inset {
+    background: var(--main-bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: inset 
+      var(--neumorphism-distance) var(--neumorphism-distance) calc(2 * var(--neumorphism-distance)) var(--shadow-dark),
+      inset calc(-1 * var(--neumorphism-distance)) calc(-1 * var(--neumorphism-distance)) calc(2 * var(--neumorphism-distance)) var(--shadow-light);
+    padding: 20px;
+    transition: all var(--transition-speed);
+}
+
+/* Button: Timbul dengan efek tekan saat hover/active */
+.neumorphism-btn {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  background: var(--main-bg-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  box-shadow: 
+    4px 4px 8px var(--shadow-dark),
+    -4px -4px 8px var(--shadow-light);
+  transition: all var(--transition-speed);
+}
+
+.neumorphism-btn:hover {
+    box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+}
+
+.neumorphism-btn:active {
+  box-shadow: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light); /* Efek Ditekan */
+}
+
+/* Input/Select: Tenggelam (inset) */
+.neumorphism-input, .neumorphism-select {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--main-bg-color);
+  box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+  width: 100%;
+  color: #333;
+  transition: all var(--transition-speed);
+}
+
+.neumorphism-input:focus, .neumorphism-select:focus {
+    outline: none;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+}
+
+/* Judul Utama */
+.neumorphism-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--primary-color);
+    /* Memberikan tekstur seperti terukir */
+    text-shadow: 2px 2px 3px var(--shadow-dark), -1px -1px 1px var(--shadow-light);
+    padding-bottom: 10px;
+}
+
+
+/* --- Layout Utama --- */
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: rgb(246, 152, 0);
+  border-bottom: 1px solid #d7a911; /* Pembatas lembut */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 15px;
+}
+
+.admin-title {
+    font-size: 2.3em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
+    color: #0c5a64;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn {
+    text-align: center;
+    color: rgb(255, 0, 0);
+    background-color: var(--main-bg-color); /* Oranye gelap */
+    padding: 8px 15px;
+    /* Overwrite neumorphism-btn color for primary style */
+}
+
+.logout-btn:hover {
+    background-color: #0036e6; /* Sedikit lebih gelap dari primary */
+}
+
+.admin-dashboard-container {
+  display: flex;
+  min-height: calc(100vh - 60px); /* Tinggi layar dikurangi navbar */
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  width: 250px;
+  padding: 20px 10px;
+  min-height: 100%;
+  border-right: 1px solid #f7b553;
+  /* Override default padding from neumorphism-card for a compact look */
+  padding: 20px; 
+}
+
+.sidebar-nav ul {
+  list-style: none;
+}
+
+.sidebar-nav .nav-item {
+  margin: 15px 0;
+}
+
+.sidebar-nav .nav-link {
+  display: block;
+  padding: 12px 15px;
+  border-radius: 8px;
+  color: #a10000;
+  font-weight: 600;
+  transition: all var(--transition-speed);
+}
+
+.sidebar-nav .nav-link:hover {
+  background-color: var(--shadow-dark); /* Oranye terang */
+  color: #333; /* Teks lebih gelap agar kontras */
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.sidebar-nav .nav-item.active .nav-link {
+  background-color: var(--secondary-color); /* Oranye gelap */
+  color: white;
+  /* Tampilan 3D lebih menonjol untuk yang aktif */
+  box-shadow: 
+    6px 6px 12px var(--shadow-dark), 
+    -6px -6px 12px var(--shadow-light);
+}
+
+.sidebar-nav .nav-link i {
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+
+/* --- Main Content --- */
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+}
+
+.view-container {
+  /* Untuk menyembunyikan view yang tidak aktif */
+  display: block; 
+}
+
+.hidden {
+    display: none !important;
+}
+
+.main-heading {
+    margin-bottom: 5px;
+}
+
+.main-subheading {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.section-heading {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: rgb(145, 2, 2); /* Oranye gelap */
+}
+
+
+/* --- 1. Overview Section Styles --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 100px;
+    /* Dibuat lebih tebal/timbul */
+    box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+}
+
+.stat-icon {
+    font-size: 3em;
+    color: var(--secondary-color); /* Oranye sedang */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat-info {
+    text-align: right;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2.5em;
+    font-weight: 800;
+    color: var(--primary-color); /* Oranye gelap */
+}
+
+.stat-label {
+    font-weight: 400;
+    color: #777;
+}
+
+.quick-actions-grid {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.action-btn {
+    flex-grow: 1;
+    background-color: var(--secondary-color); /* Oranye sedang */
+    color: white;
+    padding: 15px 20px;
+    /* Overwrite neumorphism default */
+}
+
+.action-btn:hover {
+    background-color: #5265f7; /* Sedikit lebih terang dari secondary */
+}
+
+.activity-log-box {
+    min-height: 150px;
+    color: #000000;
+    font-size: 0.9em;
+    line-height: 2;
+    overflow-y: auto;
+}
+
+/* --- 2, 3, 4, 5. Management Sections Styles --- */
+.action-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+.filter-select {
+    width: 200px;
+}
+
+.btn-primary {
+    background-color: rgb(0, 21, 255); /* Oranye gelap */
+    color: white;
+    /* Overwrite neumorphism default */
+}
+
+.btn-primary:hover {
+    background-color: #13be8d; /* Sedikit lebih gelap dari primary */
+}
+
+.table-container {
+    overflow-x: auto;
+    /* Minimal padding untuk inset */
+    padding: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Jarak antar baris */
+    font-size: 0.9em;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+thead th {
+    background-color: var(--primary-color); /* Oranye gelap */
+    color: white;
+    font-weight: 700;
+    /* Neumorphism untuk header tabel */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+tbody tr {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Bayangan halus untuk pemisah */
+    transition: background-color 0.2s;
+}
+
+tbody tr:hover {
+    background-color: #a8a2a2;
+}
+
+/* Tombol Aksi dalam Tabel */
+.btn-edit, .btn-delete, .btn-view, .btn-cancel, .btn-validate {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s;
+}
+
+.btn-edit { background-color: #ffc107; } /* Kuning (dipertahankan untuk edit) */
+.btn-delete { background-color: #dc3545; } /* Merah (dipertahankan untuk delete) */
+.btn-view { background-color: var(--secondary-color); } /* Oranye sedang */
+.btn-cancel { background-color: #6c757d; } /* Abu-abu */
+.btn-validate { background-color: #28a745; } /* Hijau (dipertahankan untuk validasi) */
+
+.btn-edit:hover, .btn-delete:hover, .btn-view:hover, .btn-cancel:hover, .btn-validate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* --- 6. Reports Section Styles --- */
+.report-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.report-card {
+    text-align: center;
+    /* Dibuat lebih cekung */
+    box-shadow: 
+        inset 5px 5px 10px var(--shadow-dark), 
+        inset -5px -5px 10px var(--shadow-light);
+    padding: 30px;
+}
+
+.report-card h3 {
+    color: var(--primary-color); /* Oranye gelap */
+    margin-bottom: 10px;
+}
+
+.report-card .btn-secondary {
+    background-color: var(--tertiary-color); /* Oranye terang */
+    color: #333; /* Teks gelap */
+    margin-top: 15px;
+    /* Overwrite neumorphism default */
+}
+
+.report-card .btn-secondary:hover {
+    background-color: #ffde99; /* Lebih terang */
+}
+
+
+.chart-area {
+    height: 300px;
+    margin-top: 20px;
+}
+
+/* --- Modal Styles (For Add/Edit Forms) --- */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none; /* Default hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    position: relative;
+    /* Tampilan 3D lebih menonjol */
+    box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.2), -20px -20px 40px var(--shadow-light);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+#modal-title {
+    color: var(--primary-color); /* Oranye gelap */
+    margin-bottom: 20px;
+}
+
+#modal-form .form-group {
+    margin-bottom: 15px;
+}
+
+#modal-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+#modal-form input, #modal-form select {
+    width: 100%;
+    padding: 10px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-secondary { /* Untuk tombol "Batal" di modal */
+    background-color: #ccc;
+    color: #333;
+    /* Overwrite neumorphism default */
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding: 15px;
+  background-color: var(--main-bg-color);
+  border-top: 1px solid #ddd;
+  color: #777;
+  font-size: 0.85em;
+}

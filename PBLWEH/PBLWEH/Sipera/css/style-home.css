@@ -111,6 +111,38 @@ a {
   box-shadow: 0 10px 20px var(--color-shadow-deep);
 }
 
+/* Tombol Masuk */
+.btn-masuk { /* GABUNGKAN KEDUA SELEKTOR */
+  background-color: var(
+    --color-bg-main
+  ); /* Mengambil warna background body untuk Neumorphism */
+  color: var(--color-primary-dark);
+}
+
+.btn-masuk:hover { /* GABUNGKAN HOVER JUGA */
+  background-color: #e6e6eb;
+  transform: translateY(-3px); /* Efek 'angkat' yang lebih tinggi */
+  box-shadow: 8px 8px 15px var(--color-shadow-deep),
+    -5px -5px 10px var(--color-shadow-light);
+}
+
+.btn-admin {
+  background-color: darkblue;
+  color: var(--color-text-light);
+  box-shadow: 5px 5px 10px var(--color-shadow-deep); /* Bayangan biasa untuk kontras */
+}
+.btn-admin:hover {
+  background-color: var(--color-secondary-dark);
+  transform: scale(1.05); /* Efek 'Pop' saat di-hover */
+  box-shadow: 0 10px 20px var(--color-shadow-deep);
+}
+
+/* Pastikan nav-links memiliki jarak yang cukup */
+.nav-links {
+  display: flex;
+  gap: 15px; /* Jarak antar tombol */
+}
+
 /* --- Hero Section --- */
 .hero-section {
   padding-top: 80px;
@@ -120,7 +152,7 @@ a {
   justify-content: center;
   text-align: center;
   /* Gambar background lebih fokus */
-  background: url("foto/kantor.jpg") no-repeat center 30% / cover;
+  background: url("../foto/kantor.jpg") no-repeat center 30% / cover;
   position: relative;
   z-index: 1;
 }

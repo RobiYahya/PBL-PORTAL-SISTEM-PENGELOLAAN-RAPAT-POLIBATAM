@@ -114,7 +114,7 @@ a {
   align-items: center;
   justify-content: center;
   padding-top: 80px; /* Offset untuk navbar */
-  background: url(#) no-repeat center center/cover; /* Background untuk halaman login */
+  background-color:rgb(216, 214, 214); /* Background untuk halaman login */
   position: relative;
   overflow: hidden; /* Penting untuk efek latar belakang */
 }
