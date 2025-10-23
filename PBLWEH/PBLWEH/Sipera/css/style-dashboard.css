@@ -270,7 +270,7 @@ a {
   gap: 25px;
 }
 
-.room-card {
+.room-grid .room-card {
   background-color: var(--color-bg-card);
   border-radius: 15px;
   overflow: hidden;
@@ -282,18 +282,17 @@ a {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.room-card:hover {
+.room-grid.room-card:hover {
   transform: translateY(-5px); /* Efek Angkat saat hover */
   box-shadow: 10px 10px 25px var(--color-shadow-deep),
     -5px -5px 15px var(--color-shadow-light);
 }
 
-.room-card-image {
+.room-grid.room-card-image {
   width: 100%;
   height: 150px;
   background-color: #e0e0e0;
   /* Placeholder gambar yang lebih estetik */
-  background-image: url(foto/room.jpg); /* Ganti dengan gambar placeholder ruang */
   background-size: cover;
   background-position: center;
   border-bottom: 3px solid var(--color-primary);
@@ -301,28 +300,28 @@ a {
 }
 
 /* tulisan dalam ruangan */
-.room-card h3 {
+.room-grid.room-card h3 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-secondary-dark);
   margin-bottom: 8px;
 }
 
-.room-card .status {
+.room-grid.room-card .status {
   font-size: 1rem;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
-.room-card .status.tersedia {
+.room-grid.room-card .status.tersedia {
   color: #28a745; /* Hijau */
 }
 
-.room-card .status.terpakai {
+.room-grid.room-card .status.terpakai {
   color: #dc3545; /* Merah */
 }
 
-.room-card .reserve-btn {
+.room-grid.room-card .reserve-btn {
   background-color: var(--color-secondary);
   color: var(--color-text-light);
   padding: 10px 20px;
