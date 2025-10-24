@@ -313,14 +313,6 @@ a {
   font-weight: 600;
 }
 
-.room-grid.room-card .status.tersedia {
-  color: #28a745; /* Hijau */
-}
-
-.room-grid.room-card .status.terpakai {
-  color: #dc3545; /* Merah */
-}
-
 .room-grid.room-card .reserve-btn {
   background-color: var(--color-secondary);
   color: var(--color-text-light);

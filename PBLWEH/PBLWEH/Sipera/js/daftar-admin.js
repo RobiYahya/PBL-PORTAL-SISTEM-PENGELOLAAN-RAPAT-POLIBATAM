@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // =======================================================
     // DEFINISI AKUN ADMIN (Hardcode untuk keperluan frontend)
     // Username: adminutama
-    // Password: siperapolibatam2025
+    // Password: sipera2025
     // =======================================================
     const VALID_USERNAME = 'adminutama'; 
     const VALID_PASSWORD = 'sipera2025'; 
