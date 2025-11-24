@@ -1,0 +1,391 @@
+/* Warna Utama & Neumorphism */
+:root {
+    --color-primary: #FFD700; /* Kuning Emas */
+    --color-secondary: #007BFF; /* Biru */
+    --color-background: #e0e0e0; /* Warna dasar Neumorphism yang lembut */
+    --color-text-dark: #333333;
+    --color-text-light: #ffffff;
+    --color-terjadwal: #007BFF;
+    --color-canceled: #dc3545; /* Merah untuk dibatalkan */
+    --color-success: #28a745;
+    --neumorphic-shadow-light: #ffffff;
+    --neumorphic-shadow-dark: #a7a7a7;
+    --neumorphic-radius: 15px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+    color: var(--color-text-dark);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Navbar Styling --- */
+.navbar {
+    background-color: var(--color-primary);
+    padding: 10px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 40px; 
+}
+
+.user-menu-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-button {
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--neumorphic-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: inset 3px 3px 5px var(--neumorphic-shadow-dark),
+                inset -3px -3px 5px var(--neumorphic-shadow-light);
+}
+
+.user-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--color-background);
+    min-width: 160px;
+    box-shadow: 8px 8px 16px var(--neumorphic-shadow-dark),
+                -8px -8px 16px var(--neumorphic-shadow-light);
+    border-radius: var(--neumorphic-radius);
+    z-index: 1000;
+    margin-top: 10px;
+    padding: 10px 0;
+}
+
+.user-dropdown-content a {
+    color: var(--color-text-dark);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.1s ease;
+}
+
+.user-dropdown-content a:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* --- Dashboard Section --- */
+.dashboard-section {
+    padding: 40px 0 80px 0;
+}
+
+.main-title {
+    color: var(--color-secondary);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+/* --- Tombol Buat Rapat (Neumorphic Besar) --- */
+.new-meeting-btn-link {
+    text-decoration: none;
+    display: block;
+    max-width: 700px;
+    margin: 0px auto 40px;
+}
+
+.neumorphic-btn-create {
+    padding: 25px 30px;
+    background-color: var(--color-primary);
+    border-radius: 30px;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--color-secondary);
+    box-shadow: 10px 10px 20px var(--neumorphic-shadow-dark),
+                -10px -10px 20px var(--neumorphic-shadow-light);
+    transition: all 0.2s ease;
+    line-height: 1.2;
+}
+
+.neumorphic-btn-create:hover {
+    /* Sedikit terangkat */
+    box-shadow: 12px 12px 24px var(--neumorphic-shadow-dark),
+                -12px -12px 24px var(--neumorphic-shadow-light);
+}
+
+.neumorphic-btn-create:active {
+    /* Efek tertekan */
+    box-shadow: inset 5px 5px 10px var(--neumorphic-shadow-dark),
+                inset -5px -5px 10px var(--neumorphic-shadow-light);
+}
+
+.btn-description {
+    display: block;
+    font-size: 0.5em;
+    font-weight: 400;
+    color: var(--color-text-dark);
+    margin-top: 5px;
+}
+
+/* --- Statistik Panel --- */
+.stats-panel {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+}
+
+.neumorphic-card {
+    background: var(--color-background);
+    border-radius: var(--neumorphic-radius);
+    box-shadow: 5px 5px 10px var(--neumorphic-shadow-dark),
+                -5px -5px 10px var(--neumorphic-shadow-light);
+}
+
+.stat-card h3 {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.text-primary { color: var(--color-terjadwal); }
+.text-canceled { color: var(--color-canceled); }
+.text-success { color: var(--color-success); }
+
+
+/* --- Tab Navigasi --- */
+.neumorphic-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 10px;
+    border-radius: var(--neumorphic-radius);
+    /* Sedikit terangkat untuk wadah tab */
+    box-shadow: 5px 5px 10px var(--neumorphic-shadow-dark),
+                -5px -5px 10px var(--neumorphic-shadow-light);
+    background: var(--color-background);
+}
+
+.tab-button {
+    background: var(--color-background);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    transition: all 0.2s ease;
+}
+
+.tab-button:hover {
+    background: #d1d1d1;
+}
+
+.tab-button.active {
+    color: var(--color-text-light);
+    background-color: var(--color-secondary);
+    /* Efek tertekan saat aktif */
+    box-shadow: inset 3px 3px 6px #0056b3,
+                inset -3px -3px 6px #4d94ff;
+}
+
+/* --- Daftar Rapat (Tab Content) --- */
+.tab-content {
+    display: none;
+    padding-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.meeting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: var(--neumorphic-radius);
+    /* Item rapat terangkat */
+    box-shadow: 5px 5px 10px var(--neumorphic-shadow-dark),
+                -5px -5px 10px var(--neumorphic-shadow-light);
+    background: var(--color-background);
+    transition: transform 0.2s;
+}
+
+.meeting-item:hover {
+    transform: translateY(-2px);
+}
+
+.meeting-details {
+    flex-grow: 1;
+}
+
+.meeting-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--color-secondary);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.meeting-info {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0;
+}
+
+.meeting-status-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.75em;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--color-text-light);
+    /* Sunken Neumorphism for tag */
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2),
+                inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.status-terjadwal .meeting-status-tag { background-color: var(--color-terjadwal); }
+.status-dibatalkan .meeting-status-tag { background-color: var(--color-canceled); }
+.status-selesai .meeting-status-tag { background-color: var(--color-success); }
+
+
+.meeting-actions {
+    display: flex;
+    gap: 10px;
+    /* Menampung baik button maupun link */
+}
+
+.action-btn {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9em;
+    color: var(--color-text-dark);
+    background: var(--color-background);
+    /* Tombol aksi Neumorphism */
+    box-shadow: 3px 3px 6px var(--neumorphic-shadow-dark),
+                -3px -3px 6px var(--neumorphic-shadow-light);
+    transition: all 0.2s ease;
+}
+
+.action-btn:active {
+    box-shadow: inset 2px 2px 4px var(--neumorphic-shadow-dark),
+                inset -2px -2px 4px var(--neumorphic-shadow-light);
+}
+
+/* Styling untuk Link Edit (a) agar terlihat seperti tombol */
+.btn-edit-link {
+    text-decoration: none; 
+    display: inline-block;
+    color: var(--color-secondary); 
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9em;
+    background: var(--color-background);
+    box-shadow: 3px 3px 6px var(--neumorphic-shadow-dark),
+                -3px -3px 6px var(--neumorphic-shadow-light);
+    transition: all 0.2s ease;
+}
+
+.btn-edit-link:active {
+    box-shadow: inset 2px 2px 4px var(--neumorphic-shadow-dark),
+                inset -2px -2px 4px var(--neumorphic-shadow-light);
+}
+
+/* Styling untuk Link View/Detail (a) agar terlihat seperti tombol */
+.btn-view-link {
+    text-decoration: none; 
+    display: inline-block;
+    color: var(--color-terjadwal); /* Warna biru/terjadwal */
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9em;
+    background: var(--color-background);
+    box-shadow: 3px 3px 6px var(--neumorphic-shadow-dark),
+                -3px -3px 6px var(--neumorphic-shadow-light);
+    transition: all 0.2s ease;
+}
+
+.btn-view-link:active {
+    box-shadow: inset 2px 2px 4px var(--neumorphic-shadow-dark),
+                inset -2px -2px 4px var(--neumorphic-shadow-light);
+}
+
+.btn-download { color: var(--color-success); }
+
+
+/* --- Footer Styling --- */
+.footer {
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+    text-align: center;
+    padding: 15px 0;
+}
+
+@media (max-width: 768px) {
+    .stats-panel {
+        flex-direction: column;
+    }
+    .neumorphic-tabs {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    .tab-button {
+        flex-grow: 1;
+        margin: 5px 0;
+    }
+    .meeting-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .meeting-actions {
+        margin-top: 15px;
+        width: 100%;
+        justify-content: space-around;
+    }
+}
