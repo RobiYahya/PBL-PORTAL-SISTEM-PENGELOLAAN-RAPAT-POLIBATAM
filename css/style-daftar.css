@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Custom properties untuk warna */
 :root {
     --color-primary: #f0a500; /* Kuning/Oranye dari header */
@@ -363,4 +364,116 @@ a {
     .neumorphic-checkbox-label {
         padding-left: 30px;
     }
+=======
+/* Anda mungkin sudah memiliki banyak gaya lain di sini. 
+   Ini hanya bagian-bagian penting untuk bentuk dan warna */
+
+:root {
+  --primary-color: #2c3e50; /* Warna utama (misal: untuk teks) */
+  --neumorphic-bg: #f0f0f0; /* Latar belakang utama */
+  --shadow-light: #ffffff; /* Bayangan terang untuk neumorphism */
+  --shadow-dark: #bebebe; /* Bayangan gelap untuk neumorphism */
+  --polibatam-orange: #f2a900; /* Warna Oranye untuk DAFTAR SEKARANG */
+  --polibatam-orange-dark: #d69400; /* Warna Oranye gelap untuk efek tekan */
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--neumorphic-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.login-container {
+  width: 90%;
+  max-width: 400px;
+  padding: 40px;
+  text-align: center;
+  border-radius: 20px;
+}
+
+/* Neumorphic Panel (Kontainer Utama) */
+.neumorphic-panel {
+  background: var(--neumorphic-bg);
+  box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+}
+
+.main-title {
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  font-size: 1.8em;
+}
+
+/* Neumorphic Input Fields */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.neumorphic-input {
+  width: 100%;
+  padding: 15px 20px;
+  margin-top: 5px; /* Menghilangkan label di HTML, menggunakan placeholder sebagai gantinya */
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-size: 1em;
+  font-weight: 600;
+  color: #555;
+  background: var(--neumorphic-bg);
+  /* Inner Shadow Effect for Input (Terlihat seperti tertekan/cekung) */
+  box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+}
+
+/* Hapus elemen <label> dari tampilan untuk mengikuti gambar,
+   karena di gambar labelnya adalah placeholder di dalam input */
+.neumorphic-label {
+    display: none; 
+}
+
+
+/* Neumorphic Button Styling (Base) */
+.neumorphic-btn {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  /* Outer Shadow Effect for Button (Terlihat seperti timbul) */
+  box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+/* Styling Khusus untuk Tombol DAFTAR SEKARANG (Warna Oranye) */
+.btn-register {
+  background-color: var(--polibatam-orange); /* Oranye */
+  color: white;
+}
+
+.btn-register:active {
+  /* Efek 'tertekan' */
+  box-shadow: inset 4px 4px 8px var(--polibatam-orange-dark), inset -4px -4px 8px var(--polibatam-orange);
+  transform: scale(0.98);
+}
+
+/* Tautan di bagian bawah */
+.register-link {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+>>>>>>> 798dcddb89318e630fcc360bec96b39092ac495f
 }

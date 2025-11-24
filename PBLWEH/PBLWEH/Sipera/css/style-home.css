@@ -1,0 +1,308 @@
+/* Custom properties untuk warna */
+:root {
+  --color-primary: #f0a500; /* Kuning/Oranye dari header */
+  --color-primary-dark: #cc8c00;
+  --color-secondary: #007bff; /* Biru dari footer */
+  --color-secondary-dark: #0056b3;
+  --color-text-light: #ffffff;
+  --color-text-dark: #333333;
+  --color-bg-main: #f0f0f5; /* Background sangat terang */
+  --color-shadow-light: rgba(255, 255, 255, 0.7); /* Neumorphism highlight */
+  --color-shadow-dark: rgba(0, 0, 0, 0.2); /* Neumorphism shadow */
+  --color-shadow-deep: rgba(0, 0, 0, 0.4); /* Bayangan dalam */
+  --font-family-primary: "Poppins", sans-serif;
+}
+
+/* Global Reset dan Tipografi */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  line-height: 1.6;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease-in-out;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* --- Navigation Bar (Neumorphism Style) --- */
+.navbar {
+  background: linear-gradient(135deg, #ffd700, var(--color-primary));
+  padding: 12px 0;
+  /* Bayangan 3D kompleks untuk tampilan pop-out */
+  box-shadow: 0 8px 16px var(--color-shadow-deep),
+    /* Bayangan bawah yang lebih nyata */ 0 -2px 4px rgba(0, 0, 0, 0.1) inset; /* Sedikit ilusi kedalaman atas */
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 45px;
+  filter: drop-shadow(2px 2px 4px var(--color-shadow-dark));
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px; /* Lebih halus */
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transisi Estetik */
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  /* Bayangan Default Tombol */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
+    -5px -5px 10px var(--color-shadow-light);
+}
+
+/* Tombol Masuk */
+.btn-masuk {
+  background-color: var(
+    --color-bg-main
+  ); /* Mengambil warna background body untuk Neumorphism */
+  color: var(--color-primary-dark);
+}
+
+.btn-masuk:hover {
+  background-color: #e6e6eb;
+  transform: translateY(-3px); /* Efek 'angkat' yang lebih tinggi */
+  box-shadow: 8px 8px 15px var(--color-shadow-deep),
+    -5px -5px 10px var(--color-shadow-light);
+}
+
+/* Tombol Daftar */
+.btn-daftar {
+  background-color: var(--color-secondary);
+  color: var(--color-text-light);
+  box-shadow: 5px 5px 10px var(--color-shadow-deep); /* Bayangan biasa untuk kontras */
+}
+
+.btn-daftar:hover {
+  background-color: var(--color-secondary-dark);
+  transform: scale(1.05); /* Efek 'Pop' saat di-hover */
+  box-shadow: 0 10px 20px var(--color-shadow-deep);
+}
+
+/* Tombol Masuk */
+.btn-masuk { /* GABUNGKAN KEDUA SELEKTOR */
+  background-color: var(
+    --color-bg-main
+  ); /* Mengambil warna background body untuk Neumorphism */
+  color: var(--color-primary-dark);
+}
+
+.btn-masuk:hover { /* GABUNGKAN HOVER JUGA */
+  background-color: #e6e6eb;
+  transform: translateY(-3px); /* Efek 'angkat' yang lebih tinggi */
+  box-shadow: 8px 8px 15px var(--color-shadow-deep),
+    -5px -5px 10px var(--color-shadow-light);
+}
+
+.btn-admin {
+  background-color: darkblue;
+  color: var(--color-text-light);
+  box-shadow: 5px 5px 10px var(--color-shadow-deep); /* Bayangan biasa untuk kontras */
+}
+.btn-admin:hover {
+  background-color: var(--color-secondary-dark);
+  transform: scale(1.05); /* Efek 'Pop' saat di-hover */
+  box-shadow: 0 10px 20px var(--color-shadow-deep);
+}
+
+/* Pastikan nav-links memiliki jarak yang cukup */
+.nav-links {
+  display: flex;
+  gap: 15px; /* Jarak antar tombol */
+}
+
+/* --- Hero Section --- */
+.hero-section {
+  padding-top: 80px;
+  height: 70vh; /* Lebih dominan */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* Gambar background lebih fokus */
+  background: url("../foto/kantor.jpg") no-repeat center 30% / cover;
+  position: relative;
+  z-index: 1;
+}
+
+/* Overlay Glassmorphism */
+.hero-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.15); /* Lebih terang */
+  backdrop-filter: blur(5px); /* Efek blur Glassmorphism */
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding: 25px 40px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05); /* Background transparan untuk teks */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Glassmorphism Shadow */
+}
+
+.hero-content h1 {
+  font-size: 3rem; /* Lebih besar */
+  color: var(--color-text-light);
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px var(--color-primary); /* Shadow ganda untuk neon effect */
+  letter-spacing: 2px;
+  line-height: 1.4;
+}
+
+.hero-content h1 span {
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+/* --- Contact Section (Bagian Footer Atas) --- */
+.contact-section {
+  background: linear-gradient(
+    to top,
+    var(--color-secondary-dark),
+    var(--color-secondary)
+  );
+  color: var(--color-text-light);
+  padding: 50px 0 30px 0;
+  border-top: 8px solid var(--color-primary); /* Garis pemisah lebih tebal */
+  box-shadow: 0 5px 20px var(--color-shadow-deep); /* Bayangan luar biasa untuk pemisahan */
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+}
+
+.contact-col {
+  flex: 1 1 28%;
+  min-width: 250px;
+  padding: 20px;
+  /* Glassmorphism di dalam Footer */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 4px 10px var(--color-shadow-deep);
+  transition: transform 0.3s ease;
+}
+
+.contact-col:hover {
+  transform: translateY(-5px); /* Efek angkat saat hover */
+  box-shadow: 0 15px 25px var(--color-shadow-deep);
+}
+
+.contact-col h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 3px solid var(--color-primary);
+  padding-bottom: 8px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.contact-col-kontak a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none; /* Hilangkan garis bawah default */
+}
+
+.contact-col-kontak a:hover {
+  color: #ffd700;
+  text-decoration: underline;
+}
+
+/* Media Sosial */
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.social-links img {
+  width: 35px; /* Lebih besar */
+  height: 35px;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  /* Efek 3D awal pada ikon */
+  filter: drop-shadow(2px 2px 4px var(--color-shadow-dark));
+}
+
+.social-links img:hover {
+  opacity: 1;
+  transform: translate(-2px, -2px) scale(1.1); /* Gerakan diagonal dan membesar */
+  filter: drop-shadow(0 0 10px var(--color-primary));
+}
+
+/* --- Footer Bawah --- */
+.footer {
+  background-color: var(--color-secondary-dark);
+  padding: 18px 0;
+  color: var(--color-text-light);
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) inset;
+}
+
+.footer-content p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .contact-col {
+    min-width: 100%;
+  }
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+}

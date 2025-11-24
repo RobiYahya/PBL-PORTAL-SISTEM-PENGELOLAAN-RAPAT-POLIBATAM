@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Sipera POLIBATAM</title>
+    <link rel="stylesheet" href="css/style-admin.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    </head>
+    <body>
+    <header class="top-navbar">
+        <div class="navbar-left">
+        <a href="dashboard.html"
+            ><img src="foto/logo.png" alt="Logo Sipera" class="logo"
+        /></a>
+        <h1 class="admin-title">Sipera Admin ⚙️</h1>
+        </div>
+        <div class="navbar-right">
+        <a href="home-page.html" class="logout-btn neumorphism-btn"
+            ><i class="fas fa-sign-out-alt"></i> Logout</a
+        >
+        </div>
+    </header>
+
+    <div class="admin-dashboard-container">
+        <aside class="sidebar neumorphism-card">
+        <nav class="sidebar-nav">
+            <ul>
+            <li class="nav-item active" data-view="overview">
+                <a href="#" class="nav-link"
+                ><i class="fas fa-home"></i> Overview</a
+                >
+            </li>
+            <li class="nav-item" data-view="manage-users">
+                <a href="#" class="nav-link"
+                ><i class="fas fa-users"></i> Kelola Pengguna</a
+                >
+            </li>
+            <li class="nav-item" data-view="manage-rooms">
+                <a href="#" class="nav-link"
+                ><i class="fas fa-chalkboard"></i> Kelola Ruangan</a
+                >
+            </li>
+            <li class="nav-item" data-view="manage-meetings">
+                <a href="#" class="nav-link"
+                ><i class="fas fa-calendar-alt"></i> Kelola Rapat</a
+                >
+            </li>
+            <li class="nav-item" data-view="manage-notulen">
+                <a href="#" class="nav-link"
+                ><i class="fas fa-file-alt"></i> Kelola Notulen</a
+                >
+            </ul>
+        </nav>
+        </aside>
+
+        <main class="main-content">
+        <section id="overview-view" class="view-container">
+            <h2 class="main-heading neumorphism-title">Dashboard Overview 📊</h2>
+            <p class="main-subheading">Ringkasan status sistem Sipera saat ini.</p>
+
+            <div class="stats-grid">
+            <div class="stat-card neumorphism-card">
+                <i class="fas fa-user-friends stat-icon"></i>
+                <div class="stat-info">
+                <span class="stat-value" id="total-users">--</span>
+                <span class="stat-label">Total Pengguna Aktif</span>
+                </div>
+            </div>
+
+            <div class="stat-card neumorphism-card">
+                <i class="fas fa-business-time stat-icon"></i>
+                <div class="stat-info">
+                <span class="stat-value" id="meetings-today">--</span>
+                <span class="stat-label">Rapat Terjadwal Hari Ini</span>
+                </div>
+            </div>
+
+            <div class="stat-card neumorphism-card">
+                <i class="fas fa-door-open stat-icon"></i>
+                <div class="stat-info">
+                <span class="stat-value" id="available-rooms">- / -</span>
+                <span class="stat-label">Ruangan Tersedia</span>
+                </div>
+            </div>
+
+            <div class="stat-card neumorphism-card">
+                <i class="fas fa-clipboard-check stat-icon"></i>
+                <div class="stat-info">
+                <span class="stat-value" id="new-notulen">-</span>
+                <span class="stat-label">Notulen Terbaru (Minggu Ini)</span>
+                </div>
+            </div>
+            </div>
+
+            <h3 class="section-heading">Tindakan Cepat</h3>
+            <div class="quick-actions-grid">
+            <button class="action-btn neumorphism-btn" onclick="showView('manage-rooms')">
+                <i class="fas fa-plus-circle"></i> Tambah Ruangan Baru
+            </button>
+            <button class="action-btn neumorphism-btn" onclick="showView('manage-users')">
+                <i class="fas fa-user-plus"></i> Tambah Akun Pengguna
+            </button>
+            <button class="action-btn neumorphism-btn" onclick="showView('manage-meetings')">
+                <i class="fas fa-calendar-check"></i> Buat Rapat Mendesak
+            </button>
+            </div>
+
+            <h3 class="section-heading">Log Aktivitas Terbaru</h3>
+            <div class="activity-log-box neumorphism-inset">
+            <p>10:15 - Pengguna 'Budi' mendaftar akun baru.</p>
+            <p>09:30 - Ruangan 'GU 703' direservasi oleh 'Dina'.</p>
+            <p>08:00 - Admin 'SuperAdmin' mengubah status ruangan 'R. Sidang'.</p>
+            </div>
+        </section>
+
+        <section id="manage-users-view" class="view-container hidden">
+            <h2 class="main-heading neumorphism-title">Kelola Pengguna 👥</h2>
+            <p class="main-subheading">Lihat, tambah, edit, dan hapus akun pengguna.</p>
+
+            <div class="action-bar">
+            <input type="text" placeholder="Cari Nama/NIM/Peran..." class="search-input neumorphism-input" />
+            <button class="btn-primary neumorphism-btn" onclick="openAddUserModal()">
+                <i class="fas fa-user-plus"></i> Tambah Pengguna
+            </button>
+            </div>
+            
+            <div class="table-container neumorphism-inset">
+            <table>
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>NIM</th>
+                    <th>Email</th>
+                    <th>Peran</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody id="user-table-body">
+                <tr>
+                    <td>1</td>
+                    <td>Haikal Mubaroq Zafia</td>
+                    <td>3312345678</td>
+                    <td>haikal@polibatam.ac.id</td>
+                    <td>Mahasiswa</td>
+                    <td>Aktif</td>
+                    <td>
+                    <button class="btn-edit"><i class="fas fa-pen"></i></button>
+                    <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </section>
+
+        <section id="manage-rooms-view" class="view-container hidden">
+            <h2 class="main-heading neumorphism-title">Kelola Ruangan 🏛️</h2>
+            <p class="main-subheading">Manajemen Ruangan Rapat: Tambah, ubah detail, dan nonaktifkan.</p>
+
+            <div class="action-bar">
+            <input type="text" placeholder="Cari Nama Ruangan..." class="search-input neumorphism-input" />
+            <button class="btn-primary neumorphism-btn" onclick="openAddRoomModal()">
+                <i class="fas fa-plus"></i> Tambah Ruangan
+            </button>
+            </div>
+
+            <div class="table-container neumorphism-inset">
+            <table>
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama Ruangan</th>
+                    <th>Kapasitas</th>
+                    <th>Fasilitas</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody id="room-table-body">
+                <tr>
+                    <td>1</td>
+                    <td>GU Ruang 701</td>
+                    <td>20</td>
+                    <td>Projector, AC</td>
+                    <td>Tersedia</td>
+                    <td>
+                    <button class="btn-edit"><i class="fas fa-pen"></i></button>
+                    <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </section>
+
+        <section id="manage-meetings-view" class="view-container hidden">
+            <h2 class="main-heading neumorphism-title">Kelola Rapat & Reservasi 📅</h2>
+            <p class="main-subheading">Daftar semua rapat yang telah, sedang, dan akan berlangsung.</p>
+
+            <div class="action-bar">
+            <input type="text" placeholder="Cari Judul/Kode Rapat..." class="search-input neumorphism-input" />
+            <select class="filter-select neumorphism-input">
+                <option value="all">Semua Status</option>
+                <option value="scheduled">Terjadwal</option>
+                <option value="completed">Selesai</option>
+            </select>
+            </div>
+
+            <div class="table-container neumorphism-inset">
+            <table>
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Judul Rapat</th>
+                    <th>Ruangan</th>
+                    <th>Tanggal</th>
+                    <th>Waktu</th>
+                    <th>Ketua</th>
+                    <th>Kode Rapat</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody id="meeting-table-body">
+                <tr>
+                    <td>1</td>
+                    <td>Rapat Evaluasi Program Studi</td>
+                    <td>GU Ruang 701</td>
+                    <td>2025-10-18</td>
+                    <td>10:00</td>
+                    <td>Prof. Andi</td>
+                    <td>CODE123</td>
+                    <td>Selesai</td>
+                    <td>
+                    <button class="btn-view"><i class="fas fa-eye"></i></button>
+                    <button class="btn-cancel"><i class="fas fa-times-circle"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </section>
+
+        <section id="manage-notulen-view" class="view-container hidden">
+            <h2 class="main-heading neumorphism-title">Kelola Notulen Rapat 📄</h2>
+            <p class="main-subheading">Akses dan validasi semua notulen yang telah dibuat.</p>
+
+            <div class="action-bar">
+                <input type="text" placeholder="Cari Topik/Notulis..." class="search-input neumorphism-input" />
+                <select class="filter-select neumorphism-input">
+                    <option value="all">Semua Notulen</option>
+                    <option value="validated">Sudah Divalidasi</option>
+                    <option value="pending">Menunggu Validasi</option>
+                </select>
+            </div>
+            
+            <div class="table-container neumorphism-inset">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Topik Rapat</th>
+                        <th>Tanggal</th>
+                        <th>Notulis</th>
+                        <th>Status Validasi</th>
+                        <th>Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody id="notulen-table-body">
+                    <tr>
+                        <td>1</td>
+                        <td>Rapat Evaluasi Program Studi</td>
+                        <td>2025-10-18</td>
+                        <td>Haikal Mubaroq Zafia</td>
+                        <td>Menunggu Validasi</td>
+                        <td>
+                        <button class="btn-view" onclick="window.location.href='hasil-notulen.html'"><i class="fas fa-eye"></i></button>
+                        <button class="btn-validate"><i class="fas fa-check"></i> Validasi</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+        </section>
+
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-content">
+        <p>&copy; 2025 Sipera Admin Portal</p>
+        </div>
+    </footer>
+
+    <div id="modal-container" class="modal-container">
+        <div class="modal-content neumorphism-card">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title">Tambah Pengguna Baru</h3>
+            <form id="modal-form">
+                </form>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary neumorphism-btn" onclick="closeModal()">Batal</button>
+                <button type="submit" class="btn-primary neumorphism-btn" form="modal-form">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+    </body>
+</html>
