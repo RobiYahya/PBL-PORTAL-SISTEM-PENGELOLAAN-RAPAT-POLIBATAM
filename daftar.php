@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daftar Akun Baru - Sipera POLIBATAM</title>
-    <link rel="stylesheet" href="css/style-daftar.css" />
+    <link rel="stylesheet" href="./public/css/style-daftar.css" />
+    <link rel="stylesheet" href="./public/css/responsive.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
@@ -14,12 +15,24 @@
     <main class="main-center">
         <div class="registration-container neumorphic-panel">
             <div class="header-section">
-                <img src="foto/logo.png" alt="Logo Sipera" class="logo" />
+                <img src="./public/foto/logo.png" alt="Logo Sipera" class="logo" />
                 <h1 class="main-title">Daftar Akun Sipera</h1>
                 <p class="subtitle">Silakan isi data diri Anda untuk membuat akun baru.</p>
             </div>
+
+            <?php 
+            session_start();
+            if (isset($_SESSION['error'])) {
+                echo '<div style="color: #ff4d4d; background: #ffe6e6; padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 0.95rem;">⚠️ ' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']);
+            }
+            if (isset($_SESSION['success'])) {
+                echo '<div style="color: #28a745; background: #d4edda; padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 0.95rem;">✅ ' . htmlspecialchars($_SESSION['success']) . '</div>';
+                unset($_SESSION['success']);
+            }
+            ?>
             
-            <form id="registrationForm" onsubmit="return validateForm()">
+            <form id="registrationForm" method="POST" action="proses_daftar.php">
                 
                 <div class="form-group">
                     <label for="nama" class="neumorphic-label">Nama Lengkap</label>
@@ -87,7 +100,7 @@
                 </button>
             </form>
             
-            <p class="login-link">Sudah punya akun? <a href="masuk.html">Masuk di sini</a></p>
+            <p class="login-link">Sudah punya akun? <a href="masuk.php">Masuk di sini</a></p>
         </div>
     </main>
     
@@ -118,8 +131,8 @@
             // SIMULASI BERHASIL:
             alert("Pendaftaran berhasil! Silakan masuk menggunakan akun Anda.");
             
-            // Arahkan ke halaman login (masuk.html)
-            window.location.href = 'masuk.html'; 
+            // Arahkan ke halaman login (masuk.php)
+            window.location.href = 'masuk.php';
 
             return false; 
         }

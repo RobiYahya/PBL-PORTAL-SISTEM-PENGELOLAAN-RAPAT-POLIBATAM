@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detail Rapat #105 - Sipera POLIBATAM</title>
-    <link rel="stylesheet" href="css/style-detail-rapat.css" />
+    <link rel="stylesheet" href="./public/css/style-detail-rapat.css" />
+    <link rel="stylesheet" href="./public/css/responsive.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
@@ -13,8 +14,8 @@
 <body>
     <nav class="navbar">
         <div class="container navbar-content">
-            <a href="home-page.html" class="logo-link">
-                <img src="foto/logo.png" alt="Logo Sipera" class="logo" />
+            <a href="masuk.php" class="logo-link">
+                <img src="./public/foto/logo.png" alt="Logo Sipera" class="logo" />
             </a>
             <div class="nav-links">
                 <div class="user-menu-dropdown">
@@ -22,8 +23,8 @@
                         halo, semua!
                     </button>
                     <div class="user-dropdown-content">
-                        <a href="masuk.html">kembali</a>
-                        <a href="home-page.html">Keluar</a>
+                        <a href="masuk.php">kembali</a>
+                        <a href="masuk.php">Keluar</a>
                     </div>
                 </div>
             </div>

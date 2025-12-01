@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Verifikasi Akses - Sipera</title>
-    <link rel="stylesheet" href="css/style-daftar.css" /> 
+    <link rel="stylesheet" href="./public/css/style-daftar.css" />
+    <link rel="stylesheet" href="./public/css/responsive.css" />
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
         rel="stylesheet"
@@ -14,7 +15,7 @@
     <div class="main-center">
         <div class="registration-container neumorphic-panel">
             <div class="header-section">
-                <img src="foto/logo.png" alt="Logo Sipera" class="logo" />
+                <img src="./public/foto/logo.png" alt="Logo Sipera" class="logo" />
                 <h2 class="main-title">Akses Detail Rapat Terbatas</h2>
                 <p class="subtitle">
                     Untuk melihat detail rapat (**ID Rapat: <span id="rapat-id-display"></span>**), harap masukkan data identitas Anda.
@@ -70,7 +71,7 @@
                     Lanjutkan ke Detail Rapat
                 </button>
                 <div class="mt-20 text-center">
-                    <a href="masuk.html">Sudah punya akun? Masuk</a>
+                    <a href="masuk.php">Sudah punya akun? Masuk</a>
                 </div>
             </form>
         </div>

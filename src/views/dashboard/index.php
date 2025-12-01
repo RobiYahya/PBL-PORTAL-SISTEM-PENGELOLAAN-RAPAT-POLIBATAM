@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beranda - Sipera</title>
-    <link rel="stylesheet" href="/public/css/style-home.css" />
+    <link rel="stylesheet" href="../../public/css/style-home.css" />
+    <link rel="stylesheet" href="../../public/css/responsive.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
 
@@ -13,7 +14,7 @@
     <nav class="navbar">
         <div class="container navbar-content">
             <a href="index.php" class="logo-link">
-                <img src="foto/logo.png" alt="Logo Sipera" class="logo" />
+                <img src="../../public/foto/logo.png" alt="Logo Sipera" class="logo" />
             </a>
             <div class="nav-links">
                 <a href="masuk.php" class="btn btn-masuk">Masuk</a>
@@ -98,13 +99,13 @@
                     <h3>MEDIA SOSIAL</h3>
                     <ul class="social-links">
                         <li>
-                            <a href="#instagram"><img src="foto/instagram.png" alt="logo instagram" /></a>
+                            <a href="#instagram"><img src="../../public/foto/instagram.png" alt="logo instagram" /></a>
                         </li>
                         <li>
-                            <a href="#whatsapp"><img src="foto/whatsapp.png" alt="logo whatsapp" /></a>
+                            <a href="#whatsapp"><img src="../../public/foto/whatsapp.png" alt="logo whatsapp" /></a>
                         </li>
                         <li>
-                            <a href="#github"><img src="foto/github.png" alt="logo github" /></a>
+                            <a href="#github"><img src="../../public/foto/github.png" alt="logo github" /></a>
                         </li>
                     </ul>
                 </div>

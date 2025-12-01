@@ -5,15 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rapat Saya - Sipera POLIBATAM</title>
-    <link rel="stylesheet" href="css/style-rapat-saya.css" />
+    <link rel="stylesheet" href="./public/css/style-rapat-saya.css" />
+    <link rel="stylesheet" href="./public/css/responsive.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 </head>
 
 <body>
     <nav class="navbar">
         <div class="container navbar-content">
-            <a href="home-page.php" class="logo-link">
-                <img src="foto/logo.png" alt="Logo Sipera" class="logo" />
+            <a href="masuk.php" class="logo-link">
+                <img src="./public/foto/logo.png" alt="Logo Sipera" class="logo" />
             </a>
             <div class="nav-links">
                 <div class="user-menu-dropdown">
@@ -22,7 +23,7 @@
                     </button>
                     <div class="user-dropdown-content" id="userDropdown">
                         <a href="profil.php">Profil Saya</a>
-                        <a href="home-page.php">Keluar</a>
+                        <a href="masuk.php">Keluar</a>
                     </div>
                 </div>
             </div>

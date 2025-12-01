@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Form Notulen Rapat - Sipera</title>
-    <link rel="stylesheet" href="css/style-daftar.css" /> 
+    <link rel="stylesheet" href="./public/css/style-daftar.css" />
+    <link rel="stylesheet" href="./public/css/responsive.css" />
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
         rel="stylesheet"
@@ -15,7 +16,7 @@
     <div class="main-center">
         <div class="registration-container neumorphic-panel">
             <div class="header-section">
-                <img src="foto/logo.png" alt="Logo Sipera" class="logo" />
+                <img src="./public/foto/logo.png" alt="Logo Sipera" class="logo" />
                 <h2 class="main-title">Form Pencatatan Notulen <i class="fas fa-clipboard-list"></i></h2>
                 <p class="subtitle">
                     Anda sedang mencatat notulen untuk rapat:<br>

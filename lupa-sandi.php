@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lupa Kata Sandi - Sipera POLIBATAM</title>
-    <link rel="stylesheet" href="css/style-daftar.css" /> 
+    <link rel="stylesheet" href="./public/css/style-daftar.css" /> 
+    <link rel="stylesheet" href="./public/css/responsive.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
@@ -12,9 +13,9 @@
 </head>
 <body>
     <main class="main-center">
-        <div class="reset-container neumorphic-panel">
+        <div class="registration-container neumorphic-panel">
             <div class="header-section">
-                <img src="foto/logo.png" alt="Logo Sipera" class="logo" />
+                <img src="./public/foto/logo.png" alt="Logo Sipera" class="logo" />
                 <h1 class="main-title">Lupa Kata Sandi?</h1>
                 <p class="subtitle">Masukkan NIM/NIP dan email Anda untuk memulai reset kata sandi.</p>
             </div>
@@ -52,7 +53,7 @@
             </form>
             
             <p class="login-link">
-                Ingat Kata Sandi? <a href="masuk.html">Kembali Masuk</a>
+                Ingat Kata Sandi? <a href="masuk.php">Kembali Masuk</a>
             </p>
         </div>
     </main>
@@ -72,7 +73,7 @@
                 alert("Link reset kata sandi telah berhasil dikirim ke email " + email + ".");
                 
                 // Setelah dikirim, arahkan kembali ke halaman login
-                window.location.href = 'masuk.html'; 
+                window.location.href = 'masuk.php'; 
             } else {
                 // Pesan error jika salah satu kolom kosong (meskipun sudah ada required)
                 errorElement.textContent = "⚠️ NIM/NIP dan Email harus diisi.";

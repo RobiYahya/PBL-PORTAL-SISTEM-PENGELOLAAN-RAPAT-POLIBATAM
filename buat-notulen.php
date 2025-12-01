@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notulen - Portal Rapat Polibatam</title>
-    <link rel="stylesheet" href="css/style-buat-notulen.css" />
+    <link rel="stylesheet" href="./public/css/style-buat-notulen.css" />
+    <link rel="stylesheet" href="./public/css/responsive.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
         rel="stylesheet" />
 </head>
@@ -14,7 +15,7 @@
     <header class="top-navbar">
         <div class="navbar-left">
             <a href="dashboard.html">
-                <img src="foto/logo.png" alt="Logo Sipera" class="logo" />
+                <img src="./public/foto/logo.png" alt="Logo Sipera" class="logo" />
             </a>
         </div>
         <div class="navbar-right">
