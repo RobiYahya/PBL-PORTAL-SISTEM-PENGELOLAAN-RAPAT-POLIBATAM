@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notulen - Portal Rapat Polibatam</title>
-    <link rel="stylesheet" href="./public/css/style-buat-notulen.css" />
+    <link rel="stylesheet" href="./public/css/style_buat_notulen.css" />
     <link rel="stylesheet" href="./public/css/responsive.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
         rel="stylesheet" />
@@ -19,7 +19,7 @@
             </a>
         </div>
         <div class="navbar-right">
-            <a href="rapat-saya.html" class="nav-link">Kembali</a>
+            <a href="rapat_saya.php" class="nav-link">Kembali</a>
         </div>
     </header>
 
@@ -28,7 +28,7 @@
 
         <section class="notulen-form-section neumorphism-card">
             <h2>Detail Rapat</h2>
-            <form id="notulen-form" action="notulen-final.html" method="get">
+            <form id="notulen-form" action="notulen_final.php" method="get">
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="tanggal">Tanggal Rapat:</label>

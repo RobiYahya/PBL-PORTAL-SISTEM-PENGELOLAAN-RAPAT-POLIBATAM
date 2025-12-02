@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Rapat - Sipera POLIBATAM</title>
-    <link rel="stylesheet" href="./public/css/style-buat-rapat.css" />
+    <title>Buat Rapat Baru - Sipera POLIBATAM</title>
+    <link rel="stylesheet" href="./public/css/style_buat_rapat.css" />
+    <link rel="stylesheet" href="./public/css/responsive.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-        /* CSS tambahan spesifik untuk halaman edit */
-        .main-title span {
-            color: var(--color-primary);
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -38,10 +33,10 @@
     <main>
         <section class="meeting-creation-section">
             <div class="container">
-                <h1 class="main-title">Edit Detail Rapat <span>#105</span> 🛠️</h1>
-                <p class="subtitle">Rapat: **Rapat Tahunan Anggaran 2026**. Perbarui informasi di bawah.</p>
+                <h1 class="main-title">Buat Rapat Baru 📝</h1>
+                <p class="subtitle">Silakan isi detail rapat yang akan Anda jadwalkan.</p>
                 
-                <form id="meetingForm" class="neumorphic-form" onsubmit="return simpanPerubahanRapat()">
+                <form id="meetingForm" class="neumorphic-form" onsubmit="return simpanDanTerbitkanRapat()">
                     
                     <div class="form-group">
                         <label for="judul_rapat" class="neumorphic-label">Judul Rapat</label>
@@ -49,7 +44,7 @@
                             type="text"
                             id="judul_rapat"
                             name="judul_rapat"
-                            value="Rapat Tahunan Anggaran 2026"
+                            placeholder="Contoh: Rapat Koordinasi Akhir Tahun"
                             required
                             class="neumorphic-input"
                         />
@@ -62,17 +57,17 @@
                                 type="text"
                                 id="ruangan_rapat"
                                 name="ruangan_rapat"
-                                value="Ruangan A-101"
+                                placeholder="Contoh: Ruangan R-301, Gedung C"
                                 required
                                 class="neumorphic-input"
                             />
                         </div>
 
                         <div class="form-group half-width">
-                            <label for="status_rapat" class="neumorphic-label">Status Rapat</label>
+                            <label for="status_rapat" class="neumorphic-label">Status Awal Rapat</label>
                             <select id="status_rapat" name="status_rapat" required class="neumorphic-select">
-                                <option value="Terjadwal" selected>Terjadwal</option>
-                                <option value="Draft">Draft</option>
+                                <option value="Draft" selected>Draft (Belum Dipublikasi)</option>
+                                <option value="Terjadwal">Terjadwal</option>
                                 <option value="Mendesak">Mendesak</option>
                             </select>
                         </div>
@@ -85,7 +80,6 @@
                                 type="date"
                                 id="tanggal_rapat"
                                 name="tanggal_rapat"
-                                value="2025-12-25"
                                 required
                                 class="neumorphic-input"
                             />
@@ -97,19 +91,17 @@
                                 type="time"
                                 id="jam_mulai"
                                 name="jam_mulai"
-                                value="09:00"
                                 required
                                 class="neumorphic-input"
                             />
                         </div>
                         
-                         <div class="form-group third-width">
+                        <div class="form-group third-width">
                             <label for="jam_selesai" class="neumorphic-label">Jam Selesai</label>
                             <input
                                 type="time"
                                 id="jam_selesai"
                                 name="jam_selesai"
-                                value="11:00"
                                 class="neumorphic-input"
                             />
                         </div>
@@ -121,9 +113,10 @@
                             id="tujuan_rapat"
                             name="tujuan_rapat"
                             rows="4"
+                            placeholder="Jelaskan tujuan utama rapat dan agenda singkat"
                             required
                             class="neumorphic-textarea"
-                        >Mendiskusikan dan menyetujui draf anggaran tahunan Polibatam untuk tahun 2026. Menentukan alokasi dana prioritas untuk pengembangan infrastruktur dan SDM.</textarea>
+                        ></textarea>
                     </div>
 
                     <div class="form-group">
@@ -136,15 +129,15 @@
                             </label>
                             
                             <label class="neumorphic-checkbox">
-                                <input type="checkbox" id="checkJurusan" name="target_rapat[]" value="Jurusan" checked>
+                                <input type="checkbox" id="checkJurusan" name="target_rapat[]" value="Jurusan">
                                 <span class="checkmark"></span>
                                 Untuk Jurusan Tertentu (Sebutkan)
                             </label>
-                             <input
+                            <input
                                 type="text"
                                 id="inputJurusan"
                                 name="detail_jurusan"
-                                value="Semua Jurusan (Direktur, Wakil Direktur, Kepala Jurusan)"
+                                placeholder="Contoh: Jurusan Teknik Mesin, Jurusan Akuntansi"
                                 class="neumorphic-input detail-input"
                             />
                             
@@ -174,7 +167,7 @@
                                 class="neumorphic-input detail-input"
                             />
 
-                             <label class="neumorphic-checkbox">
+                            <label class="neumorphic-checkbox">
                                 <input type="checkbox" id="checkLainnya" name="target_rapat[]" value="Lainnya">
                                 <span class="checkmark"></span>
                                 Fitur Lainnya / Target Spesifik (Sebutkan)
@@ -190,11 +183,11 @@
                     </div>
 
                     <div class="button-group">
-                        <button type="submit" class="neumorphic-btn btn-primary">
-                            ✅ Simpan Perubahan Rapat
+                        <button type="reset" class="neumorphic-btn btn-secondary">
+                            🗑️ Hapus Form
                         </button>
-                        <button type="button" class="neumorphic-btn btn-danger" onclick="confirmBatal()">
-                            ❌ Batalkan Rapat Ini
+                        <button type="submit" class="neumorphic-btn btn-primary">
+                            🚀 Simpan & Terbitkan Rapat
                         </button>
                     </div>
                 </form>
@@ -207,31 +200,25 @@
         </div>
     </footer>
     <script>
-        // FUNGSI UNTUK MENGHUBUNGKAN KE DETAIL RAPAT SETELAH DISIMPAN
-        function simpanPerubahanRapat() {
-            // Dapatkan ID Rapat dari URL (contoh: id=105)
-            const urlParams = new URLSearchParams(window.location.search);
-            // Ambil nilai 'id' dari URL. Jika tidak ada, gunakan '105' (ID dummy)
-            const idRapat = urlParams.get('id') || '105'; 
-
-            // Tampilkan notifikasi simulasi
-            alert("Perubahan rapat ID #" + idRapat + " berhasil disimpan!");
-
-            // Alihkan pengguna ke halaman detail rapat yang baru saja diedit
-            window.location.href = 'detail-rapat.html?id=' + idRapat;
-
-            return false; // SANGAT PENTING: Mencegah form submit default (page refresh)
-        }
-
-        // FUNGSI UNTUK MEMBATALKAN RAPAT
-        function confirmBatal() {
-            if (confirm("Apakah Anda yakin ingin membatalkan rapat ini? Rapat akan dipindahkan ke kategori 'Dibatalkan'.")) {
-                alert("Rapat telah dibatalkan.");
-                window.location.href = 'rapat-saya.html'; 
-            }
+        // FUNGSI BARU: MENSIMULASIKAN PENYIMPANAN DAN MENGALIHKAN KE DETAIL RAPAT BARU
+        function simpanDanTerbitkanRapat() {
+            // 1. Simulasikan pembuatan ID Rapat baru
+            const idRapatBaru = '999'; 
+        
+            // 2. Dapatkan nilai judul untuk notifikasi
+            const judulRapat = document.getElementById('judul_rapat').value;
+        
+            // 3. Tampilkan notifikasi simulasi
+            alert(`Rapat "${judulRapat}" (ID #${idRapatBaru}) berhasil diterbitkan dan siap dilihat di daftar rapat Anda!`);
+        
+            // 4. ALIHAKAN PENGGUNA KE HALAMAN RAPAT SAYA (rapat-saya.html)
+            // Pengguna akan melihat rapat baru tersebut tercantum di sana.
+            window.location.href = 'rapat_saya.php'; // <--- bakal kembali ke halaman rapat saya
+        
+            return false; // Mencegah form submit default
         }
         
-        // SCRIPT JAVASCRIPT untuk mengontrol tampilan input detail
+        // SCRIPT JAVASCRIPT untuk mengatur tampilan input detail (Konsisten)
         document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = [
                 { id: 'checkJurusan', input: 'inputJurusan' },
@@ -244,12 +231,9 @@
                 const checkbox = document.getElementById(item.id);
                 const input = document.getElementById(item.input);
 
-                // Inisialisasi: tampilkan jika sudah checked dari data lama
-                if (checkbox.checked) {
-                     input.style.display = 'block';
-                } else {
-                     input.style.display = 'none';
-                }
+                // Inisialisasi: Sembunyikan input detail saat halaman dimuat
+                input.style.display = 'none';
+                input.removeAttribute('required'); // Pastikan tidak wajib diisi jika disembunyikan
 
                 checkbox.addEventListener('change', function() {
                     // Tampilkan atau sembunyikan input detail berdasarkan status checkbox

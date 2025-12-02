@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beranda - Sipera</title>
-    <link rel="stylesheet" href="../../public/css/style-home.css" />
+    <link rel="stylesheet" href="../../public/css/style_home.css" />
     <link rel="stylesheet" href="../../public/css/responsive.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
@@ -29,7 +29,7 @@
                     <div class="notification-content" id="notificationDropdown">
                         <div class="notification-header">Pemberitahuan</div>
 
-                        <a href="verifikasi-notif.html?id=101" class="notification-item" data-id="101">
+                        <a href="../../../verifikasi_notif.php?id=101" class="notification-item" data-id="101">
                             <div class="item-details">
                                 <p>
                                     <strong>Judul Rapat:</strong> Rapat Tahunan Anggaran 2026<br />
@@ -43,7 +43,7 @@
                             </button>
                         </a>
 
-                        <a href="verifikasi-notif.html?id=102" class="notification-item" data-id="102">
+                        <a href="../../../verifikasi_notif.php?id=102" class="notification-item" data-id="102">
                             <div class="item-details">
                                 <p>
                                     <strong>Judul Rapat:</strong> Proyek Pengembangan Sipera v2.0<br />
@@ -57,7 +57,7 @@
                             </button>
                         </a>
 
-                        <a href="verifikasi-notif.html?id=103" class="notification-item" data-id="103">
+                        <a href="../../../verifikasi_notif.php?id=103" class="notification-item" data-id="103">
                             <div class="item-details">
                                 <p>
                                     <strong>Judul Rapat:</strong> Pengumuman Perubahan Jadwal Semester<br />

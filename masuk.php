@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Masuk Akun - Sipera POLIBATAM</title>
-    <link rel="stylesheet" href="./public/css/style-daftar.css" />
+    <link rel="stylesheet" href="./public/css/style_daftar.css" />
     <link rel="stylesheet" href="./public/css/responsive.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 </head>
@@ -43,7 +43,7 @@
                     <small id="loginError" class="error-message"></small>
                 </div>
 
-                <p class="forgot-password"><a href="lupa-sandi.php">Lupa Kata Sandi?</a></p>
+                <p class="forgot-password"><a href="lupa_sandi.php">Lupa Kata Sandi?</a></p>
 
                 <button type="submit" class="neumorphic-btn btn-primary">
                     ➡️ Masuk
@@ -69,7 +69,7 @@
             alert("Login Berhasil! Selamat datang, Admin.");
 
             // Arahkan ke halaman utama dashboard (misal: rapat-saya.html)
-            window.location.href = "rapat-saya.php";
+            window.location.href = "rapat_saya.php";
         } else {
             // Tampilkan pesan error jika login gagal
             errorElement.textContent =

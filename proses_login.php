@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $koneksi->close();
             
             // Redirect ke dashboard
-            header("Location: rapat-saya.php");
+            header("Location: rapat_saya.php");
             exit;
         } else {
             // Password salah

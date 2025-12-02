@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Verifikasi Akses - Sipera</title>
-    <link rel="stylesheet" href="./public/css/style-daftar.css" />
+    <link rel="stylesheet" href="./public/css/style_daftar.css" />
     <link rel="stylesheet" href="./public/css/responsive.css" />
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
@@ -77,6 +77,6 @@
         </div>
     </div>
     
-    <script src="js/script-verifikasi.js"></script>
+    <script src="./public/js/script_verifikasi.js"></script>
 </body>
 </html>

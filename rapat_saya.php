@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rapat Saya - Sipera POLIBATAM</title>
-    <link rel="stylesheet" href="./public/css/style-rapat-saya.css" />
+    <link rel="stylesheet" href="./public/css/style_rapat_saya.css" />
     <link rel="stylesheet" href="./public/css/responsive.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 </head>
@@ -35,7 +35,7 @@
                 <h1 class="main-title">Rapat Saya 🚀</h1>
                 <p class="subtitle">Kelola semua jadwal rapat yang telah Anda buat.</p>
 
-                <a href="buat-rapat.php" class="new-meeting-btn-link">
+                <a href="buat_rapat.php" class="new-meeting-btn-link">
                     <div class="neumorphic-btn-create">
                         ➕ Buat Rapat Baru
                         <span class="btn-description">Klik di sini untuk menjadwalkan rapat baru.</span>
@@ -67,24 +67,24 @@
                     <div class="meeting-item neumorphic-item status-terjadwal">
                         <div class="meeting-details">
                             <span class="meeting-status-tag">Terjadwal</span>
-                            <a href="detail-rapat.html?id=105" class="meeting-title">Rapat Tahunan Anggaran 2026</a>
+                            <a href="detail_rapat.php?id=105" class="meeting-title">Rapat Tahunan Anggaran 2026</a>
                             <p class="meeting-info">🗓️ 25 Des 2025 | 🕘 09:00 WIB | 📍 Ruangan A-101</p>
                         </div>
                         <div class="meeting-actions">
-                            <a href="edit-rapat.html?id=105" class="action-btn btn-edit-link">📝 Edit</a>
-                            <a href="detail-rapat.html?id=105" class="action-btn btn-view-link">👀 Detail</a>
+                            <a href="atur_rapat.php?id=105" class="action-btn btn-edit-link">📝 Edit</a>
+                            <a href="detail_rapat.php?id=105" class="action-btn btn-view-link">👀 Detail</a>
                         </div>
                     </div>
                     <div class="meeting-item neumorphic-item status-terjadwal">
                         <div class="meeting-details">
                             <span class="meeting-status-tag">Terjadwal</span>
-                            <a href="detail-rapat.html?id=106" class="meeting-title">Review Proyek Pengembangan Sipera
+                            <a href="detail_rapat.php?id=106" class="meeting-title">Review Proyek Pengembangan Sipera
                                 v2.0</a>
                             <p class="meeting-info">🗓️ 05 Jan 2026 | 🕘 13:00 WIB | 📍 Google Meet</p>
                         </div>
                         <div class="meeting-actions">
-                            <a href="edit-rapat.html?id=106" class="action-btn btn-edit-link">📝 Edit</a>
-                            <a href="detail-rapat.html?id=106" class="action-btn btn-view-link">👀 Detail</a>
+                            <a href="atur_rapat.php?id=106" class="action-btn btn-edit-link">📝 Edit</a>
+                            <a href="detail_rapat.php?id=106" class="action-btn btn-view-link">👀 Detail</a>
                         </div>
                     </div>
                 </div>
@@ -93,12 +93,12 @@
                     <div class="meeting-item neumorphic-item status-dibatalkan">
                         <div class="meeting-details">
                             <span class="meeting-status-tag">Dibatalkan</span>
-                            <a href="detail-rapat.html?id=107" class="meeting-title">Rencana Pembukaan Prodi Baru
+                            <a href="detail_rapat.php?id=107" class="meeting-title">Rencana Pembukaan Prodi Baru
                                 (Dibatalkan)</a>
                             <p class="meeting-info">🗓️ 01 Nov 2025 | 🕘 10:00 WIB | 📍 Ruang Rapat Direktur</p>
                         </div>
                         <div class="meeting-actions">
-                            <a href="edit-rapat.php?id=107" class="action-btn btn-edit-link">📝 Lihat Detail</a>
+                            <a href="atur_rapat.php?id=107" class="action-btn btn-edit-link">📝 Lihat Detail</a>
 
                         </div>
                     </div>
@@ -107,12 +107,12 @@
                     <div class="meeting-item neumorphic-item status-selesai">
                         <div class="meeting-details">
                             <span class="meeting-status-tag">Selesai</span>
-                            <a href="detail-rapat.php?id=108" class="meeting-title">Pengumuman Perubahan Jadwal
+                            <a href="detail_rapat.php?id=108" class="meeting-title">Pengumuman Perubahan Jadwal
                                 Semester</a>
                             <p class="meeting-info">🗓️ 15 Des 2025 | 🕘 10:00 WIB | 📍 Auditorium</p>
                         </div>
                         <div class="meeting-actions">
-                            <a href="detail-rapat.php?id=108" class="action-btn btn-view-link">👀 Detail</a>
+                            <a href="detail_rapat.php?id=108" class="action-btn btn-view-link">👀 Detail</a>
                         </div>12
                     </div>
                 </div>
