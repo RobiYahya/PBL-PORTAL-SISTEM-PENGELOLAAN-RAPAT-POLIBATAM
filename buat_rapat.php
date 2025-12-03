@@ -1,3 +1,19 @@
+<?php
+session_start();
+require_once 'koneksi.php';
+
+// Cek apakah user sudah login
+if (!isset($_SESSION['user_id'])) {
+    header('Location: masuk.php');
+    exit();
+}
+
+// Ambil data user yang login
+$user_id = $_SESSION['user_id'];
+$query = "SELECT * FROM users WHERE id_user = '$user_id'";
+$result = mysqli_query($koneksi, $query);
+$user = mysqli_fetch_assoc($result);
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -20,10 +36,11 @@
             <div class="nav-links">
                 <div class="user-menu-dropdown">
                     <button class="user-button">
-                        Halo, Admin!
+                        Halo, <?php echo htmlspecialchars($user['nama_lengkap']); ?>!
                     </button>
                     <div class="user-dropdown-content">
                         <a href="profil.php">Profil Saya</a>
+                        <a href="rapat_saya.php">Rapat Saya</a>
                         <a href="masuk.php">Keluar</a>
                     </div>
                 </div>
@@ -36,7 +53,7 @@
                 <h1 class="main-title">Buat Rapat Baru 📝</h1>
                 <p class="subtitle">Silakan isi detail rapat yang akan Anda jadwalkan.</p>
                 
-                <form id="meetingForm" class="neumorphic-form" onsubmit="return simpanDanTerbitkanRapat()">
+                <form id="meetingForm" class="neumorphic-form" action="proses_rapat.php" method="POST">
                     
                     <div class="form-group">
                         <label for="judul_rapat" class="neumorphic-label">Judul Rapat</label>
@@ -123,19 +140,19 @@
                         <label class="neumorphic-label">Tentukan Anggota Rapat (Target Peserta)</label>
                         <div class="neumorphic-checkbox-group">
                             <label class="neumorphic-checkbox">
-                                <input type="checkbox" name="target_rapat[]" value="Dosen">
+                                <input type="checkbox" name="target_rapat[]" value="dosen">
                                 <span class="checkmark"></span>
                                 Untuk Seluruh Dosen
                             </label>
                             
                             <label class="neumorphic-checkbox">
-                                <input type="checkbox" name="target_rapat[]" value="Pegawai">
+                                <input type="checkbox" name="target_rapat[]" value="pegawai">
                                 <span class="checkmark"></span>
                                 Untuk Seluruh Pegawai
                             </label>
                             
                             <label class="neumorphic-checkbox">
-                                <input type="checkbox" name="target_rapat[]" value="Mahasiswa">
+                                <input type="checkbox" name="target_rapat[]" value="mahasiswa">
                                 <span class="checkmark"></span>
                                 Untuk Seluruh Mahasiswa
                             </label>
@@ -160,24 +177,6 @@
         </div>
     </footer>
     <script>
-        // FUNGSI BARU: MENSIMULASIKAN PENYIMPANAN DAN MENGALIHKAN KE DETAIL RAPAT BARU
-        function simpanDanTerbitkanRapat() {
-            // 1. Simulasikan pembuatan ID Rapat baru
-            const idRapatBaru = '999'; 
-        
-            // 2. Dapatkan nilai judul untuk notifikasi
-            const judulRapat = document.getElementById('judul_rapat').value;
-        
-            // 3. Tampilkan notifikasi simulasi
-            alert(`Rapat "${judulRapat}" (ID #${idRapatBaru}) berhasil diterbitkan dan siap dilihat di daftar rapat Anda!`);
-        
-            // 4. ALIHAKAN PENGGUNA KE HALAMAN RAPAT SAYA (rapat-saya.html)
-            // Pengguna akan melihat rapat baru tersebut tercantum di sana.
-            window.location.href = 'rapat_saya.php'; // <--- bakal kembali ke halaman rapat saya
-        
-            return false; // Mencegah form submit default
-        }
-        
         document.addEventListener('DOMContentLoaded', function() {
             // SCRIPT JAVASCRIPT untuk mengontrol User Dropdown 
             const userButton = document.querySelector('.user-button');

@@ -27,9 +27,11 @@ CREATE TABLE IF NOT EXISTS rapat (
     id_user INT NOT NULL,
     judul_rapat VARCHAR(200) NOT NULL,
     deskripsi TEXT,
-    tanggal_rapat DATETIME,
+    tanggal_rapat datetime DEFAULT NULL,
+    jam_selesai time DEFAULT NULL,
     lokasi VARCHAR(100),
     status ENUM('draft', 'terjadwal', 'selesai', 'dibatalkan') DEFAULT 'draft',
+    prioritas ENUM('normal', 'mendesak') DEFAULT 'normal',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE
@@ -64,21 +66,8 @@ CREATE TABLE IF NOT EXISTS peserta_rapat (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================
--- DATA CONTOH UNTUK TESTING
--- ============================================
--- User admin (password: admin123)
-INSERT IGNORE INTO users (nik, nama_lengkap, email, password, jabatan) VALUES
-('3312501035', 'Admin Sipera', 'admin@polibatam.ac.id', '$2y$10$YIjlrHzJ8DjWQVwQMNtM2eL5nW7vZpQKqX1L5vF5cKDqHvH5uC8Gy', 'admin');
-
--- User contoh (password: password123)
-INSERT IGNORE INTO users (nik, nama_lengkap, email, password, jabatan) VALUES
-('3312501001', 'Budi Santoso', 'budi@polibatam.ac.id', '$2y$10$pKqkQvnHxRzFqF8xT1nU8OkVjZ0cL2H5P7nC9mR3Q5vX6wZ8aB1Pu', 'mahasiswa');
-
--- ============================================
 -- INFORMASI PENTING
 -- ============================================
--- Password untuk admin: admin123
--- Password untuk user: password123
 -- 
 -- Untuk membuat password hash baru, gunakan:
 -- password_hash('password_anda', PASSWORD_DEFAULT)
@@ -89,3 +78,4 @@ INSERT IGNORE INTO users (nik, nama_lengkap, email, password, jabatan) VALUES
 -- Password: (kosong)
 -- Database: db_sipera
 -- Port: 3306
+--
