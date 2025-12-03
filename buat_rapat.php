@@ -23,7 +23,7 @@
                         Halo, Admin!
                     </button>
                     <div class="user-dropdown-content">
-                        <a href="profil.html">Profil Saya</a>
+                        <a href="profil.php">Profil Saya</a>
                         <a href="masuk.php">Keluar</a>
                     </div>
                 </div>
@@ -129,56 +129,16 @@
                             </label>
                             
                             <label class="neumorphic-checkbox">
-                                <input type="checkbox" id="checkJurusan" name="target_rapat[]" value="Jurusan">
+                                <input type="checkbox" name="target_rapat[]" value="Pegawai">
                                 <span class="checkmark"></span>
-                                Untuk Jurusan Tertentu (Sebutkan)
+                                Untuk Seluruh Pegawai
                             </label>
-                            <input
-                                type="text"
-                                id="inputJurusan"
-                                name="detail_jurusan"
-                                placeholder="Contoh: Jurusan Teknik Mesin, Jurusan Akuntansi"
-                                class="neumorphic-input detail-input"
-                            />
                             
                             <label class="neumorphic-checkbox">
-                                <input type="checkbox" id="checkProdi" name="target_rapat[]" value="Prodi">
+                                <input type="checkbox" name="target_rapat[]" value="Mahasiswa">
                                 <span class="checkmark"></span>
-                                Untuk Program Studi (Sebutkan)
+                                Untuk Seluruh Mahasiswa
                             </label>
-                            <input
-                                type="text"
-                                id="inputProdi"
-                                name="detail_prodi"
-                                placeholder="Contoh: D4 Mekatronika, D3 Akuntansi"
-                                class="neumorphic-input detail-input"
-                            />
-
-                            <label class="neumorphic-checkbox">
-                                <input type="checkbox" id="checkKelas" name="target_rapat[]" value="Kelas">
-                                <span class="checkmark"></span>
-                                Untuk Kelas Tertentu (Sebutkan Kelasnya)
-                            </label>
-                            <input
-                                type="text"
-                                id="inputKelas"
-                                name="detail_kelas"
-                                placeholder="Contoh: TI 3A, MKB 5B"
-                                class="neumorphic-input detail-input"
-                            />
-
-                            <label class="neumorphic-checkbox">
-                                <input type="checkbox" id="checkLainnya" name="target_rapat[]" value="Lainnya">
-                                <span class="checkmark"></span>
-                                Fitur Lainnya / Target Spesifik (Sebutkan)
-                            </label>
-                            <input
-                                type="text"
-                                id="inputLainnya"
-                                name="detail_lainnya"
-                                placeholder="Contoh: Seluruh Kepala Bagian, Semua Pegawai Kontrak"
-                                class="neumorphic-input detail-input"
-                            />
                         </div>
                     </div>
 
@@ -218,37 +178,8 @@
             return false; // Mencegah form submit default
         }
         
-        // SCRIPT JAVASCRIPT untuk mengatur tampilan input detail (Konsisten)
         document.addEventListener('DOMContentLoaded', function() {
-            const checkboxes = [
-                { id: 'checkJurusan', input: 'inputJurusan' },
-                { id: 'checkProdi', input: 'inputProdi' },
-                { id: 'checkKelas', input: 'inputKelas' },
-                { id: 'checkLainnya', input: 'inputLainnya' }
-            ];
-
-            checkboxes.forEach(item => {
-                const checkbox = document.getElementById(item.id);
-                const input = document.getElementById(item.input);
-
-                // Inisialisasi: Sembunyikan input detail saat halaman dimuat
-                input.style.display = 'none';
-                input.removeAttribute('required'); // Pastikan tidak wajib diisi jika disembunyikan
-
-                checkbox.addEventListener('change', function() {
-                    // Tampilkan atau sembunyikan input detail berdasarkan status checkbox
-                    if (this.checked) {
-                        input.style.display = 'block';
-                        input.setAttribute('required', 'required');
-                    } else {
-                        input.style.display = 'none';
-                        input.removeAttribute('required');
-                        input.value = ''; // Kosongkan nilai saat disembunyikan
-                    }
-                });
-            });
-
-             // SCRIPT JAVASCRIPT untuk mengontrol User Dropdown 
+            // SCRIPT JAVASCRIPT untuk mengontrol User Dropdown 
             const userButton = document.querySelector('.user-button');
             const dropdownContent = document.querySelector('.user-dropdown-content');
 
