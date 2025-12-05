@@ -14,7 +14,9 @@ CREATE TABLE IF NOT EXISTS users (
     nama_lengkap VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    jabatan VARCHAR(50) DEFAULT 'mahasiswa',
+    jabatan ENUM('admin', 'dosen', 'pegawai', 'mahasiswa') DEFAULT 'mahasiswa',
+    jurusan VARCHAR(100) DEFAULT NULL,
+    foto_profil VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

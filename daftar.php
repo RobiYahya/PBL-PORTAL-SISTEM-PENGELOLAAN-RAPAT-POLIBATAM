@@ -60,6 +60,40 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="jabatan" class="neumorphic-label">Jabatan</label>
+                    <select
+                        id="jabatan"
+                        name="jabatan"
+                        required
+                        class="neumorphic-input"
+                        onchange="toggleJurusan()"
+                    >
+                        <option value="">-- Pilih Jabatan --</option>
+                        <option value="Dosen">Dosen</option>
+                        <option value="Pegawai">Pegawai</option>
+                        <option value="Mahasiswa">Mahasiswa</option>
+                    </select>
+                </div>
+
+                <div id="jurusanGroup" style="display: none;" class="form-group">
+                    <label for="jurusan" class="neumorphic-label">Jurusan</label>
+                    <select
+                        id="jurusan"
+                        name="jurusan"
+                        class="neumorphic-input"
+                    >
+                        <option value="">-- Pilih Jurusan --</option>
+                        <option value="Teknik Informatika">Teknik Informatika</option>
+                        <option value="Rekayasa Keamanan Siber">Rekayasa Keamanan Siber</option>
+                        <option value="Teknik Geomatika">Teknik Geomatika</option>
+                        <option value="Teknologi Permainan">Teknologi Permainan</option>
+                        <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak</option>
+                        <option value="Teknologi Rekayasa Multimedia">Teknologi Rekayasa Multimedia</option>
+                        <option value="Animasi">Animasi</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="email" class="neumorphic-label">Email Aktif</label>
                     <input
                         type="email"
@@ -110,34 +144,41 @@
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirm_password').value;
         const errorElement = document.getElementById('passwordError');
-        const minLength = 6; // Aturan baru: Minimal 6 karakter
+        const minLength = 6;
 
-        // 1. Cek Panjang Kata Sandi
         if (password.length < minLength) {
             errorElement.textContent = `⚠️ Kata sandi wajib minimal ${minLength} karakter!`;
             errorElement.style.display = 'block';
             return false;
         }
 
-        // 2. Cek Konfirmasi Kata Sandi
         if (password !== confirmPassword) {
             errorElement.textContent = "⚠️ Konfirmasi kata sandi tidak cocok!";
             errorElement.style.display = 'block';
             return false; 
         } else {
-            // Jika validasi berhasil:
             errorElement.textContent = "";
             errorElement.style.display = 'none';
-
-            // SIMULASI BERHASIL:
             alert("Pendaftaran berhasil! Silakan masuk menggunakan akun Anda.");
-            
-            // Arahkan ke halaman login (masuk.php)
             window.location.href = 'masuk.php';
-
             return false; 
         }
     }
-</script>
+
+    /* ========== FUNCTION TAMBAHAN YANG DIMINTA ========== */
+    function toggleJurusan() {
+        const jabatanSelect = document.getElementById('jabatan');
+        const jurusanGroup = document.getElementById('jurusanGroup');
+        
+        if (jabatanSelect.value === 'Mahasiswa') {
+            jurusanGroup.style.display = 'block';
+            document.getElementById('jurusan').required = true;
+        } else {
+            jurusanGroup.style.display = 'none';
+            document.getElementById('jurusan').required = false;
+            document.getElementById('jurusan').value = '';
+        }
+    }
+    </script>
 </body>
 </html>

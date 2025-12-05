@@ -65,7 +65,9 @@ CREATE TABLE `users` (
   `nik` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nama_lengkap` varchar(100) NOT NULL,
-  `jabatan` enum('admin','dosen') NOT NULL
+  `email` varchar(100) NOT NULL,
+  `jabatan` enum('admin','dosen','pegawai','mahasiswa') NOT NULL,
+  `foto_profil` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

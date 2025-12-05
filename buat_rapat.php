@@ -139,24 +139,75 @@ $user = mysqli_fetch_assoc($result);
                     <div class="form-group">
                         <label class="neumorphic-label">Tentukan Anggota Rapat (Target Peserta)</label>
                         <div class="neumorphic-checkbox-group">
+                            <?php if ($user['jabatan'] === 'dosen' || $user['jabatan'] === 'pegawai'): ?>
                             <label class="neumorphic-checkbox">
                                 <input type="checkbox" name="target_rapat[]" value="dosen">
                                 <span class="checkmark"></span>
                                 Untuk Seluruh Dosen
                             </label>
+                            <?php endif; ?>
                             
+                            <?php if ($user['jabatan'] === 'dosen' || $user['jabatan'] === 'pegawai'): ?>
                             <label class="neumorphic-checkbox">
                                 <input type="checkbox" name="target_rapat[]" value="pegawai">
                                 <span class="checkmark"></span>
                                 Untuk Seluruh Pegawai
                             </label>
+                            <?php endif; ?>
                             
                             <label class="neumorphic-checkbox">
-                                <input type="checkbox" name="target_rapat[]" value="mahasiswa">
+                                <input type="checkbox" name="target_rapat[]" value="mahasiswa" id="mahasiswaCheckbox">
                                 <span class="checkmark"></span>
                                 Untuk Seluruh Mahasiswa
                             </label>
                         </div>
+                        
+                        <div id="jurusanSelection" style="display: none; margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <label class="neumorphic-label" style="margin-bottom: 10px; display: block;">Pilih Jurusan Mahasiswa:</label>
+                            <div class="neumorphic-checkbox-group">
+                                <label class="neumorphic-checkbox">
+                                    <input type="checkbox" name="jurusan[]" value="Teknik Informatika">
+                                    <span class="checkmark"></span>
+                                    Teknik Informatika
+                                </label>
+                                <label class="neumorphic-checkbox">
+                                    <input type="checkbox" name="jurusan[]" value="Rekayasa Keamanan Siber">
+                                    <span class="checkmark"></span>
+                                    Rekayasa Keamanan Siber
+                                </label>
+                                <label class="neumorphic-checkbox">
+                                    <input type="checkbox" name="jurusan[]" value="Teknik Geomatika">
+                                    <span class="checkmark"></span>
+                                    Teknik Geomatika
+                                </label>
+                                <label class="neumorphic-checkbox">
+                                    <input type="checkbox" name="jurusan[]" value="Teknologi Permainan">
+                                    <span class="checkmark"></span>
+                                    Teknologi Permainan
+                                </label>
+                                <label class="neumorphic-checkbox">
+                                    <input type="checkbox" name="jurusan[]" value="Rekayasa Perangkat Lunak">
+                                    <span class="checkmark"></span>
+                                    Rekayasa Perangkat Lunak
+                                </label>
+                                <label class="neumorphic-checkbox">
+                                    <input type="checkbox" name="jurusan[]" value="Teknologi Rekayasa Multimedia">
+                                    <span class="checkmark"></span>
+                                    Teknologi Rekayasa Multimedia
+                                </label>
+                                <label class="neumorphic-checkbox">
+                                    <input type="checkbox" name="jurusan[]" value="Animasi">
+                                    <span class="checkmark"></span>
+                                    Animasi
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <?php if ($user['jabatan'] === 'mahasiswa'): ?>
+                        <small style="color: #666; font-size: 14px; margin-top: 5px; display: block;">
+                            📌 Sebagai mahasiswa, Anda hanya dapat mengundang mahasiswa lain.
+                        </small>
+                        <?php endif; ?>
                     </div>
 
                     <div class="button-group">
@@ -195,6 +246,23 @@ $user = mysqli_fetch_assoc($result);
                     dropdownContent.style.display = 'none';
                 }
             });
+            
+            // SCRIPT JAVASCRIPT untuk Show/Hide Jurusan Selection
+            const mahasiswaCheckbox = document.getElementById('mahasiswaCheckbox');
+            const jurusanSelection = document.getElementById('jurusanSelection');
+            
+            if (mahasiswaCheckbox && jurusanSelection) {
+                mahasiswaCheckbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        jurusanSelection.style.display = 'block';
+                    } else {
+                        jurusanSelection.style.display = 'none';
+                        // Uncheck all jurusan checkboxes
+                        const jurusanCheckboxes = jurusanSelection.querySelectorAll('input[name="jurusan[]"]');
+                        jurusanCheckboxes.forEach(checkbox => checkbox.checked = false);
+                    }
+                });
+            }
         });
     </script>
 </body>
