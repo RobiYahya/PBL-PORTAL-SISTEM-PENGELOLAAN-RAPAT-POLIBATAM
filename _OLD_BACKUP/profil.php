@@ -50,59 +50,6 @@ if (isset($_POST['update_password'])) {
     }
 }
 
-// Proses update foto profil
-if (isset($_POST['update_foto'])) {
-    if (isset($_FILES['foto_profil']) && $_FILES['foto_profil']['error'] == 0) {
-        $file = $_FILES['foto_profil'];
-        $fileName = $file['name'];
-        $fileTmp = $file['tmp_name'];
-        $fileSize = $file['size'];
-        $fileError = $file['error'];
-        $fileType = $file['type'];
-        
-        // Validasi file gambar
-        $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-        $maxSize = 5 * 1024 * 1024; // 5MB
-        
-        if (in_array($fileType, $allowedTypes) && $fileSize <= $maxSize) {
-            // Buat nama file unik
-            $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
-            $newFileName = 'profil_' . $user_id . '_' . time() . '.' . $fileExt;
-            $uploadPath = './public/foto/profil/' . $newFileName;
-            
-            // Buat folder jika belum ada
-            if (!is_dir('./public/foto/profil/')) {
-                mkdir('./public/foto/profil/', 0777, true);
-            }
-            
-            // Hapus foto lama jika ada
-            if (!empty($user['foto_profil']) && file_exists('./public/foto/profil/' . $user['foto_profil'])) {
-                unlink('./public/foto/profil/' . $user['foto_profil']);
-            }
-            
-            // Upload file baru
-            if (move_uploaded_file($fileTmp, $uploadPath)) {
-                // Update database
-                $update_query = "UPDATE users SET foto_profil = '$newFileName' WHERE id_user = '$user_id'";
-                if (mysqli_query($koneksi, $update_query)) {
-                    // Refresh data user
-                    $result = mysqli_query($koneksi, $query);
-                    $user = mysqli_fetch_assoc($result);
-                    $success_message = "Foto profil berhasil diperbarui!";
-                } else {
-                    $error_message = "Gagal memperbarui database!";
-                }
-            } else {
-                $error_message = "Gagal mengupload file!";
-            }
-        } else {
-            $error_message = "File harus berupa gambar (JPG, PNG, GIF) dan maksimal 5MB!";
-        }
-    } else {
-        $error_message = "Silakan pilih file foto!";
-    }
-}
-
 // Proses update email
 if (isset($_POST['update_email'])) {
     $new_email = $_POST['new_email'];
@@ -176,18 +123,12 @@ if (isset($_POST['update_email'])) {
                         
                         <div class="photo-upload-container">
                             <div class="profile-photo-wrapper">
-                                <img src="<?php echo !empty($user['foto_profil']) ? './public/foto/profil/' . htmlspecialchars($user['foto_profil']) : './public/foto/default-user.png'; ?>" alt="Foto Profil" id="profileImage" class="profile-photo">
+                                <img src="./public/foto/default-user.png" alt="Foto Profil" id="profileImage" class="profile-photo">
                             </div>
-                            <form method="POST" enctype="multipart/form-data" style="display: inline;">
-                                <label for="foto_profil" class="neumorphic-btn btn-secondary" style="display: inline-block; margin-right: 10px;">
-                                    Pilih Foto
-                                </label>
-                                <input type="file" id="foto_profil" name="foto_profil" accept="image/*" style="display: none;" onchange="document.getElementById('fileName').textContent = this.files[0]?.name || ''">
-                                <span id="fileName" style="margin-right: 10px; font-size: 14px; color: #666;"></span>
-                                <button type="submit" name="update_foto" class="neumorphic-btn btn-primary">
-                                    📷 Upload Foto
-                                </button>
-                            </form>
+                            <label for="photoUpload" class="neumorphic-btn btn-secondary">
+                                Ganti Foto
+                            </label>
+                            <input type="file" id="photoUpload" accept="image/*" style="display: none;">
                         </div>
 
                         <div class="data-display-group">
@@ -266,7 +207,7 @@ if (isset($_POST['update_email'])) {
 
     <script>
         // SCRIPT JAVASCRIPT untuk mengurus Foto Profil
-        document.getElementById('foto_profil').addEventListener('change', function(event) {
+        document.getElementById('photoUpload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();

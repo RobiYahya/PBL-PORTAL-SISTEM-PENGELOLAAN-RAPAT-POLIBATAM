@@ -1,0 +1,170 @@
+/* ============================================================
+   GLOBAL.CSS - FINAL MOBILE FIX
+   ============================================================ */
+
+:root {
+    --primary: #FFD700;
+    --secondary: #007BFF;
+    --bg-main: #e0e0e0;
+    --text-main: #333;
+    --shadow-light: #ffffff;
+    --shadow-dark: #a7a7a7;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    height: 100%; /* Wajib untuk Sticky Footer */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    padding-top: 70px; /* Space untuk Navbar Fixed */
+    display: flex;
+    flex-direction: column; /* Susun vertikal */
+}
+
+main {
+    flex: 1 0 auto; /* Konten mengisi ruang kosong */
+    width: 100%;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+.container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+/* --- NAVBAR --- */
+.navbar {
+    background: linear-gradient(135deg, #ffd700, var(--primary));
+    padding: 10px 0;
+    position: fixed; top: 0; width: 100%; z-index: 9999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-content {
+    display: flex; justify-content: space-between; align-items: center; position: relative;
+}
+
+.logo { height: 40px; }
+
+.nav-links { display: flex; gap: 15px; align-items: center; }
+
+/* --- USER MENU --- */
+.user-menu-dropdown { position: relative; }
+.user-button {
+    background: var(--secondary); color: white; border: none; padding: 10px 20px;
+    border-radius: 15px; font-weight: 600; cursor: pointer;
+}
+.user-dropdown-content {
+    display: none; position: absolute; right: 0; top: 100%; margin-top: 10px;
+    background: var(--bg-main); min-width: 160px; border-radius: 15px; padding: 10px 0;
+    box-shadow: 5px 5px 10px var(--shadow-dark); z-index: 10001;
+}
+.user-menu-dropdown:hover .user-dropdown-content { display: block; }
+.user-dropdown-content a { display: block; padding: 10px 20px; color: #333; }
+
+/* Tombol Masuk/Daftar */
+.btn-masuk { padding: 8px 20px; background: #f0f0f5; color: #cc8c00; border-radius: 8px; font-weight: bold; }
+.btn-daftar { padding: 8px 20px; background: var(--secondary); color: white; border-radius: 8px; font-weight: bold; }
+
+/* --- HAMBURGER MENU (MOBILE TRIGGER) --- */
+.menu-toggle {
+    display: none; /* Hidden di Laptop */
+    flex-direction: column; cursor: pointer;
+    z-index: 10000;
+}
+.menu-toggle span {
+    width: 25px; height: 3px; background: #333;
+    margin: 4px 0; transition: 0.4s; border-radius: 2px;
+}
+
+/* Animasi X saat aktif */
+.menu-toggle.is-active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+.menu-toggle.is-active span:nth-child(2) { opacity: 0; }
+.menu-toggle.is-active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+
+/* --- FOOTER --- */
+.footer {
+    flex-shrink: 0; /* Jangan menyusut */
+    background: var(--secondary); color: white;
+    text-align: center; padding: 15px 0;
+}
+
+/* ============================================================
+   GLOBAL.CSS - UPDATE KHUSUS MENU DARI KANAN
+   (Paste ini di bagian PALING BAWAH file global.css)
+   ============================================================ */
+
+@media (max-width: 768px) {
+    /* 1. Munculkan Tombol Hamburger */
+    .menu-toggle { 
+        display: flex; 
+        z-index: 10002; /* Pastikan tombol selalu di atas menu */
+    } 
+
+    /* 2. LOGIKA MENU SIDEBAR (DARI KANAN) */
+    .nav-links {
+        display: flex;
+        position: fixed;      /* Mengambang tetap di layar */
+        top: 0; 
+        right: -100%;         /* Sembunyi di luar layar sebelah KANAN */
+        left: auto;           /* Abaikan kiri */
+        width: 75%;           /* Lebar menu 75% layar */
+        height: 100vh;        /* Tinggi penuh dari atas ke bawah */
+        
+        background: #e0e0e0;  /* Warna background menu */
+        flex-direction: column;
+        padding: 80px 20px;   /* Padding atas besar biar menu gak nabrak tombol X */
+        
+        /* Bayangan di kiri menu biar terlihat melayang */
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2); 
+        
+        z-index: 10001;       /* Di atas konten website */
+        border-left: 3px solid var(--primary); /* Garis aksen kuning di kiri */
+        
+        /* Animasi Mulus saat keluar masuk */
+        transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0); 
+    }
+
+    /* KELAS SAKTI: Saat JS menambahkan class 'active', menu masuk ke layar */
+    .nav-links.active { 
+        right: 0; /* Muncul ke posisi 0 (Kanan Layar) */
+    }
+    
+    /* 3. Styling Item Menu di dalam Sidebar */
+    .nav-links a, .user-button { 
+        width: 100%; 
+        text-align: left;     /* Teks rata kiri */
+        margin-bottom: 15px; 
+        display: block; 
+        padding: 15px;
+        background: rgba(255,255,255,0.5); /* Kotak putih transparan */
+        border-radius: 12px;
+        font-size: 1rem;
+        color: #333;
+        box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    /* 4. Dropdown User (Profil/Logout) agar langsung terbuka */
+    .user-dropdown-content {
+        position: static; 
+        box-shadow: none; 
+        background: transparent; 
+        display: block;       /* Selalu muncul */
+        width: 100%;
+        padding-left: 15px;   /* Menjorok ke dalam */
+        margin-top: 5px;
+        border-left: 2px solid var(--secondary);
+    }
+    
+    .user-dropdown-content a {
+        background: transparent;
+        font-size: 0.9rem;
+        padding: 10px;
+        margin-bottom: 5px;
+        box-shadow: none;
+        border-bottom: 1px solid #ccc;
+    }
+}

@@ -4,16 +4,17 @@ class DashboardController extends Controller {
     
     public function __construct()
     {
-        // Cegah akses tanpa login
-        if ($_SESSION['status'] != 'login') {
-            header('Location: ' . BASEURL . '/auth');
+        // Kalau belum login, tendang ke Auth.
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ' . BASEURL . '/auth/login');
             exit;
         }
     }
 
+
     public function index()
     {
-        $data['judul'] = 'Dashboard - Sipera';
+        $data['judul'] = 'Beranda - Sipera';
         $data['nama'] = $_SESSION['nama']; // Ambil nama dari sesi
         
         // Contoh ambil data rapat dari Model

@@ -3,7 +3,7 @@
 class App {
     // Default controller jika URL kosong (misal: buka localhost/sipera/public)
     // Pastikan kau punya DashboardController.php nanti!
-    protected $controller = 'DashboardController'; 
+    protected $controller = 'HomeController'; 
     protected $method = 'index';
     protected $params = [];
 

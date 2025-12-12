@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = trim($_POST['password'] ?? '');
     $confirm_password = trim($_POST['confirm_password'] ?? '');
     $jabatan = trim($_POST['jabatan'] ?? 'mahasiswa');
-    $jurusan = trim($_POST['jurusan'] ?? '');   // ⬅️ TAMBAHAN SESUAI PERMINTAAN
     
     // --- VALIDASI INPUT ---
     
@@ -81,8 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
     
-    // ⬅️ UPDATE QUERY INSERT (TAMBAH JURUSAN)
-    $query_insert = "INSERT INTO users (nik, nama_lengkap, email, password, jabatan, jurusan) VALUES (?, ?, ?, ?, ?, ?)";
+    $query_insert = "INSERT INTO users (nik, nama_lengkap, email, password, jabatan) VALUES (?, ?, ?, ?, ?)";
     $stmt = $koneksi->prepare($query_insert);
     
     if (!$stmt) {
@@ -91,8 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    // ⬅️ UPDATE BIND PARAM (TAMBAH PARAMETER KE-6)
-    $stmt->bind_param("ssssss", $nim, $nama, $email, $password_hash, $jabatan, $jurusan);
+    $stmt->bind_param("sssss", $nim, $nama, $email, $password_hash, $jabatan);
     
     if ($stmt->execute()) {
         $_SESSION['success'] = "Registrasi berhasil! Silakan login.";

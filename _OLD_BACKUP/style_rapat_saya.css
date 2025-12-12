@@ -1,26 +1,3 @@
-/* Warna Utama & Neumorphism */
-:root {
-    --color-primary: #FFD700; /* Kuning Emas */
-    --color-secondary: #007BFF; /* Biru */
-    --color-background: #e0e0e0; /* Warna dasar Neumorphism yang lembut */
-    --color-text-dark: #333333;
-    --color-text-light: #ffffff;
-    --color-terjadwal: #007BFF;
-    --color-canceled: #dc3545; /* Merah untuk dibatalkan */
-    --color-success: #28a745;
-    --neumorphic-shadow-light: #ffffff;
-    --neumorphic-shadow-dark: #a7a7a7;
-    --neumorphic-radius: 15px;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-background);
-    color: var(--color-text-dark);
-}
-
 .container {
     width: 90%;
     max-width: 1200px;

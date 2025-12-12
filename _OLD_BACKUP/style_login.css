@@ -1,0 +1,162 @@
+/* --- Layout Utama (Tengah Layar) --- */
+.login-section {
+    min-height: 85vh; /* Agar pas di tengah vertikal */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* --- Kartu Neumorphism (Kotak Putih) --- */
+.login-card {
+    background-color: var(--color-bg-main);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px; /* Lebar maksimal agar tidak terlalu lebar di PC */
+    
+    /* Efek Timbul (Neumorphism) */
+    box-shadow: 10px 10px 20px var(--shadow-dark), 
+              -10px -10px 20px var(--shadow-light);
+    
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+/* Sedikit efek hover biar interaktif */
+.login-card:hover {
+    transform: translateY(-5px);
+}
+
+/* --- Typography --- */
+.auth-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 10px;
+}
+
+.auth-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* --- Form Elements --- */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left; /* Label rata kiri */
+}
+
+.neumorphic-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #555;
+    margin-left: 5px;
+}
+
+/* Input Cekung (Inset Shadow) */
+.neumorphic-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    background: var(--color-bg-main);
+    font-size: 1rem;
+    color: #333;
+    outline: none;
+    
+    /* Bayangan ke dalam */
+    box-shadow: inset 5px 5px 10px var(--shadow-dark), 
+                inset -5px -5px 10px var(--shadow-light);
+    
+    transition: all 0.3s ease;
+}
+
+.neumorphic-input:focus {
+    /* Efek saat diketik: Shadow lebih tipis */
+    box-shadow: inset 2px 2px 5px var(--shadow-dark), 
+                inset -2px -2px 5px var(--shadow-light);
+    border-left: 5px solid var(--color-primary); /* Indikator fokus */
+}
+
+/* --- Tombol Utama --- */
+.form-actions {
+    margin-top: 30px;
+}
+
+.neumorphic-btn {
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(145deg, #ffd700, var(--color-primary));
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px; /* Tombol bulat */
+    width: 100%;
+    font-size: 1.1rem;
+    
+    /* Shadow Timbul */
+    box-shadow: 5px 5px 10px var(--shadow-dark), 
+              -5px -5px 10px var(--shadow-light);
+}
+
+.btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 7px 7px 15px var(--shadow-dark), 
+              -7px -7px 15px var(--shadow-light);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* --- Footer Link (Daftar/Masuk) --- */
+.auth-footer {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.auth-footer a {
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- Responsiveness (HP) --- */
+@media (max-width: 500px) {
+    .login-card {
+        padding: 25px;
+        box-shadow: none; /* Hilangkan shadow di HP biar bersih */
+        background: transparent; /* Transparan di HP */
+    }
+    
+    .neumorphic-input {
+        background: #fff; /* Input jadi putih di HP biar kontras */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow biasa */
+    }
+}

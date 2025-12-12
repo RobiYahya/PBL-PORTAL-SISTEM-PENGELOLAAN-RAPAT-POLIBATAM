@@ -47,16 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Proses target peserta/anggota rapat
         if (isset($_POST['target_rapat']) && is_array($_POST['target_rapat'])) {
             foreach ($_POST['target_rapat'] as $target) {
-                // Base query untuk mencari user dengan jabatan yang sesuai
+                // Cari semua user dengan jabatan yang sesuai
                 $query_users = "SELECT id_user FROM users WHERE jabatan = '$target'";
-                
-                // Jika target adalah mahasiswa dan ada jurusan yang dipilih
-                if ($target === 'mahasiswa' && isset($_POST['jurusan']) && is_array($_POST['jurusan']) && !empty($_POST['jurusan'])) {
-                    // Filter mahasiswa berdasarkan jurusan yang dipilih
-                    $jurusan_list = "'" . implode("','", array_map('mysqli_real_escape_string', array_fill(0, count($_POST['jurusan']), $koneksi), $_POST['jurusan'])) . "'";
-                    $query_users .= " AND jurusan IN ($jurusan_list)";
-                }
-                
                 $result_users = mysqli_query($koneksi, $query_users);
                 
                 while ($user = mysqli_fetch_assoc($result_users)) {

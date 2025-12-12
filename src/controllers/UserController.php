@@ -5,23 +5,57 @@ class UserController extends Controller {
     public function __construct()
     {
         // Gembok Keamanan: Cek Login
-        if ($_SESSION['status'] != 'login') {
-            header('Location: ' . BASEURL . '/auth');
+        // Kita cek user_id karena itu kunci utama sesi kita
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ' . BASEURL . '/auth/login');
             exit;
         }
-        
-        // Opsional: Cek apakah role-nya Admin?
-        // if ($_SESSION['role'] != 'admin') { ... tendang ... }
     }
 
-    // Tampilkan Semua User
+    // ======================================================
+    // BAGIAN 1: FITUR PROFIL PENGGUNA (YANG KAMU CARI)
+    // ======================================================
+
+    public function profile()
+    {
+        $data['judul'] = 'Profil Saya';
+        
+        // Ambil data user yang sedang login
+        $data['user'] = $this->model('User')->getUserById($_SESSION['user_id']);
+
+        $this->view('templates/header', $data);
+        // Perhatikan: Kita tidak pakai sidebar di halaman profil agar layout Neumorphism rapi
+        $this->view('user/profile', $data); 
+        $this->view('templates/footer');
+    }
+
+    // Proses Update Profil (Foto & Password)
+        public function update()
+    {
+        // Panggil Model (Cleaner)
+        if ($this->model('User')->updateDataUser($_POST, $_FILES) > 0) {
+            Flasher::setFlash('Berhasil', 'Profil berhasil diperbarui', 'success');
+        } else {
+            // Sukses tapi tidak ada data berubah (misal cuma klik simpan)
+            Flasher::setFlash('Info', 'Data profil tersimpan', 'success');
+        }
+        
+        header('Location: ' . BASEURL . '/user/profile');
+        exit;
+    }
+
+    // ======================================================
+    // BAGIAN 2: FITUR ADMIN (MANAJEMEN USER)
+    // ======================================================
+
+    // Tampilkan Semua User (Hanya untuk Admin sebaiknya)
     public function index()
     {
         $data['judul'] = 'Daftar Pengguna';
-        $data['users'] = $this->model('User')->getAllUsers(); // Pastikan method ini ada di Model
+        $data['users'] = $this->model('User')->getAllUsers();
 
         $this->view('templates/header', $data);
-        $this->view('templates/sidebar');
+        // $this->view('templates/sidebar'); // Aktifkan jika kamu punya sidebar
         $this->view('user/index', $data);
         $this->view('templates/footer');
     }
@@ -32,7 +66,7 @@ class UserController extends Controller {
         $data['judul'] = 'Tambah User Baru';
         
         $this->view('templates/header', $data);
-        $this->view('templates/sidebar');
+        // $this->view('templates/sidebar');
         $this->view('user/create');
         $this->view('templates/footer');
     }
@@ -40,14 +74,13 @@ class UserController extends Controller {
     // Proses Simpan User Baru
     public function simpan()
     {
-        // Validasi password match (jika ada konfirmasi password)
+        // Validasi password match
         if ($_POST['password'] !== $_POST['konfirmasi_password']) {
             Flasher::setFlash('gagal', 'Password tidak cocok', 'danger');
             header('Location: ' . BASEURL . '/user/tambah');
             exit;
         }
 
-        // Kirim ke Model
         if( $this->model('User')->tambahDataUser($_POST) > 0 ) {
             Flasher::setFlash('berhasil', 'ditambahkan', 'success');
             header('Location: ' . BASEURL . '/user');

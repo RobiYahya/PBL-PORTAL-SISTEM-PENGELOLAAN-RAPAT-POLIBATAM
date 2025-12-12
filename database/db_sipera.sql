@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2025 at 05:11 AM
+-- Generation Time: Dec 05, 2025 at 11:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_sipera`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notulen`
+--
+
+CREATE TABLE `notulen` (
+  `id_notulen` int(11) NOT NULL,
+  `id_rapat` int(11) NOT NULL,
+  `konten` text DEFAULT NULL,
+  `penulis` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `peserta_rapat`
+--
+
+CREATE TABLE `peserta_rapat` (
+  `id_peserta` int(11) NOT NULL,
+  `id_rapat` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `status_kehadiran` enum('hadir','tidak_hadir','izin') DEFAULT 'hadir',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -65,14 +94,35 @@ CREATE TABLE `users` (
   `nik` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nama_lengkap` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `jabatan` enum('admin','dosen','pegawai','mahasiswa') NOT NULL,
-  `foto_profil` varchar(255) DEFAULT NULL
+  `jabatan` enum('admin','dosen') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id_user`, `nik`, `password`, `nama_lengkap`, `jabatan`) VALUES
+(1, '3312501036', '12345', 'Rangga Surya Saputra', 'dosen');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `notulen`
+--
+ALTER TABLE `notulen`
+  ADD PRIMARY KEY (`id_notulen`),
+  ADD KEY `id_rapat` (`id_rapat`),
+  ADD KEY `penulis` (`penulis`);
+
+--
+-- Indexes for table `peserta_rapat`
+--
+ALTER TABLE `peserta_rapat`
+  ADD PRIMARY KEY (`id_peserta`),
+  ADD UNIQUE KEY `unique_peserta` (`id_rapat`,`id_user`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indexes for table `presensi`
@@ -101,6 +151,18 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `notulen`
+--
+ALTER TABLE `notulen`
+  MODIFY `id_notulen` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `peserta_rapat`
+--
+ALTER TABLE `peserta_rapat`
+  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `presensi`
 --
 ALTER TABLE `presensi`
@@ -116,11 +178,25 @@ ALTER TABLE `rapat`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `notulen`
+--
+ALTER TABLE `notulen`
+  ADD CONSTRAINT `notulen_ibfk_1` FOREIGN KEY (`id_rapat`) REFERENCES `rapat` (`id_rapat`) ON DELETE CASCADE,
+  ADD CONSTRAINT `notulen_ibfk_2` FOREIGN KEY (`penulis`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `peserta_rapat`
+--
+ALTER TABLE `peserta_rapat`
+  ADD CONSTRAINT `peserta_rapat_ibfk_1` FOREIGN KEY (`id_rapat`) REFERENCES `rapat` (`id_rapat`) ON DELETE CASCADE,
+  ADD CONSTRAINT `peserta_rapat_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `presensi`
