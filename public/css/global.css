@@ -1,12 +1,13 @@
 /* ============================================================
-   GLOBAL.CSS - FINAL MOBILE FIX
+   GLOBAL.CSS - CLEAN & FINAL VERSION
    ============================================================ */
 
+/* --- 1. VARIABLES & RESET --- */
 :root {
-    --primary: #FFD700;
-    --secondary: #007BFF;
-    --bg-main: #e0e0e0;
-    --text-main: #333;
+    --primary: #FFD700;       /* Kuning Emas */
+    --secondary: #007BFF;     /* Biru Utama */
+    --bg-main: #e0e0e0;       /* Abu-abu Background */
+    --text-main: #333;        /* Hitam Teks */
     --shadow-light: #ffffff;
     --shadow-dark: #a7a7a7;
 }
@@ -23,7 +24,7 @@ body {
     color: var(--text-main);
     padding-top: 70px; /* Space untuk Navbar Fixed */
     display: flex;
-    flex-direction: column; /* Susun vertikal */
+    flex-direction: column; /* Susun vertikal agar footer di bawah */
 }
 
 main {
@@ -35,7 +36,8 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 ul { list-style: none; }
 .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
 
-/* --- NAVBAR --- */
+
+/* --- 2. NAVBAR (FIXED TOP) --- */
 .navbar {
     background: linear-gradient(135deg, #ffd700, var(--primary));
     padding: 10px 0;
@@ -47,124 +49,255 @@ ul { list-style: none; }
     display: flex; justify-content: space-between; align-items: center; position: relative;
 }
 
-.logo { height: 40px; }
+.logo { 
+    height: 40px; 
+    /* Filter opsional jika logo ingin sedikit bayangan */
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1)); 
+}
 
 .nav-links { display: flex; gap: 15px; align-items: center; }
 
-/* --- USER MENU --- */
-.user-menu-dropdown { position: relative; }
-.user-button {
-    background: var(--secondary); color: white; border: none; padding: 10px 20px;
-    border-radius: 15px; font-weight: 600; cursor: pointer;
-}
-.user-dropdown-content {
-    display: none; position: absolute; right: 0; top: 100%; margin-top: 10px;
-    background: var(--bg-main); min-width: 160px; border-radius: 15px; padding: 10px 0;
-    box-shadow: 5px 5px 10px var(--shadow-dark); z-index: 10001;
-}
-.user-menu-dropdown:hover .user-dropdown-content { display: block; }
-.user-dropdown-content a { display: block; padding: 10px 20px; color: #333; }
 
-/* Tombol Masuk/Daftar */
+/* --- 3. BUTTONS & USER MENU (VERSI KLIK - ANTI HILANG) --- */
+
+/* Tombol Login/Register Biasa */
 .btn-masuk { padding: 8px 20px; background: #f0f0f5; color: #cc8c00; border-radius: 8px; font-weight: bold; }
 .btn-daftar { padding: 8px 20px; background: var(--secondary); color: white; border-radius: 8px; font-weight: bold; }
 
-/* --- HAMBURGER MENU (MOBILE TRIGGER) --- */
+/* Wrapper Menu User */
+.user-menu-dropdown { 
+    position: relative; 
+    display: inline-block;
+}
+
+/* Tombol Utama (Nama User) */
+.user-button {
+    background: var(--secondary); 
+    color: white; 
+    border: none; 
+    padding: 10px 20px;
+    border-radius: 15px; 
+    font-weight: 600; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Jarak ikon dan teks */
+    transition: 0.3s;
+}
+
+.user-button:hover {
+    background: #0056b3; /* Efek hover HANYA ubah warna tombol, tidak memicu dropdown */
+}
+
+/* Isi Dropdown (Default: Tersembunyi) */
+.user-dropdown-content {
+    display: none; 
+    position: absolute; 
+    right: 0; 
+    top: 115%; /* Memberi jarak sedikit ke bawah */
+    margin-top: 5px;
+    background: white; 
+    min-width: 200px; 
+    border-radius: 12px; 
+    padding: 10px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+    z-index: 10001;
+    
+    /* Animasi Halus */
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+/* CLASS SAKTI: Dropdown hanya muncul jika class 'show' ditambahkan oleh Javascript */
+.user-dropdown-content.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Link di dalam Dropdown */
+.user-dropdown-content a { 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px; 
+    color: #333; 
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+
+.user-dropdown-content a:hover {
+    background-color: #f0f2f5;
+    color: var(--secondary);
+    padding-left: 25px; /* Efek geser kanan sedikit saat disorot */
+}
+
+/* --- 4. HAMBURGER ICON (MOBILE TRIGGER) --- */
 .menu-toggle {
     display: none; /* Hidden di Laptop */
     flex-direction: column; cursor: pointer;
-    z-index: 10000;
+    z-index: 10002; /* Harus lebih tinggi dari menu sidebar */
 }
 .menu-toggle span {
     width: 25px; height: 3px; background: #333;
     margin: 4px 0; transition: 0.4s; border-radius: 2px;
 }
-
 /* Animasi X saat aktif */
 .menu-toggle.is-active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
 .menu-toggle.is-active span:nth-child(2) { opacity: 0; }
 .menu-toggle.is-active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
 
-/* --- FOOTER --- */
-.footer {
-    flex-shrink: 0; /* Jangan menyusut */
-    background: var(--secondary); color: white;
-    text-align: center; padding: 15px 0;
+
+/* --- 5. FOOTER (STYLE BIRU POLIBATAM) --- */
+.new-footer {
+    background: linear-gradient(135deg, #005b9f, #007BFF); 
+    color: white; 
+    padding-top: 60px;
+    border-top: 5px solid #FFD700;
+    font-size: 0.9rem;
+    margin-top: auto; 
+    position: relative;
+    z-index: 10;
 }
 
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1.5fr; 
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+.footer-col h4 {
+    color: #FFD700;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Brand Area */
+.footer-brand { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.footer-logo { height: 50px; border-radius: 10px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+.footer-brand h3 { color: #FFD700; font-weight: 800; font-size: 1.5rem; margin: 0; letter-spacing: 1px; }
+.footer-desc { line-height: 1.6; margin-bottom: 20px; color: rgba(255, 255, 255, 0.9); }
+
+/* Social Icons */
+.official-socials a {
+    display: inline-flex; justify-content: center; align-items: center;
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.1); color: white;
+    border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+    margin-right: 10px; transition: 0.3s;
+}
+.official-socials a:hover {
+    background: #FFD700; color: #005b9f; border-color: #FFD700;
+}
+
+/* Links & Team List */
+.footer-links li, .team-list li { margin-bottom: 12px; }
+.footer-links a, .team-list a {
+    color: rgba(255, 255, 255, 0.85); transition: 0.3s;
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
+}
+.footer-links a:hover, .team-list a:hover { color: #FFD700; padding-left: 5px; }
+.team-list i { color: #FFD700; font-size: 1.1em; }
+
+/* Contacts */
+.contact-info p {
+    display: flex; gap: 15px; margin-bottom: 15px;
+    align-items: flex-start; color: rgba(255, 255, 255, 0.9);
+}
+.contact-info i { color: #FFD700; margin-top: 4px; font-size: 1.1em; }
+
+/* Copyright */
+.footer-bottom {
+    background: rgba(0, 0, 0, 0.2); padding: 20px 0; text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+}
+/* --- TOGGLE PASSWORD (MATA) --- */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 45px; /* Kasih ruang biar teks gak nabrak ikon mata */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.toggle-password:hover {
+    color: var(--secondary); /* Berubah biru saat disentuh */
+}
+
+
 /* ============================================================
-   GLOBAL.CSS - UPDATE KHUSUS MENU DARI KANAN
-   (Paste ini di bagian PALING BAWAH file global.css)
+   MOBILE RESPONSIVE (MERGED)
    ============================================================ */
-
 @media (max-width: 768px) {
-    /* 1. Munculkan Tombol Hamburger */
-    .menu-toggle { 
-        display: flex; 
-        z-index: 10002; /* Pastikan tombol selalu di atas menu */
-    } 
-
-    /* 2. LOGIKA MENU SIDEBAR (DARI KANAN) */
+    
+    /* 1. Navbar & Hamburger */
+    .menu-toggle { display: flex; } /* Munculkan tombol */
+    
+    /* 2. Side Menu Logic (Dari Kanan) */
     .nav-links {
         display: flex;
-        position: fixed;      /* Mengambang tetap di layar */
+        position: fixed;
         top: 0; 
-        right: -100%;         /* Sembunyi di luar layar sebelah KANAN */
-        left: auto;           /* Abaikan kiri */
-        width: 75%;           /* Lebar menu 75% layar */
-        height: 100vh;        /* Tinggi penuh dari atas ke bawah */
-        
-        background: #e0e0e0;  /* Warna background menu */
+        right: -100%;         /* Sembunyi di kanan */
+        left: auto;
+        width: 75%;           /* Lebar menu */
+        height: 100vh;
+        background: #e0e0e0;
         flex-direction: column;
-        padding: 80px 20px;   /* Padding atas besar biar menu gak nabrak tombol X */
-        
-        /* Bayangan di kiri menu biar terlihat melayang */
-        box-shadow: -5px 0 15px rgba(0,0,0,0.2); 
-        
-        z-index: 10001;       /* Di atas konten website */
-        border-left: 3px solid var(--primary); /* Garis aksen kuning di kiri */
-        
-        /* Animasi Mulus saat keluar masuk */
-        transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0); 
+        padding: 80px 20px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+        z-index: 10001;
+        border-left: 3px solid var(--primary);
+        transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0);
     }
 
-    /* KELAS SAKTI: Saat JS menambahkan class 'active', menu masuk ke layar */
-    .nav-links.active { 
-        right: 0; /* Muncul ke posisi 0 (Kanan Layar) */
+    .nav-links.active { right: 0; /* Geser masuk */ }
+
+    /* Style Link di dalam Side Menu */
+    .nav-links a, .user-button {
+        width: 100%; text-align: left; margin-bottom: 15px; display: block;
+        padding: 15px; background: rgba(255,255,255,0.5);
+        border-radius: 12px; font-size: 1rem; color: #333;
     }
-    
-    /* 3. Styling Item Menu di dalam Sidebar */
-    .nav-links a, .user-button { 
-        width: 100%; 
-        text-align: left;     /* Teks rata kiri */
-        margin-bottom: 15px; 
-        display: block; 
-        padding: 15px;
-        background: rgba(255,255,255,0.5); /* Kotak putih transparan */
-        border-radius: 12px;
-        font-size: 1rem;
-        color: #333;
-        box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
-    }
-    
-    /* 4. Dropdown User (Profil/Logout) agar langsung terbuka */
+
+    /* Dropdown User di Mobile */
     .user-dropdown-content {
-        position: static; 
-        box-shadow: none; 
-        background: transparent; 
-        display: block;       /* Selalu muncul */
-        width: 100%;
-        padding-left: 15px;   /* Menjorok ke dalam */
-        margin-top: 5px;
+        position: static; box-shadow: none; background: transparent;
+        display: block; width: 100%; padding-left: 15px; margin-top: 5px;
         border-left: 2px solid var(--secondary);
     }
-    
     .user-dropdown-content a {
-        background: transparent;
-        font-size: 0.9rem;
-        padding: 10px;
-        margin-bottom: 5px;
-        box-shadow: none;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #ccc; margin-bottom: 5px;
     }
+
+    /* 3. Footer Responsive */
+    .footer-grid {
+        grid-template-columns: 1fr; /* Tumpuk 1 kolom */
+        gap: 40px; text-align: center;
+    }
+    .new-footer { padding-top: 40px; }
+    .footer-brand { justify-content: center; flex-direction: column; }
+    .contact-info p { justify-content: center; }
+    .footer-links a, .team-list a { justify-content: center; }
 }

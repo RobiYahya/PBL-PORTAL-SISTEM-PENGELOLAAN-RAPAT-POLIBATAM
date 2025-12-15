@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>NIK / NIDN</label>
+                    <label>NIK</label>
                     <input type="text" name="nik" placeholder="Nomor Induk Karyawan" required class="neu-input">
                 </div>
 
@@ -26,21 +26,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Daftar Sebagai</label>
-                    <select name="jabatan" class="neu-input">
-                        <option value="dosen">Dosen / Anggota Rapat</option>
-                        <option value="admin">Admin / Ketua Rapat</option>
-                    </select>
+                    <label class="form-label">Kata Sandi</label>
+                    <div class="password-wrapper">
+                        <input type="password" name="password" id="passReg1" class="neu-input" placeholder="Buat Password Aman" required>
+                        <i class="fas fa-eye toggle-password" onclick="togglePass('passReg1', this)"></i>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Kata Sandi</label>
-                    <input type="password" name="password" placeholder="Minimal 6 karakter" required class="neu-input">
-                </div>
-
-                <div class="form-group">
-                    <label>Ulangi Kata Sandi</label>
-                    <input type="password" name="ulangi_password" placeholder="Ketik ulang sandi" required class="neu-input">
+                    <label class="form-label">Konfirmasi Kata Sandi</label>
+                    <div class="password-wrapper">
+                        <input type="password" name="ulangi_password" id="passReg2" class="neu-input" placeholder="Ketik Ulang Password" required>
+                        <i class="fas fa-eye toggle-password" onclick="togglePass('passReg2', this)"></i>
+                    </div>
                 </div>
 
                 <div class="form-actions" style="margin-top: 20px;">
@@ -53,4 +51,18 @@
             </div>
         </div>
     </section>
+    <script>
+        function togglePass(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </main>

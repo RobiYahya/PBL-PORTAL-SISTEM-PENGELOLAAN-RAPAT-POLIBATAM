@@ -26,19 +26,31 @@
                             <label>Nama Lengkap</label>
                             <input type="text" name="nama_lengkap" value="<?= $data['user']['nama_lengkap']; ?>" class="neu-input">
                         </div>
+                        
                         <div class="form-group">
                             <label>NIK</label>
-                            <input type="text" value="<?= $data['user']['nik']; ?>" class="neu-input" readonly style="background: #ccc;">
+                            <input type="text" value="<?= $data['user']['nik']; ?>" class="neu-input" readonly style="background: #e0e0e0; cursor: not-allowed;">
                         </div>
+
+                        <div class="form-group">
+                            <label>Jabatan / Role</label>
+                            <input type="text" value="<?= ucfirst($data['user']['jabatan']); ?>" class="neu-input" readonly style="background: #e0e0e0; cursor: not-allowed; font-weight: bold; color: var(--secondary);">
+                        </div>
+
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" name="email" value="<?= $data['user']['email']; ?>" class="neu-input">
                         </div>
+
                         <div class="form-group" style="border-top: 1px solid #ccc; padding-top: 10px;">
                             <label>Ganti Password (Opsional)</label>
                             <input type="password" name="password_baru" placeholder="Biarkan kosong jika tidak ganti" class="neu-input">
                         </div>
-                        <div style="text-align: right;">
+
+                        <div style="text-align: right; margin-top: 20px;">
+                            <a href="<?= BASEURL; ?>/rapat" class="neu-btn btn-danger" style="margin-right: 10px; text-decoration: none;">
+                                ⬅ Kembali
+                            </a>
                             <button type="submit" class="neu-btn btn-primary">💾 Simpan Perubahan</button>
                         </div>
                     </div>
@@ -47,6 +59,7 @@
         </div>
     </section>
 </main>
+
 <script>
     function previewImage(input) {
         if (input.files && input.files[0]) {

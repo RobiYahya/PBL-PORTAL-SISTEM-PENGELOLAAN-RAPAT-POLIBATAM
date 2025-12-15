@@ -1,5 +1,5 @@
 <?php
-// MENCEGAH CACHE BROWSER
+// MENCEGAH CACHE BROWSER (Agar saat logout tidak bisa di-back)
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
@@ -18,6 +18,7 @@ header("Pragma: no-cache");
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -36,16 +37,30 @@ header("Pragma: no-cache");
             
             <div class="nav-links">
                 <?php if (isset($_SESSION['user_id'])): ?>
+                    
                     <div class="user-menu-dropdown">
-                        <button class="user-button">
-                            Halo, <?= explode(' ', $_SESSION['nama'])[0]; ?>! ▾
+                        <button class="user-button" id="userBtn" onclick="toggleUserMenu()">
+                            <i class="fas fa-user-circle" style="font-size: 1.1em;"></i>
+                            
+                            <span style="margin-left: 8px;"><?= $_SESSION['nama']; ?></span> 
+                            
+                            <i class="fas fa-caret-down" id="arrowIcon" style="margin-left: 5px; transition: 0.3s;"></i>
                         </button>
-                        <div class="user-dropdown-content">
-                            <a href="<?= BASEURL; ?>/rapat">Rapat Saya</a>
-                            <a href="<?= BASEURL; ?>/user/profile">Profil</a>
-                            <a href="<?= BASEURL; ?>/auth/logout" style="color: red;">Keluar</a>
+                        
+                        <div class="user-dropdown-content" id="userDropdown">
+                            <a href="<?= BASEURL; ?>/rapat">
+                                <i class="fas fa-calendar-alt" style="width: 20px;"></i> Rapat Saya
+                            </a>
+                            <a href="<?= BASEURL; ?>/user/profile">
+                                <i class="fas fa-user" style="width: 20px;"></i> Profil
+                            </a>
+                            <div style="border-top: 1px solid #ddd; margin: 5px 0;"></div>
+                            <a href="<?= BASEURL; ?>/auth/logout" style="color: red;">
+                                <i class="fas fa-sign-out-alt" style="width: 20px;"></i> Keluar
+                            </a>
                         </div>
                     </div>
+
                 <?php else: ?>
                     <a href="<?= BASEURL; ?>/auth/login" class="btn btn-masuk">Masuk</a>
                     <a href="<?= BASEURL; ?>/auth/register" class="btn btn-daftar">Daftar</a>
@@ -55,6 +70,7 @@ header("Pragma: no-cache");
     </nav>
 
     <script>
+        // 1. Script Hamburger Menu Mobile
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('mobile-menu');
             const navLinks = document.querySelector('.nav-links');
@@ -66,6 +82,38 @@ header("Pragma: no-cache");
                 });
             }
         });
+
+        // 2. Script Dropdown User (KLIK, BUKAN HOVER)
+        function toggleUserMenu() {
+            var dropdown = document.getElementById("userDropdown");
+            var arrow = document.getElementById("arrowIcon");
+            
+            // Toggle class 'show' (Buka/Tutup)
+            dropdown.classList.toggle("show");
+            
+            // Putar panah
+            if (dropdown.classList.contains("show")) {
+                arrow.style.transform = "rotate(180deg)";
+            } else {
+                arrow.style.transform = "rotate(0deg)";
+            }
+        }
+
+        // 3. Tutup menu jika klik DI LUAR tombol
+        window.onclick = function(event) {
+            if (!event.target.closest('.user-button')) {
+                var dropdowns = document.getElementsByClassName("user-dropdown-content");
+                var arrow = document.getElementById("arrowIcon");
+                
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                        if(arrow) arrow.style.transform = "rotate(0deg)";
+                    }
+                }
+            }
+        }
     </script>
 
     <?php if (isset($_SESSION['popup_type'])): ?>
@@ -80,3 +128,4 @@ header("Pragma: no-cache");
         <?php unset($_SESSION['popup_type'], $_SESSION['popup_title'], $_SESSION['popup_text']); ?>
     <?php endif; ?>
 </body>
+</html>

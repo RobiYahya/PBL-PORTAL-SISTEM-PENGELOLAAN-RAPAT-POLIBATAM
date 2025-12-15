@@ -15,7 +15,7 @@ class AuthController extends Controller {
         $data['judul'] = 'Login';
         $this->view('templates/header', $data);
         $this->view('auth/login');
-        $this->view('templates/footer');
+        $this->view('templates/footer_auth');
     }
 
     // 2. PROSES LOGIN (URL: /auth/login)
@@ -78,7 +78,7 @@ class AuthController extends Controller {
         $data['judul'] = 'Daftar Akun';
         $this->view('templates/header', $data);
         $this->view('auth/register');
-        $this->view('templates/footer');
+        $this->view('templates/footer_auth');
     }
 
     public function prosesRegister()
@@ -88,7 +88,7 @@ class AuthController extends Controller {
             header('Location: ' . BASEURL . '/auth/register');
             exit;
         }
-
+        $data['jabatan'] = 'dosen';
         if ($this->model('User')->tambahDataUser($_POST) > 0) {
             Flasher::setFlash('Berhasil', 'Akun berhasil dibuat, silakan login', 'success');
             
