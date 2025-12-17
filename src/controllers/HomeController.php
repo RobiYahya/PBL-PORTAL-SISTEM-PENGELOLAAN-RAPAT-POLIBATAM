@@ -1,11 +1,13 @@
 <?php
+// Nama File: HomeController.php
+// Deskripsi: Controller untuk halaman depan (Landing Page).
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
 
 class HomeController extends Controller {
     public function index()
     {
-        // LOGIKA PINTAR:
-        // Jika user ternyata SUDAH login, jangan kasih lihat landing page.
-        // Langsung antar ke Rapat Saya.
+        // Jika sudah login, langsung ke Dashboard Rapat
         if (isset($_SESSION['user_id'])) {
             header('Location: ' . BASEURL . '/rapat');
             exit;
@@ -13,8 +15,6 @@ class HomeController extends Controller {
 
         $data['judul'] = 'Sipera - Portal Rapat Polibatam';
         
-        // Kita pakai header yang sama, karena di header sudah ada logika:
-        // "Kalau belum login, tampilkan tombol Masuk/Daftar"
         $this->view('templates/header', $data);
         $this->view('home/index', $data);
         $this->view('templates/footer');

@@ -1,4 +1,8 @@
 <?php
+// Nama File: Notulen.php
+// Deskripsi: Model untuk pencarian dan filter data notulen rapat.
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
 
 class Notulen {
     private $table = 'rapat';

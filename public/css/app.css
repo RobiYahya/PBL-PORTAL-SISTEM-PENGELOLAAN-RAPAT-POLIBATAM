@@ -1,396 +1,468 @@
-/* ==========================================================================
-   APP.CSS - FINAL FIX (LAYOUT & COLORS)
-   ========================================================================== */
+/*
+// Nama File: app.css
+// Deskripsi: Stylesheet komponen utama (Neumorphism UI), Hero Section, dan Responsif.
+// Dibuat oleh: [Nama Pembuat] - NIM: [NIM Mahasiswa]
+// Tanggal: [Tanggal Pembuatan]
+*/
 
-/* --- 1. CORE UTILITIES (NEUMORPHISM) --- */
-.neu-card, .login-card, .neumorphic-panel {
-    background: #e0e0e0;
-    border-radius: 20px;
-    box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
-    padding: 30px;
-    border: none;
-    margin-bottom: 25px;
-}
-
-.neu-input, .neumorphic-textarea, .neumorphic-select {
-    width: 100%; padding: 12px 20px; border: none; border-radius: 12px;
-    background: #e0e0e0; color: #333; font-size: 1rem; outline: none;
-    box-shadow: inset 4px 4px 8px #bebebe, inset -4px -4px 8px #ffffff;
-    margin-bottom: 15px; transition: all 0.3s ease;
-}
-.neu-input:focus {
-    box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
-    border-left: 5px solid #007BFF;
-}
-
-/* Button Base */
-.neu-btn {
-    border: none; padding: 12px 30px; font-size: 1rem; font-weight: 700;
-    border-radius: 50px; cursor: pointer; transition: all 0.2s ease;
-    display: inline-block; text-align: center; text-decoration: none;
-    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
-    color: #333; margin-top: 10px;
-}
-.neu-btn:active {
-    transform: scale(0.98);
-    box-shadow: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
-}
-/* Tombol Detail Kuning (Agar konsisten) */
-.btn-detail {
-    background: linear-gradient(145deg, #ffd700, #f0a500); 
-    color: white !important;
-    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
-}
-
-/* 1. PERBAIKI ICON TOMBOL BATAL (Supaya Putih) */
-.btn-danger { 
-    background: #dc3545 !important; 
-    color: white !important; 
-}
-.btn-danger i { /* Target icon fontawesome */
-    color: white !important; 
-}
-
-/* 2. PERBAIKI JARAK ABSENSI (Agar tidak dempet) */
-table th, table td {
-    padding: 12px 8px; /* Tambah padding kiri kanan */
-}
-/* Paksa tabel scroll samping di HP jika sempit */
-.neu-card table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-}
-
-/* WARNA TOMBOL */
-.btn-primary { background: linear-gradient(145deg, #ffd700, #f0a500); color: white !important; }
-.btn-secondary { background: #e0e0e0; color: #333 !important; }
-.btn-danger { background: #dc3545 !important; color: white !important; }
-.btn-success { background: #28a745 !important; color: white !important; }
-
-
-/* --- 2. STATUS BADGES (PERBAIKAN WARNA ABU-ABU) --- */
-/* Ini yang membuat label Terjadwal/Selesai berwarna */
-/* --- STATUS TAGS (WARNA WAJIB) --- */
-.status-tag, .meeting-status-tag {
-    padding: 6px 18px;
-    border-radius: 50px;
-    font-size: 0.85em;
-    font-weight: 700;
-    color: white !important; /* Paksa teks putih */
-    display: inline-block;
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
-    text-transform: capitalize;
-    margin-top: 5px;
-}
-
-/* Mapping Warna Status */
-.status-terjadwal, .st-terjadwal { background-color: #007BFF !important; } /* Biru */
-.status-selesai, .st-selesai     { background-color: #28a745 !important; } /* Hijau */
-.status-batal, .st-batal,
-.status-dibatalkan, .st-dibatalkan { background-color: #dc3545 !important; } /* Merah */
-
-
-/* --- 3. LANDING PAGE --- */
+/* ============================================================
+   1. HERO SECTION (HOMEPAGE) - [BARU DITAMBAHKAN]
+   ============================================================ */
 .hero-section {
-    height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center;
-    background: url("../foto/kantor.jpg") no-repeat center center / cover;
-    position: relative; margin-top: -20px;
-}
-.hero-section::after {
-    content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.5); z-index: 1;
-}
-.hero-content {
-    position: relative; z-index: 2; padding: 40px; border-radius: 20px;
-    background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.3); max-width: 900px;
-}
-.hero-content h1 {
-    font-size: 3rem; color: white; font-weight: 800; margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-}
-.hero-content span { color: #FFD700; display: block; margin-top: 10px; }
-
-.contact-section {
-    background: linear-gradient(to top, #0056b3, #007bff); color: white;
-    padding: 60px 0; border-top: 5px solid #FFD700;
-}
-.contact-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-.contact-col {
-    flex: 1; min-width: 280px; max-width: 350px; padding: 30px;
-    background: rgba(255,255,255,0.1); border-radius: 15px;
-    border: 1px solid rgba(255,255,255,0.2);
-}
-.contact-col h3 { border-bottom: 3px solid #FFD700; display: inline-block; margin-bottom: 15px; }
-.social-links { display: flex; gap: 20px; margin-top: 15px; }
-.social-links img { width: 35px; filter: brightness(0) invert(1); transition: 0.3s; }
-.social-links img:hover { transform: scale(1.1); }
-
-
-/* --- 4. AUTH (LOGIN & REGISTER - FIX CENTER) --- */
-.login-section {
-    min-height: calc(100vh - 130px); 
-    /* Flexbox Magic untuk Centering */
+    /* Layout */
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* Tengahkan Vertikal */
-    align-items: center;     /* Tengahkan Horizontal */
+    align-items: center;
+    justify-content: center;
+
+    /* Box Model */
+    min-height: 80vh; /* Pastikan tinggi memenuhi layar */
+    padding: 1.25rem;
+
+    /* Typography */
+    text-align: center;
+    color: white; /* Ubah teks dasar jadi putih */
+
+    /* Visual: Gradient Overlay + Gambar */
+    /* Overlay hitam 60% (0.6) agar teks putih terbaca jelas */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url("../foto/kantor.jpg");
     
-    padding: 20px;
+    /* Properti Background yang Benar */
+    background-position: center; /* Rata tengah horizontal & vertikal */
+    background-repeat: no-repeat;
+    background-size: cover; /* Memastikan gambar menutup area tanpa gepeng */
+    
+    /* Efek Parallax (Opsional, biar agak keren dikit) */
+    background-attachment: fixed; 
+}
+
+.hero-content h1 {
+    /* Typography */
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    
+    /* Override warna hitam sebelumnya jadi putih */
+    color: white; 
+    
+    /* Box Model */
+    margin-bottom: 1.875rem;
+    
+    /* Text Shadow agar makin jelas */
+    text-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.5);
+}
+
+.hero-content span {
+    /* Typography */
+    /* Ganti biru jadi Kuning Emas (Primary) agar kontras dengan background gelap */
+    color: var(--primary); 
+    display: block;
+    margin-top: 0.625rem;
+}
+
+
+/* ============================================================
+   2. NEUMORPHISM CARD (Wadah Utama)
+   ============================================================ */
+.neu-card {
+    /* Layout */
+    position: relative;
+
+    /* Box Model */
+    padding: 1.875rem; /* 30px */
+    margin-bottom: 1.5625rem; /* 25px */
+    border-radius: 1.25rem; /* 20px */
+
+    /* Visual */
+    background: #e0e0e0;
+    border: none;
+    box-shadow: 0.5rem 0.5rem 1rem #bebebe, 
+               -0.5rem -0.5rem 1rem #ffffff;
+}
+
+
+/* ============================================================
+   3. NEUMORPHISM BUTTONS
+   ============================================================ */
+.neu-btn {
+    /* Layout */
+    display: inline-block;
+
+    /* Box Model */
+    padding: 0.75rem 1.875rem; /* 12px 30px */
+    border-radius: 3.125rem; /* 50px */
+
+    /* Typography */
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+
+    /* Visual */
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0.3125rem 0.3125rem 0.625rem #bebebe, 
+               -0.3125rem -0.3125rem 0.625rem #ffffff;
+}
+
+.neu-btn:hover {
+    /* Visual */
+    transform: translateY(-0.125rem);
+}
+
+.neu-btn:active {
+    /* Visual */
+    transform: translateY(0);
+    box-shadow: inset 0.3125rem 0.3125rem 0.625rem #bebebe, 
+               inset -0.3125rem -0.3125rem 0.625rem #ffffff;
+}
+
+/* Warna Button Variant */
+.btn-primary { background: var(--secondary); color: white; }
+.btn-secondary { background: #e0e0e0; color: #333; }
+.btn-danger { background: #dc3545; color: white; }
+.btn-success { background: #28a745; color: white; }
+.btn-warning { background: #ffc107; color: #333; }
+
+
+/* ============================================================
+   4. NEUMORPHISM INPUTS & FORMS
+   ============================================================ */
+.form-group {
+    /* Box Model */
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    /* Layout */
+    display: block;
+
+    /* Box Model */
+    margin-bottom: 0.5rem;
+
+    /* Typography */
+    font-weight: 600;
+    color: #555;
+}
+
+.neu-input {
+    /* Box Model */
     width: 100%;
+    padding: 0.75rem 1.25rem;
+    border-radius: 3.125rem;
+
+    /* Typography */
+    font-family: inherit;
+    color: #333;
+
+    /* Visual */
+    background: #e0e0e0;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    box-shadow: inset 0.3125rem 0.3125rem 0.625rem #bebebe, 
+               inset -0.3125rem -0.3125rem 0.625rem #ffffff;
 }
 
-.login-card { 
-    max-width: 450px; 
-    width: 100%; 
-    text-align: center; 
-    margin: 0; /* Hapus margin agar Flexbox bekerja sempurna */
+.neu-input:focus {
+    /* Visual */
+    background: #e8e8e8;
+    box-shadow: inset 0.125rem 0.125rem 0.3125rem #bebebe, 
+               inset -0.125rem -0.125rem 0.3125rem #ffffff;
 }
 
-.auth-title { font-size: 1.8rem; font-weight: 700; color: #333; margin-bottom: 10px; }
-.auth-subtitle { color: #666; margin-bottom: 30px; }.form-group { text-align: left; margin-bottom: 20px; }
-.form-label { font-weight: 600; color: #555; display: block; margin-bottom: 5px; }
+.form-row {
+    /* Layout */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
 
+.half-width { flex: 1; min-width: 15.625rem; }
+.third-width { flex: 1; min-width: 9.375rem; }
 
-/* --- 5. DASHBOARD (RAPAT SAYA - FIXED SPACING) --- */
-/* Fix: Tambah padding atas agar tidak nempel Navbar */
-.dashboard-section { padding-top: 50px; padding-bottom: 80px; }
+/* ============================================================
+   PERBAIKAN LAYOUT DASHBOARD & TAB (UPDATE INI)
+   ============================================================ */
 
-.stats-panel { display: flex; gap: 20px; margin-bottom: 40px; }
-.stat-card { flex: 1; text-align: center; padding: 25px; }
-.stat-value { font-size: 2.5rem; font-weight: 700; margin-top: 10px; display: block; }
+/* 1. Header Dashboard (Judul & Tombol) */
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 1.875rem; /* 30px */
+    position: relative;
+    z-index: 1; /* Pastikan tidak tertutup background aneh-aneh */
+}
 
-/* Tabs */
-.neumorphic-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+/* 2. Container Search Bar */
+.search-container {
+    position: relative;
+    max-width: 31.25rem; /* 500px */
+    margin: 1.875rem auto; /* Jarak atas/bawah 30px, Kiri/Kanan Auto (Tengah) */
+    z-index: 10; /* Lebih tinggi dari elemen biasa */
+}
+
+/* 3. Tabs Dashboard (PERBAIKAN TOMBOL MACET) */
+.neumorphic-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 1.875rem;
+    
+    /* FIX KRUSIAL: Mengangkat layer tab agar bisa diklik */
+    position: relative;
+    z-index: 5; 
+}
+
 .tab-button {
-    background: transparent; border: none; padding: 10px 25px;
-    font-weight: 600; color: #555; cursor: pointer; transition: 0.3s;
-}
-.tab-button.active {
-    background: #007BFF; color: white; border-radius: 10px;
-    box-shadow: inset 3px 3px 6px rgba(0,0,0,0.3);
-}
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-
-/* List Item */
-.meeting-item {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; transition: transform 0.2s;
-}
-.meeting-item:hover { transform: translateY(-3px); }
-.meeting-title { font-size: 1.1rem; font-weight: 700; color: #333; text-decoration: none; }
-
-
-/* --- 6. EDIT & CREATE RAPAT (FIXED HIDDEN PAGE) --- */
-/* Fix: Masalah halaman edit tidak muncul ada di sini. Padding top wajib! */
-.meeting-creation-section { 
-    padding-top: 50px; 
-    padding-bottom: 80px; 
-}
-
-.form-row { display: flex; gap: 20px; }
-.half-width { flex: 1; }
-.third-width { flex: 1; }
-
-
-/* --- 7. DETAIL RAPAT (FIXED SPACING & COLORS) --- */
-/* Fix: Jarak tombol kembali ke navbar */
-.detail-section { padding-top: 50px; padding-bottom: 80px; }
-
-.title-status-wrapper { display: flex; justify-content: space-between; align-items: flex-start; }
-.detail-content-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 20px; }
-
-.highlight-info-group {
-    background: #e0e0e0; padding: 15px; border-radius: 12px; margin-bottom: 15px;
-    box-shadow: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
-}
-.info-label { font-size: 0.85em; color: #666; display: block; }
-.info-value { font-weight: bold; font-size: 1.1em; color: #333; margin: 0; }
-
-
-/* --- 8. PROFIL (FIXED FOTO PROFIL) --- */
-.profile-section { padding-top: 50px; padding-bottom: 80px; }
-.profile-container { display: flex; gap: 40px; justify-content: center; }
-
-/* Fix: Foto Profil Zoom/Fit */
-.profile-photo-wrapper {
-    width: 200px; height: 200px; margin: 0 auto 20px; 
-    border-radius: 50%; overflow: hidden;
-    border: 5px solid #e0e0e0;
-    box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
-    display: flex; align-items: center; justify-content: center;
-}
-.profile-photo-wrapper img { 
-    width: 100%; height: 100%; 
-    object-fit: cover; /* KUNCI: Agar foto tidak gepeng/zoom aneh */
-    object-position: center;
+    cursor: pointer; /* Memastikan kursor berubah jadi tangan */
+    user-select: none; /* Mencegah teks terblok saat diklik cepat */
 }
 
 /* ============================================================
-   MOBILE RESPONSIVE FIXES (MEDIA QUERIES)
-   Letakkan kode ini di PALING BAWAH file app.css
+   5. TABS & LIST
    ============================================================ */
+.neumorphic-tabs {
+    /* Layout */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
 
-/* 1. FIX KHUSUS: WARNA ICON TOMBOL BATAL */
-/* Memaksa icon di dalam tombol merah menjadi putih */
-.btn-danger i, 
-.btn-danger .fa, 
-.btn-danger .fas {
-    color: white !important; 
+    /* Box Model */
+    margin-bottom: 1.875rem;
 }
 
-/* 2. TABLET & LAYAR KECIL (Dibawah 992px) */
-@media (max-width: 992px) {
-    /* Grid Dashboard & Detail menjadi 1 kolom memanjang ke bawah */
-    .stats-panel {
-        display: grid;
-        grid-template-columns: 1fr; 
-        gap: 20px;
-    }
+.tab-button {
+    /* Box Model */
+    padding: 0.75rem 2.1875rem;
+    border-radius: 3.125rem;
 
-    .detail-content-grid {
-        display: block !important; /* Matikan Grid */
-        width: 100%;
-    }
+    /* Typography */
+    font-weight: 600;
+    color: #666;
 
-    .detail-content-grid > div {
-        width: 100%;
-        margin-bottom: 30px; /* Jarak antar kartu atas-bawah */
-    }
-
-    /* Profil Layout menjadi vertikal */
-    .profile-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .profile-info, .profile-settings-form {
-        width: 100%;
-    }
+    /* Visual */
+    background: #e0e0e0;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0.3125rem 0.3125rem 0.625rem #bebebe, 
+                -0.3125rem -0.3125rem 0.625rem #ffffff;
 }
 
-/* 3. MOBILE (HP Standar - Dibawah 768px) */
-@media (max-width: 768px) {
+.tab-button.active {
+    /* Typography */
+    color: var(--secondary);
+
+    /* Visual */
+    box-shadow: inset 0.3125rem 0.3125rem 0.625rem #bebebe, 
+               inset -0.3125rem -0.3125rem 0.625rem #ffffff;
+}
+
+.tab-content { display: none; animation: fadeIn 0.5s; }
+.tab-content.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(0.625rem); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Meeting Items */
+.meeting-item {
+    /* Layout */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.9375rem;
+}
+
+.meeting-details { flex: 1; min-width: 12.5rem; }
+.meeting-actions { display: flex; flex-wrap: wrap; gap: 0.625rem; }
+
+.meeting-title-link {
+    /* Layout */
+    display: block;
+    /* Box Model */
+    margin: 0.3125rem 0;
+    /* Typography */
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.meeting-info {
+    /* Box Model */
+    margin: 0;
+    /* Typography */
+    font-size: 0.9rem;
+    color: #666;
+}
+
+
+/* ============================================================
+   6. UTILITY & LAYOUT KHUSUS
+   ============================================================ */
+/* Status Badges */
+.status-tag, .status-badge {
+    /* Layout */
+    display: inline-block;
+    /* Box Model */
+    padding: 0.3125rem 0.75rem;
+    border-radius: 1.25rem;
+    /* Typography */
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.03125rem;
+}
+.st-terjadwal, .bg-primary { background: #cce5ff; color: #004085; }
+.st-selesai, .bg-success { background: #d4edda; color: #155724; }
+.st-batal, .bg-danger { background: #f8d7da; color: #721c24; }
+.st-draft, .bg-secondary { background: #e2e3e5; color: #383d41; }
+.bg-warning { background: #fff3cd; color: #856404; }
+.bg-info { background: #d1ecf1; color: #0c5460; }
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-secondary { color: var(--secondary); }
+.text-muted { color: #666; }
+.font-bold { font-weight: 700; }
+
+.mb-10 { margin-bottom: 0.625rem; }
+.mb-20 { margin-bottom: 1.25rem; }
+.mb-30 { margin-bottom: 1.875rem; }
+.mt-10 { margin-top: 0.625rem; }
+.mt-20 { margin-top: 1.25rem; }
+.mr-10 { margin-right: 0.625rem; }
+.w-100 { width: 100%; }
+.d-none { display: none !important; }
+.d-block { display: block; }
+
+/* Login Page Layout */
+.login-section {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Box Model */
+    min-height: 80vh;
+    padding: 1.25rem;
+}
+.login-card {
+    width: 100%; max-width: 28.125rem; padding: 2.5rem 1.875rem;
+}
+.auth-title { margin-bottom: 0.625rem; color: var(--secondary); text-align: center; }
+.auth-subtitle { margin-bottom: 1.875rem; text-align: center; color: #666; }
+
+.password-wrapper { position: relative; }
+.toggle-password {
+    position: absolute; right: 1.25rem; top: 50%;
+    transform: translateY(-50%); cursor: pointer; color: #888;
+}
+
+/* Detail Grid */
+.detail-grid, .detail-content-grid {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 1.875rem;
+}
+
+/* Search Bar */
+.search-container {
+    position: relative; max-width: 31.25rem; margin: 1.25rem auto 0 auto;
+}
+.search-icon {
+    position: absolute; left: 0.9375rem; top: 50%; transform: translateY(-50%); color: #999;
+}
+.search-input { padding-left: 2.8125rem; }
+
+/* Alerts & Modal */
+.alert {
+    position: relative; margin-bottom: 1.25rem; padding: 0.9375rem; border-radius: 0.625rem;
+}
+.alert-success { background: #d4edda; color: #155724; border-left: 0.3125rem solid #28a745; }
+.alert-danger { background: #f8d7da; color: #721c24; border-left: 0.3125rem solid #dc3545; }
+.alert-warning { background: #fff3cd; color: #856404; border-left: 0.3125rem solid #ffc107; }
+
+.approval-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.9375rem; margin-top: 0.625rem; border-radius: 0.625rem; background: white;
+    box-shadow: 0.125rem 0.125rem 0.3125rem rgba(0,0,0,0.05);
+}
+#uploadModal { backdrop-filter: blur(0.3125rem); }
+
+/* ============================================================
+   X. PROFILE PAGE STYLES (TAMBAHAN BARU)
+   ============================================================ */
+.profile-photo-section {
+    /* Layout */
+    text-align: center;
+    /* Box Model */
+    margin-bottom: 1.875rem; /* 30px - Agar tidak nempel ke form di mobile */
+}
+
+.profile-photo-wrapper {
+    /* Layout */
+    position: relative;
+    /* Box Model */
+    width: 9.375rem;  /* 150px - Ukuran tetap */
+    height: 9.375rem; /* 150px - Ukuran tetap */
+    margin: 0 auto 1.25rem auto; /* Tengah horizontal, jarak bawah 20px */
+    border-radius: 50%; /* Lingkaran */
+    overflow: hidden; /* Potong gambar yang keluar dari lingkaran */
+    border: 0.3125rem solid #e0e0e0; /* 5px border agar menyatu dengan card */
+
+    /* Visual */
+    /* Inset shadow agar terlihat 'masuk' ke dalam card */
+    box-shadow: inset 0.3125rem 0.3125rem 0.625rem #bebebe,
+               inset -0.3125rem -0.3125rem 0.625rem #ffffff;
+}
+
+.profile-photo {
+    /* Box Model */
+    width: 100%;
+    height: 100%;
+    /* Visual */
+    object-fit: cover; /* WAJIB: Agar gambar mengisi lingkaran tanpa gepeng */
+    object-position: center; /* Fokus ke tengah gambar */
+}
+
+
+/* ============================================================
+   7. RESPONSIVE MEDIA QUERIES
+   ============================================================ */
+@media (max-width: 48rem) { /* 768px */
+    .container { width: 95%; padding: 0 0.625rem; }
+    .neu-card { padding: 1.25rem; border-radius: 0.9375rem; }
     
-    /* --- TYPOGRAPHY --- */
-    /* Kecilkan font judul agar tidak makan tempat */
-    .hero-content h1 { font-size: 2rem; }
-    .auth-title { font-size: 1.5rem; }
-    .main-title { font-size: 1.6rem; }
-
-    /* --- LOGIN & REGISTER --- */
-    .login-section {
-        padding: 20px 15px;
-        /* Biarkan tinggi otomatis agar tidak nabrak keyboard HP */
-        min-height: auto; 
-        margin-top: 20px;
-    }
-    .login-card {
-        padding: 25px 20px;
-        /* Hilangkan shadow berlebih di HP agar terlihat bersih */
-        box-shadow: none; 
-        background: transparent; 
-    }
-    /* Input diberi background putih di HP biar kontras */
-    .neu-input { background: #f9f9f9; }
-
-    /* --- DASHBOARD LIST RAPAT --- */
-    .meeting-item {
-        flex-direction: column; /* Judul atas, tombol bawah */
-        align-items: flex-start;
-        gap: 15px;
-        padding: 20px;
-    }
+    .form-row { flex-direction: column; gap: 0.9375rem; }
+    .half-width, .third-width { width: 100%; }
     
-    .meeting-actions {
-        width: 100%;
-        display: flex;
-        justify-content: space-between; /* Tombol menyebar rata */
-        gap: 10px;
-        border-top: 1px solid #ccc;
-        padding-top: 15px;
-        margin-top: 10px;
-    }
+    .neumorphic-tabs { flex-direction: column; gap: 0.9375rem; }
+    .tab-button { width: 100%; }
     
-    .meeting-actions .neu-btn {
-        flex: 1; /* Tombol membesar rata memenuhi lebar */
-        padding: 10px;
-        font-size: 0.9rem;
-        margin: 0;
-    }
-
-    /* --- HALAMAN DETAIL RAPAT --- */
-    /* Header Judul dan Status tumpuk ke bawah */
-    .neu-card {
-        padding: 20px; /* Kurangi padding biar muat di layar kecil */
-        width: 100%;
-        box-sizing: border-box; /* Pastikan padding gak bikin lebar lebih dari 100% */
-        overflow: hidden; /* Potong konten yang maksa keluar */
-    }
-
-    .title-status-wrapper {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .status-tag { margin-top: 10px; margin-bottom: 20px; }
+    .meeting-item { flex-direction: column; align-items: flex-start; }
+    .meeting-actions { width: 100%; justify-content: space-between; margin-top: 0.9375rem; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 0.9375rem; }
+    .meeting-actions .neu-btn { flex: 1; padding: 0.625rem 0; font-size: 0.85rem; }
     
-    /* Tombol 'Batal' atau aksi header full width */
-    .title-status-wrapper .neu-btn {
-        width: 100%;
-        text-align: center;
-    }
-
-    /* Footer Detail Rapat (Agar tidak terlalu jauh/dekat) */
-    .detail-section {
-        padding-bottom: 40px; 
-        flex: 1;
-    }
-
-    main {
-        min-height: calc(100vh - 150px); /* 150px estimasi tinggi navbar+footer */
-        display: flex;
-        flex-direction: column;
-    }
-
-    .action-card .neu-btn, 
-    .action-card .action-btn-lg {
-        width: 100%;
-        margin-bottom: 15px;
-        display: block;
-        text-align: center;
-    }
-
-    /* --- FORMULIR (Buat Rapat / Edit / Profil) --- */
-    .form-row {
-        flex-direction: column; /* Input berjejer ke bawah */
-        gap: 0;
-    }
-    .half-width, .third-width {
-        width: 100%; /* Input lebar penuh */
-    }
-
-    /* --- TABEL ABSENSI (Fix Tulisan Dempet) --- */
-    /* Membuat tabel bisa di-scroll ke samping (Horizontal Scroll) */
-    .neu-card table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap; /* Mencegah teks turun baris */
-        width: 100%;
-    }
+    .detail-grid, .detail-content-grid { grid-template-columns: 1fr; }
+    .neu-card[style*="justify-content: space-between"] { flex-direction: column; gap: 0.9375rem; }
     
-    /* Beri ruang napas di sel tabel */
-    table th, table td {
-        padding: 15px 20px; 
-        font-size: 0.9rem;
-    }
+    .search-container { width: 100%; }
+    .text-center .neu-btn { width: 100%; display: block; margin-bottom: 0.9375rem; }
+    
+    .profile-container, .form-actions { flex-direction: column; }
+    .form-actions button, .form-actions a { width: 100%; margin: 0 !important; text-align: center; }
+    .login-card { padding: 1.875rem 1.25rem; }
+    
+    .hero-content h1 { font-size: 1.8rem; }
+}
 
-    /* --- LANDING PAGE CONTACT --- */
-    .contact-container {
-        flex-direction: column;
-    }
-    .contact-col {
-        width: 100%;
-        max-width: 100%;
-    }
+@media (max-width: 30rem) {
+    .neu-btn { padding: 0.625rem 0.9375rem; font-size: 0.85rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.3rem; }
+    .neu-card div[style*="overflow-y: auto"] { overflow-x: auto; }
 }

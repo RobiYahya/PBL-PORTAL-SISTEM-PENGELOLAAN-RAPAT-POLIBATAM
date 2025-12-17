@@ -1,11 +1,13 @@
 <?php
+// Nama File: UserController.php
+// Deskripsi: Mengelola data Profil Pengguna dan CRUD User (Admin).
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
 
 class UserController extends Controller {
     
     public function __construct()
     {
-        // Gembok Keamanan: Cek Login
-        // Kita cek user_id karena itu kunci utama sesi kita
         if (!isset($_SESSION['user_id'])) {
             header('Location: ' . BASEURL . '/auth/login');
             exit;
@@ -13,30 +15,24 @@ class UserController extends Controller {
     }
 
     // ======================================================
-    // BAGIAN 1: FITUR PROFIL PENGGUNA (YANG KAMU CARI)
+    // BAGIAN 1: FITUR PROFIL PENGGUNA
     // ======================================================
 
     public function profile()
     {
         $data['judul'] = 'Profil Saya';
-        
-        // Ambil data user yang sedang login
-        $data['user'] = $this->model('User')->getUserById($_SESSION['user_id']);
+        $data['user']  = $this->model('User')->getUserById($_SESSION['user_id']);
 
         $this->view('templates/header', $data);
-        // Perhatikan: Kita tidak pakai sidebar di halaman profil agar layout Neumorphism rapi
         $this->view('user/profile', $data); 
         $this->view('templates/footer');
     }
 
-    // Proses Update Profil (Foto & Password)
-        public function update()
+    public function update()
     {
-        // Panggil Model (Cleaner)
         if ($this->model('User')->updateDataUser($_POST, $_FILES) > 0) {
             Flasher::setFlash('Berhasil', 'Profil berhasil diperbarui', 'success');
         } else {
-            // Sukses tapi tidak ada data berubah (misal cuma klik simpan)
             Flasher::setFlash('Info', 'Data profil tersimpan', 'success');
         }
         
@@ -48,33 +44,27 @@ class UserController extends Controller {
     // BAGIAN 2: FITUR ADMIN (MANAJEMEN USER)
     // ======================================================
 
-    // Tampilkan Semua User (Hanya untuk Admin sebaiknya)
     public function index()
     {
         $data['judul'] = 'Daftar Pengguna';
         $data['users'] = $this->model('User')->getAllUsers();
 
         $this->view('templates/header', $data);
-        // $this->view('templates/sidebar'); // Aktifkan jika kamu punya sidebar
         $this->view('user/index', $data);
         $this->view('templates/footer');
     }
 
-    // Form Tambah User
     public function tambah()
     {
         $data['judul'] = 'Tambah User Baru';
         
         $this->view('templates/header', $data);
-        // $this->view('templates/sidebar');
         $this->view('user/create');
         $this->view('templates/footer');
     }
 
-    // Proses Simpan User Baru
     public function simpan()
     {
-        // Validasi password match
         if ($_POST['password'] !== $_POST['konfirmasi_password']) {
             Flasher::setFlash('gagal', 'Password tidak cocok', 'danger');
             header('Location: ' . BASEURL . '/user/tambah');
@@ -92,9 +82,9 @@ class UserController extends Controller {
         }
     }
 
-    // Hapus User
     public function hapus($id)
     {
+        // Pastikan model User memiliki method hapusDataUser
         if( $this->model('User')->hapusDataUser($id) > 0 ) {
             Flasher::setFlash('berhasil', 'dihapus', 'success');
             header('Location: ' . BASEURL . '/user');

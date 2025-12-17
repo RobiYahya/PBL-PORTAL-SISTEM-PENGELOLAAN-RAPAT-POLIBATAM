@@ -1,3 +1,9 @@
+<?php
+// Nama File: upload.php
+// Deskripsi: Form untuk mengunggah file notulen rapat.
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
+?>
 <main>
     <section class="hero-section" id="home">
         <div class="hero-content">

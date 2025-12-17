@@ -1,10 +1,14 @@
 <?php
+// Nama File: Database.php
+// Deskripsi: Wrapper untuk koneksi database menggunakan PDO (PHP Data Objects).
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
 
 class Database {
     private $host = DB_HOST;
     private $user = DB_USER;
     private $pass = DB_PASS;
-    private $db_name = DB_NAME;
+    private $dbName = DB_NAME; // Perbaikan: Gunakan camelCase
 
     private $dbh; // Database Handler
     private $stmt; // Statement
@@ -12,28 +16,26 @@ class Database {
     public function __construct()
     {
         // Data Source Name
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
+        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
 
-        // Opsi optimasi
         $option = [
-            PDO::ATTR_PERSISTENT => true, // Koneksi terjaga
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // Tampilkan error jika query salah
+            PDO::ATTR_PERSISTENT => true,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
 
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $option);
         } catch(PDOException $e) {
+            // Jangan echo error mentah di production, tapi untuk tugas kuliah ini ok.
             die("Koneksi Database Gagal: " . $e->getMessage());
         }
     }
 
-    // Fungsi untuk menulis query SQL
     public function query($query)
     {
         $this->stmt = $this->dbh->prepare($query);
     }
 
-    // Fungsi untuk binding data (Mencegah SQL Injection)
     public function bind($param, $value, $type = null)
     {
         if (is_null($type)) {
@@ -54,35 +56,29 @@ class Database {
         $this->stmt->bindValue($param, $value, $type);
     }
 
-    // Eksekusi query
     public function execute()
     {
         return $this->stmt->execute();
     }
 
-    // Ambil banyak data (SELECT *)
     public function resultSet()
     {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Ambil satu data (SELECT ... LIMIT 1)
     public function single()
     {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-    // Hitung jumlah baris yang berubah (untuk Insert/Update/Delete)
     public function rowCount()
     {
         return $this->stmt->rowCount();
     }
-
     
     public function lastInsertId() { 
         return $this->dbh->lastInsertId(); 
     }
-
 }

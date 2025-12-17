@@ -1,3 +1,9 @@
+<?php
+// Nama File: forgot.php
+// Deskripsi: Halaman untuk mereset kata sandi jika lupa.
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
+?>
 <main class="main-center">
     <div class="registration-container neumorphic-panel">
         <div class="header-section">

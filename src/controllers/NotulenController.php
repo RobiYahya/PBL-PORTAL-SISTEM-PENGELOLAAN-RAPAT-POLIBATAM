@@ -1,4 +1,8 @@
 <?php
+// Nama File: NotulenController.php
+// Deskripsi: Mengelola upload file notulen rapat.
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
 
 class NotulenController extends Controller {
     
@@ -10,7 +14,7 @@ class NotulenController extends Controller {
         }
     }
 
-    // Menampilkan form upload untuk rapat tertentu
+    // Menampilkan form upload
     public function upload($id_rapat)
     {
         $data['judul'] = 'Upload Notulen';
@@ -25,23 +29,20 @@ class NotulenController extends Controller {
     // Proses Upload
     public function prosesUpload()
     {
-        // 1. Ambil File
-        $namaFile = $_FILES['file_notulen']['name'];
+        $namaFile   = $_FILES['file_notulen']['name'];
         $ukuranFile = $_FILES['file_notulen']['size'];
-        $error = $_FILES['file_notulen']['error'];
-        $tmpName = $_FILES['file_notulen']['tmp_name'];
+        $error      = $_FILES['file_notulen']['error'];
+        $tmpName    = $_FILES['file_notulen']['tmp_name'];
 
-        // 2. Cek apakah ada file yang diupload
         if ($error === 4) {
             Flasher::setFlash('gagal', 'Pilih file notulen dulu!', 'danger');
             header('Location: ' . BASEURL . '/rapat');
             return false;
         }
 
-        // 3. Cek Ekstensi (Hanya PDF yang boleh)
         $ekstensiValid = ['pdf', 'doc', 'docx'];
-        $ekstensiFile = explode('.', $namaFile);
-        $ekstensiFile = strtolower(end($ekstensiFile));
+        $ekstensiFile  = explode('.', $namaFile);
+        $ekstensiFile  = strtolower(end($ekstensiFile));
 
         if (!in_array($ekstensiFile, $ekstensiValid)) {
             Flasher::setFlash('gagal', 'Yang anda upload bukan PDF/Dokumen!', 'danger');
@@ -49,23 +50,15 @@ class NotulenController extends Controller {
             return false;
         }
 
-        // 4. Cek Ukuran (Max 2MB)
         if ($ukuranFile > 2000000) {
             Flasher::setFlash('gagal', 'Ukuran file terlalu besar (Max 2MB)!', 'danger');
             header('Location: ' . BASEURL . '/rapat');
             return false;
         }
 
-        // 5. Generate Nama Baru (Agar tidak menimpa file lain)
-        // Contoh: 656473_RapatAnggaran.pdf
         $namaFileBaru = uniqid() . '_' . $namaFile;
-
-        // 6. Pindahkan File ke folder public/uploads
-        // Pastikan folder 'uploads' sudah dibuat di dalam 'public'!
         move_uploaded_file($tmpName, '../public/uploads/' . $namaFileBaru);
 
-        // 7. Update Database (Simpan Nama Filenya Saja)
-        // Kita pakai model Rapat karena kolom file_notulen ada di tabel rapat
         if( $this->model('Rapat')->updateNotulen($_POST['id_rapat'], $namaFileBaru) > 0 ) {
             Flasher::setFlash('berhasil', 'Notulen berhasil diupload', 'success');
             header('Location: ' . BASEURL . '/rapat');

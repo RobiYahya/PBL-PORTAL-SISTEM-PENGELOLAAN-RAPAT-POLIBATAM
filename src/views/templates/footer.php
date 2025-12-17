@@ -1,3 +1,9 @@
+<?php
+// Nama File: upload.php
+// Deskripsi: Form untuk mengunggah file notulen rapat.
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
+?>
 <div style="height: 50px;"></div>
 
     <footer class="new-footer">
@@ -17,7 +23,7 @@
             </div>
 
             <div class="footer-col">
-                <h4>QUICK LINKS</h4>
+                <h4>TAUTAN</h4>
                 <ul class="footer-links">
                     <li><a href="<?= BASEURL; ?>">Beranda</a></li>
                     <li><a href="<?= BASEURL; ?>/auth/login">Masuk</a></li>
@@ -53,7 +59,7 @@
             </div>
 
             <div class="footer-col">
-                <h4>CONTACT US</h4>
+                <h4>KONTAK KAMI</h4>
                 <div class="contact-info">
                     <p><i class="fas fa-map-marker-alt"></i> Jl. Ahmad Yani, Batam Kota, Kepulauan Riau, Indonesia</p>
                     <p><i class="fas fa-phone"></i> +62-877-6735-1842</p>
@@ -69,17 +75,5 @@
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-            if (menuToggle && navLinks) {
-                menuToggle.addEventListener('click', function() {
-                    menuToggle.classList.toggle('is-active');
-                    navLinks.classList.toggle('active');
-                });
-            }
-        });
-    </script>
-</body>
+    </body>
 </html>

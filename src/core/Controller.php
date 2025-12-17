@@ -1,23 +1,24 @@
 <?php
+// Nama File: Controller.php
+// Deskripsi: Kelas induk (Base Controller) untuk memuat View dan Model.
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
 
 class Controller {
     
-    // Fungsi untuk memanggil View (Tampilan)
+    // Fungsi untuk memanggil View
     public function view($view, $data = [])
     {
-        // Cek file view
         if (file_exists('../src/views/' . $view . '.php')) {
             require_once '../src/views/' . $view . '.php';
         } else {
-            // Error handling untuk developer (Hapus saat production)
             die("Error: View '$view' tidak ditemukan di folder src/views!");
         }
     }
 
-    // Fungsi untuk memanggil Model (Database Logic)
+    // Fungsi untuk memanggil Model
     public function model($model)
     {
-        // Cek file model
         if (file_exists('../src/models/' . $model . '.php')) {
             require_once '../src/models/' . $model . '.php';
             return new $model;

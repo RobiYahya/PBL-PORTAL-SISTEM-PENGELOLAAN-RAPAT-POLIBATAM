@@ -1,4 +1,8 @@
 <?php
+// Nama File: User.php
+// Deskripsi: Model untuk mengelola data pengguna (CRUD User, Login, Profil).
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
 
 class User {
     private $table = 'users';
@@ -9,17 +13,17 @@ class User {
         $this->db = new Database;
     }
 
-    // 1. Ambil Semua User (Untuk List Undangan Rapat & Admin Panel)
+    // 1. Ambil Semua User
     public function getAllUsers()
     {
-        $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY nama_lengkap ASC');
+        $this->db->query("SELECT * FROM " . $this->table . " ORDER BY nama_lengkap ASC");
         return $this->db->resultSet();
     }
 
-    // 2. Ambil Satu User berdasarkan ID (Untuk Profil)
+    // 2. Ambil Satu User berdasarkan ID
     public function getUserById($id)
     {
-        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id_user=:id');
+        $this->db->query("SELECT * FROM " . $this->table . " WHERE id_user=:id");
         $this->db->bind('id', $id);
         return $this->db->single();
     }
@@ -27,15 +31,16 @@ class User {
     // 3. Tambah User Baru (Register)
     public function tambahDataUser($data)
     {
-        // Cek apakah NIK sudah ada?
-        $this->db->query("SELECT * FROM " . $this->table . " WHERE nik = :nik");
+        // Cek NIK Duplikat
+        $this->db->query("SELECT nik FROM " . $this->table . " WHERE nik = :nik");
         $this->db->bind('nik', $data['nik']);
         $this->db->execute();
+        
         if($this->db->rowCount() > 0) {
-            return 0; // Gagal, NIK duplikat
+            return 0; // Gagal, NIK sudah ada
         }
 
-        $query = "INSERT INTO " . $this->table . "
+        $query = "INSERT INTO " . $this->table . " 
                     (nama_lengkap, nik, email, password, jabatan)
                   VALUES
                     (:nama, :nik, :email, :password, :jabatan)";
@@ -45,53 +50,44 @@ class User {
         $this->db->bind('nik', $data['nik']);
         $this->db->bind('email', $data['email']);
         
-        // Default jabatan jika tidak dipilih
         $jabatan = isset($data['jabatan']) ? $data['jabatan'] : 'dosen'; 
         $this->db->bind('jabatan', $jabatan);
 
-        // Hash Password
         $passwordHash = password_hash($data['password'], PASSWORD_DEFAULT);
         $this->db->bind('password', $passwordHash);
 
         $this->db->execute();
-
         return $this->db->rowCount();
     }
 
-    // 4. Update Profil (Foto, Password, Nama)
+    // 4. Update Profil
     public function updateDataUser($data, $files)
     {
+        // PERINGATAN: Mengakses $_SESSION di Model adalah bad practice (Coupling).
+        // Tapi aku biarkan agar kodemu tetap jalan.
         $id = $_SESSION['user_id'];
         
-        // 1. Siapkan Query Dasar
         $query = "UPDATE " . $this->table . " SET nama_lengkap = :nama, email = :email";
         
-        // 2. Cek Password Baru
         if (!empty($data['password_baru'])) {
             $query .= ", password = :pass";
         }
 
-        // 3. Cek Upload Foto
         $fotoBaru = null;
         if (isset($files['foto_profil']) && $files['foto_profil']['error'] === 0) {
-            
             $namaFile = $files['foto_profil']['name'];
             $tmpName  = $files['foto_profil']['tmp_name'];
             $ekstensi = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
             $valid    = ['jpg', 'jpeg', 'png', 'gif'];
             
             if (in_array($ekstensi, $valid)) {
-                // Nama Unik
                 $fotoBaru = 'profile_' . $id . '_' . time() . '.' . $ekstensi;
-                
-                // Lokasi Simpan (Path Relative terhadap index.php)
-                // Kita gunakan path yang sederhana karena kita sudah buat foldernya
                 $tujuan = 'foto/profil/' . $fotoBaru;
                 
                 if (move_uploaded_file($tmpName, $tujuan)) {
                     $query .= ", foto = :foto";
                     
-                    // (Opsional) Hapus foto lama
+                    // Hapus foto lama jika ada
                     if(!empty($data['foto_lama']) && $data['foto_lama'] != 'default.png' && file_exists('foto/profil/' . $data['foto_lama'])){
                         unlink('foto/profil/' . $data['foto_lama']);
                     }
@@ -101,7 +97,6 @@ class User {
 
         $query .= " WHERE id_user = :id";
 
-        // Eksekusi Query
         $this->db->query($query);
         $this->db->bind('nama', $data['nama_lengkap']);
         $this->db->bind('email', $data['email']);
@@ -117,7 +112,6 @@ class User {
 
         $this->db->execute();
         
-        // Update Session jika nama berubah
         if($this->db->rowCount() > 0) {
             $_SESSION['nama'] = $data['nama_lengkap'];
         }
@@ -125,10 +119,10 @@ class User {
         return $this->db->rowCount();
     }
 
-    // 5. Cek Login (Untuk Auth)
+    // 5. Cek Login
     public function cekLogin($nik, $password)
     {
-        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE nik = :nik');
+        $this->db->query("SELECT * FROM " . $this->table . " WHERE nik = :nik");
         $this->db->bind('nik', $nik);
         $user = $this->db->single();
 
@@ -140,21 +134,20 @@ class User {
         return false;
     }
 
-    // Cek Undangan Baru (Unread)
+    // Notifikasi: Cek Undangan Baru
     public function getUndanganBaru($userId)
     {
-        // Ambil judul rapat dimana user ini jadi peserta DAN statusnya masih 'unread'
         $query = "SELECT r.judul_rapat 
-                FROM peserta p
-                JOIN rapat r ON p.id_rapat = r.id_rapat
-                WHERE p.id_user = :uid AND p.notifikasi_status = 'unread'";
+                  FROM peserta p
+                  JOIN rapat r ON p.id_rapat = r.id_rapat
+                  WHERE p.id_user = :uid AND p.notifikasi_status = 'unread'";
         
         $this->db->query($query);
         $this->db->bind('uid', $userId);
         return $this->db->resultSet();
     }
 
-    // Tandai Undangan Sudah Dibaca (Supaya popup tidak muncul terus)
+    // Notifikasi: Tandai Sudah Dibaca
     public function tandaiUndanganDibaca($userId)
     {
         $query = "UPDATE peserta SET notifikasi_status = 'read' WHERE id_user = :uid";

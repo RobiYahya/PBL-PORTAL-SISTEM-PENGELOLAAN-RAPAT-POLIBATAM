@@ -1,22 +1,23 @@
 <?php
+// Nama File: config.php
+// Deskripsi: File konfigurasi utama untuk Base URL dan Koneksi Database.
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
 
-// 1. Deteksi Protokol (HTTP atau HTTPS)
-// XAMPP default biasanya http, tapi script ini jaga-jaga kalau kau pakai SSL
+// 1. Deteksi Protokol
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://";
 
 // 2. Deteksi Host
-// Ini akan otomatis berisi 'localhost' jika kau buka di laptop,
-// atau '192.168.x.x' jika kau buka di HP.
 $host = $_SERVER['HTTP_HOST'];
 
 // 3. Nama Folder Project
-// GANTI 'sipera' JIKA NAMA FOLDER DI HTDOCS-MU BEDA
+// PASTIKAN INI SESUAI DENGAN FOLDER DI HTDOCS
 $path = '/sipera/public';
 
 // 4. Gabungkan Semuanya
 define('BASEURL', $protocol . $host . $path);
 
-// --- Konfigurasi Database (Tetap Localhost) ---
+// --- Konfigurasi Database ---
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');

@@ -1,11 +1,17 @@
+<?php
+// Nama File: upload.php
+// Deskripsi: Form untuk mengunggah file notulen rapat.
+// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
+// Tanggal: [TANGGAL_HARI_INI]
+?>
 <main class="container notulen-main">
     <h1 class="main-title">📝 Upload Notulen Rapat</h1>
 
     <section class="notulen-form-section neumorphism-card">
-        <h2>Rapat: <?= $data['rapat']['judul_rapat']; ?></h2>
+        <h2>Rapat: <?= htmlspecialchars($data['rapat']['judul_rapat']); ?></h2>
         
         <form action="<?= BASEURL; ?>/notulen/prosesUpload" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="id_rapat" value="<?= $data['rapat']['id_rapat']; ?>">
+            <input type="hidden" name="id_rapat" value="<?= htmlspecialchars($data['rapat']['id_rapat']); ?>" />
 
             <div class="form-group">
                 <label>Tanggal Rapat:</label>
@@ -14,7 +20,7 @@
 
             <div class="form-group">
                 <label>Pilih File Notulen (PDF/DOCX, Max 2MB):</label>
-                <input type="file" name="file_notulen" required class="neumorphic-input" accept=".pdf,.doc,.docx">
+                <input type="file" name="file_notulen" required class="neumorphic-input" accept=".pdf,.doc,.docx" />
             </div>
 
             <div class="form-actions">
