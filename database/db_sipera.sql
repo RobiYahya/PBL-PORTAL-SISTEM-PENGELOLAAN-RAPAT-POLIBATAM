@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2025 at 11:22 AM
+-- Generation Time: Dec 18, 2025 at 04:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,45 +24,40 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notulen`
+-- Table structure for table `peserta`
 --
 
-CREATE TABLE `notulen` (
-  `id_notulen` int(11) NOT NULL,
-  `id_rapat` int(11) NOT NULL,
-  `konten` text DEFAULT NULL,
-  `penulis` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `peserta_rapat`
---
-
-CREATE TABLE `peserta_rapat` (
+CREATE TABLE `peserta` (
   `id_peserta` int(11) NOT NULL,
   `id_rapat` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `status_kehadiran` enum('hadir','tidak_hadir','izin') DEFAULT 'hadir',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `notifikasi_status` enum('unread','read') DEFAULT 'unread'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `presensi`
+-- Dumping data for table `peserta`
 --
 
-CREATE TABLE `presensi` (
-  `id_presensi` int(11) NOT NULL,
-  `id_rapat` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `status` enum('menunggu','hadir','izin','alpa') NOT NULL DEFAULT 'alpa',
-  `waktu_absen` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `peserta` (`id_peserta`, `id_rapat`, `id_user`, `status_kehadiran`, `created_at`, `notifikasi_status`) VALUES
+(3, 1, 2, 'hadir', '2025-12-15 02:30:36', 'read'),
+(4, 1, 3, 'hadir', '2025-12-15 02:30:36', 'read'),
+(7, 2, 4, 'hadir', '2025-12-15 02:41:24', 'read'),
+(8, 2, 2, 'hadir', '2025-12-15 02:41:24', 'read'),
+(9, 2, 3, 'hadir', '2025-12-15 02:41:24', 'read'),
+(10, 3, 7, '', '2025-12-15 07:28:51', 'read'),
+(11, 3, 4, '', '2025-12-15 07:28:51', 'read'),
+(12, 3, 2, '', '2025-12-15 07:28:51', 'read'),
+(16, 4, 4, 'hadir', '2025-12-15 08:54:53', 'read'),
+(17, 4, 3, 'hadir', '2025-12-15 08:54:53', 'read'),
+(18, 4, 1, 'hadir', '2025-12-15 08:54:53', 'read'),
+(22, 5, 4, 'hadir', '2025-12-16 17:07:21', 'read'),
+(23, 5, 2, 'hadir', '2025-12-16 17:07:21', 'read'),
+(24, 5, 3, 'hadir', '2025-12-16 17:07:21', 'unread'),
+(25, 6, 4, 'hadir', '2025-12-17 07:17:04', 'read'),
+(26, 6, 2, 'izin', '2025-12-17 07:17:04', 'read'),
+(27, 6, 3, 'hadir', '2025-12-17 07:17:04', 'unread');
 
 -- --------------------------------------------------------
 
@@ -78,10 +73,22 @@ CREATE TABLE `rapat` (
   `tgl_rapat` date NOT NULL,
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL,
-  `status` enum('terjadwal','mulai','selesai','batal') NOT NULL DEFAULT 'terjadwal',
+  `status` enum('terjadwal','selesai','dibatalkan','draft','menunggu_konfirmasi') DEFAULT 'menunggu_konfirmasi',
   `file_notulen` varchar(255) DEFAULT NULL,
   `id_pembuat` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rapat`
+--
+
+INSERT INTO `rapat` (`id_rapat`, `judul_rapat`, `deskripsi`, `lokasi`, `tgl_rapat`, `jam_mulai`, `jam_selesai`, `status`, `file_notulen`, `id_pembuat`) VALUES
+(1, 'Rapat Koordinasi', 'Membahas jadwal mata kuliah terkhusus prodi if', 'GU 704', '2025-12-16', '09:30:00', '11:30:00', 'selesai', 'notulen_1_1765765890.pdf', 1),
+(2, 'Rapat Dosen Siskom', 'Membahas RPS', 'GU 706', '2025-12-16', '09:00:00', '11:00:00', 'selesai', NULL, 1),
+(3, 'Rapat Angsuran Masjid Polibatam', 'Membuat laporan RAB', 'TA lt 10.a', '2025-12-16', '13:00:00', '15:30:00', 'dibatalkan', NULL, 3),
+(4, 'rapat kinerja mingguan', 'Membahas RPS ', 'GU 704', '2025-12-16', '13:30:00', '15:30:00', 'selesai', NULL, 2),
+(5, 'Rapat HUT Polibatam', 'Membahas agenda hut polibatam', 'GU 705', '2025-12-17', '09:30:00', '12:00:00', 'selesai', NULL, 1),
+(6, 'Rapat Dosen IF', 'Membahas semester 2 prodi if', 'GU 705', '2025-12-22', '09:00:00', '15:00:00', 'selesai', 'notulen_6_1765956257.pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -94,43 +101,35 @@ CREATE TABLE `users` (
   `nik` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nama_lengkap` varchar(100) NOT NULL,
-  `jabatan` enum('admin','dosen') NOT NULL
+  `email` varchar(100) NOT NULL,
+  `jabatan` enum('admin','dosen') NOT NULL,
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `nik`, `password`, `nama_lengkap`, `jabatan`) VALUES
-(1, '3312501036', '12345', 'Rangga Surya Saputra', 'dosen');
+INSERT INTO `users` (`id_user`, `nik`, `password`, `nama_lengkap`, `email`, `jabatan`, `foto`) VALUES
+(1, '112093', '$2y$10$0oMzzct1dENgQbRE3f8hjOi0De9zhPAeURWiiRaq2R.XJ4ki0WqJ2', 'Yeni Rokhayati', 'yeni@polibatam.ac.id', 'dosen', 'profile_1_1765878303.jpg'),
+(2, '112094', '$2y$10$wSBgHBEd3hJqJyD/5yETY.prIwQ9RQzV1gOyg/w/JVoWpudSj/0wi', 'Ir. Dwi Ely Kurniawan', 'dwialikhs@polibatam.ac.id', 'dosen', 'profile_2_1765878341.jpg'),
+(3, '122283', '$2y$10$Wbfw3IEAJd2Ci/uBNVFuIuY8hROwpuq/fz4qWZ/Y/cD6U57SJGBfO', 'Muhammad Idris', 'idris@polibatam.ac.id', 'dosen', 'profile_3_1765878372.jpg'),
+(4, '0005099007', '$2y$10$NpDLOmuhTrZ7mcOFuh6tYe4GaTTnKbcuO/w.cZep6fq1InEHYsTH6', 'Dwi Amalia Purnamasari', 'dwiamaliaps@gmail.com', 'dosen', 'profile_4_1765878279.jpg'),
+(5, '213162', '$2a$12$SR6oYTw0Kj6MOs449aBBOeoeiTK/Rkg54ZfQIeFqMlOO7qw2GwZHS', 'Novia syafitriani', 'tu-if@polibatam.ac.id', 'admin', 'profile_5_1765878399.jpg'),
+(7, '218292', '$2a$12$c0Qcr9S1IkSlvxAsRklwDOwQwP/KKLm5vTNfpNAva0iFE7gA8Owxq', 'Dede Nurdiansyah', 'tu-if@polibatam.ac.id', 'admin', 'profile_7_1765878460.jpg'),
+(8, '224345', '$2a$12$Z7IWovHP9AMnGfxjaRU9s.RBfh34rlSZeWZda7TVv46D9.rhxBvRK', 'Rhanna Mawira', 'tu-if@polibatam.ac.id', 'admin', 'profile_8_1765878486.jpg');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `notulen`
+-- Indexes for table `peserta`
 --
-ALTER TABLE `notulen`
-  ADD PRIMARY KEY (`id_notulen`),
-  ADD KEY `id_rapat` (`id_rapat`),
-  ADD KEY `penulis` (`penulis`);
-
---
--- Indexes for table `peserta_rapat`
---
-ALTER TABLE `peserta_rapat`
+ALTER TABLE `peserta`
   ADD PRIMARY KEY (`id_peserta`),
   ADD UNIQUE KEY `unique_peserta` (`id_rapat`,`id_user`),
   ADD KEY `id_user` (`id_user`);
-
---
--- Indexes for table `presensi`
---
-ALTER TABLE `presensi`
-  ADD PRIMARY KEY (`id_presensi`),
-  ADD UNIQUE KEY `id_rapat` (`id_rapat`,`id_user`),
-  ADD KEY `fk_presensi_user` (`id_user`);
 
 --
 -- Indexes for table `rapat`
@@ -151,59 +150,33 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `notulen`
+-- AUTO_INCREMENT for table `peserta`
 --
-ALTER TABLE `notulen`
-  MODIFY `id_notulen` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `peserta_rapat`
---
-ALTER TABLE `peserta_rapat`
-  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `presensi`
---
-ALTER TABLE `presensi`
-  MODIFY `id_presensi` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `peserta`
+  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `rapat`
 --
 ALTER TABLE `rapat`
-  MODIFY `id_rapat` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rapat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `notulen`
+-- Constraints for table `peserta`
 --
-ALTER TABLE `notulen`
-  ADD CONSTRAINT `notulen_ibfk_1` FOREIGN KEY (`id_rapat`) REFERENCES `rapat` (`id_rapat`) ON DELETE CASCADE,
-  ADD CONSTRAINT `notulen_ibfk_2` FOREIGN KEY (`penulis`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
-
---
--- Constraints for table `peserta_rapat`
---
-ALTER TABLE `peserta_rapat`
-  ADD CONSTRAINT `peserta_rapat_ibfk_1` FOREIGN KEY (`id_rapat`) REFERENCES `rapat` (`id_rapat`) ON DELETE CASCADE,
-  ADD CONSTRAINT `peserta_rapat_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
-
---
--- Constraints for table `presensi`
---
-ALTER TABLE `presensi`
-  ADD CONSTRAINT `fk_presensi_rapat` FOREIGN KEY (`id_rapat`) REFERENCES `rapat` (`id_rapat`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_presensi_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
+ALTER TABLE `peserta`
+  ADD CONSTRAINT `peserta_ibfk_1` FOREIGN KEY (`id_rapat`) REFERENCES `rapat` (`id_rapat`) ON DELETE CASCADE,
+  ADD CONSTRAINT `peserta_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `rapat`
