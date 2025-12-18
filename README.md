@@ -136,19 +136,19 @@ Berikut beberapa tampilan utama dari aplikasi **SIPERA**:
 
 ### Halaman Login
 Halaman autentikasi awal yang digunakan pengguna untuk masuk ke sistem SIPERA dengan memasukkan Nomor Induk Karyawan (NIK) dan password sesuai dengan hak akses masing-masing role (Admin atau User).
-![Login](assets/login_preview.png)
+![Login](assets/screenshots/login_preview.png)
 
 ### Dashboard User
 Menampilkan daftar rapat yang diikuti oleh pengguna, lengkap dengan informasi jadwal, status rapat, serta akses cepat menuju detail rapat dan notulen.
-![Dashboard User](assets/dashboard_preview.png)
+![Dashboard User](assets/screenshots/dashboard_preview.png)
 
 ### Buat Rapat
 Halaman formulir pengajuan rapat yang digunakan oleh dosen atau staf untuk menentukan agenda rapat, waktu pelaksanaan, lokasi, serta peserta yang akan diundang.
-![Buat Rapat](assets/create_preview.png)
+![Buat Rapat](assets/screenshots/create_preview.png)
 
 ### Detail Rapat
 Menampilkan informasi lengkap mengenai rapat, termasuk agenda, daftar peserta, status kehadiran, serta fitur unggah dan unduh notulen setelah rapat selesai.
-![Detail](assets/detail_preview.png)
+![Detail](assets/screenshots/detail_preview.png)
 
 ---
 
