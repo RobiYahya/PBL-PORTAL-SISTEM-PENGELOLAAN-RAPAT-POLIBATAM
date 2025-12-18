@@ -236,4 +236,33 @@ class Rapat {
 
         return $this->db->rowCount();
     }
+
+    // 8. HAPUS RAPAT PERMANEN (Hanya untuk status Batal/Reject)
+    public function hapusRapat($id)
+    {
+        // 1. Ambil nama file notulen dulu (untuk dihapus dari folder)
+        $this->db->query("SELECT file_notulen FROM " . $this->table . " WHERE id_rapat = :id");
+        $this->db->bind('id', $id);
+        $rapat = $this->db->single();
+
+        // 2. Hapus File Fisik jika ada
+        if ($rapat && !empty($rapat['file_notulen'])) {
+            $path = '../public/files/notulen/' . $rapat['file_notulen'];
+            if (file_exists($path)) {
+                unlink($path); // Hapus file dari server
+            }
+        }
+
+        // 3. Hapus Data Peserta (Foreign Key)
+        $this->db->query("DELETE FROM " . $this->table_peserta . " WHERE id_rapat = :id");
+        $this->db->bind('id', $id);
+        $this->db->execute();
+
+        // 4. Hapus Data Rapat Utama
+        $this->db->query("DELETE FROM " . $this->table . " WHERE id_rapat = :id");
+        $this->db->bind('id', $id);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
 }

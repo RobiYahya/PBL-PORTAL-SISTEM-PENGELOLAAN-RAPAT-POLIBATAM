@@ -306,4 +306,38 @@ class RapatController extends Controller {
         header('Location: ' . BASEURL . '/rapat');
         exit;
     }
+    public function delete($id)
+    {
+        // Cek data rapat dulu
+        $rapat = $this->model('Rapat')->getRapatById($id);
+        
+        if (!$rapat) {
+            Flasher::setFlash('Gagal', 'Data tidak ditemukan', 'danger');
+            header('Location: ' . BASEURL . '/rapat');
+            exit;
+        }
+
+        // Validasi: Hanya Pembuat atau Admin yang boleh hapus
+        if ($rapat['id_pembuat'] != $_SESSION['user_id'] && $_SESSION['role'] != 'admin') {
+            Flasher::setFlash('Gagal', 'Akses ditolak!', 'danger');
+            header('Location: ' . BASEURL . '/rapat');
+            exit;
+        }
+
+        // Validasi: JANGAN HAPUS YANG SUDAH SELESAI (Kecuali Admin maksa)
+        if ($rapat['status'] == 'selesai' && $_SESSION['role'] != 'admin') {
+            Flasher::setFlash('Gagal', 'Rapat yang sudah selesai tidak boleh dihapus demi arsip!', 'warning');
+            header('Location: ' . BASEURL . '/rapat');
+            exit;
+        }
+
+        if ($this->model('Rapat')->hapusRapat($id) > 0) {
+            Flasher::setFlash('Berhasil', 'Rapat telah dihapus permanen.', 'success');
+        } else {
+            Flasher::setFlash('Gagal', 'Terjadi kesalahan penghapusan.', 'danger');
+        }
+
+        header('Location: ' . BASEURL . '/rapat');
+        exit;
+    }
 }

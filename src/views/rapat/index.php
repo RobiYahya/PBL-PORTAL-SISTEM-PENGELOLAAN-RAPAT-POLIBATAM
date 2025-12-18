@@ -122,10 +122,22 @@
                                 <span class="meeting-title-link text-muted"><?= htmlspecialchars($rapat['judul_rapat']); ?></span>
                                 <p class="meeting-info"><?= date('d M Y', strtotime($rapat['tgl_rapat'])); ?></p>
                             </div>
+                            
+                            <div class="meeting-actions">
+                                <?php if ($rapat['id_pembuat'] == $_SESSION['user_id'] || $_SESSION['role'] == 'admin'): ?>
+                                    <a href="<?= BASEURL; ?>/rapat/delete/<?= $rapat['id_rapat']; ?>" 
+                                       class="neu-btn btn-danger" 
+                                       style="font-size: 0.8em; padding: 8px 15px;"
+                                       onclick="return confirm('⚠️ PERINGATAN: Rapat ini akan dihapus PERMANEN dan tidak bisa dikembalikan. Lanjutkan?')">
+                                       <i class="fas fa-trash"></i> Hapus
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                            
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p class="text-center">🚫 Tidak ada data.</p>
+                    <p class="text-center">🚫 Tidak ada data sampah.</p>
                 <?php endif; ?>
             </div>
 
