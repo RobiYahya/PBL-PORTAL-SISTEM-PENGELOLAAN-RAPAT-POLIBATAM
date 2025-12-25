@@ -1,8 +1,6 @@
 <?php
 // Nama File: absensi.php
 // Deskripsi: Form untuk melakukan absensi manual peserta rapat.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 ?>
 <main>
     <section style="padding: 40px 0;">

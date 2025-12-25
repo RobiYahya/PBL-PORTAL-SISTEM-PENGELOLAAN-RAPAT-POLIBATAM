@@ -1,8 +1,6 @@
 <?php
 // Nama File: Rapat.php
 // Deskripsi: Model inti untuk pengelolaan data rapat, peserta, dan absensi.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class Rapat {
     private $table = 'rapat';

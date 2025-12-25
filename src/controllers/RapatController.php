@@ -1,25 +1,24 @@
 <?php
 // Nama File: RapatController.php
 // Deskripsi: Controller utama untuk CRUD Rapat, Absensi, dan Approval.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class RapatController extends Controller {
     
     public function __construct()
     {
+        // Cek Login Wajib
         if (!isset($_SESSION['user_id'])) {
             header('Location: ' . BASEURL . '/auth/login');
             exit;
         }
     }
 
-    // 1. DASHBOARD RAPAT
+    // 1. HALAMAN DASHBOARD
     public function index()
     {
         $data['judul'] = 'Rapat Saya';
         $userId = $_SESSION['user_id'];
-        $role   = $_SESSION['role'];
+        $role = $_SESSION['role'];
         
         $this->model('Rapat')->autoUpdateStatus();
 
@@ -42,7 +41,7 @@ class RapatController extends Controller {
         $this->view('templates/footer');
     }
 
-    // 2. FORM BUAT RAPAT
+    // 2. HALAMAN BUAT RAPAT
     public function create()
     {
         if ($_SESSION['role'] == 'admin') {
@@ -59,10 +58,10 @@ class RapatController extends Controller {
         $this->view('templates/footer');
     }
 
-    // 3. PROSES SIMPAN RAPAT
+    // 3. PROSES SIMPAN (DENGAN VALIDASI KETAT)
     public function store()
     {
-        // Fitur: Pilih Seluruh Dosen
+        // A. LOGIKA OTOMATIS GRUP "SELURUH DOSEN"
         if (isset($_POST['target_rapat']) && in_array('dosen', $_POST['target_rapat'])) {
             $allUsers = $this->model('User')->getAllUsers();
             
@@ -79,6 +78,43 @@ class RapatController extends Controller {
             }
         }
 
+        // --- B. VALIDASI DATA (PERBAIKAN BLACKBOX) ---
+
+        // 1. Cek Peserta Kosong
+        if (empty($_POST['peserta'])) {
+            Flasher::setFlash('Gagal', 'Wajib mengundang minimal 1 peserta!', 'danger');
+            header('Location: ' . BASEURL . '/rapat/create');
+            exit;
+        }
+
+        // 2. Cek Jam Kosong
+        if (empty($_POST['jam_mulai']) || empty($_POST['jam_selesai'])) {
+            Flasher::setFlash('Gagal', 'Jam mulai dan selesai wajib diisi!', 'danger');
+            header('Location: ' . BASEURL . '/rapat/create');
+            exit;
+        }
+
+        // 3. Cek Jam Terbalik (Selesai duluan dari Mulai)
+        if ($_POST['jam_selesai'] <= $_POST['jam_mulai']) {
+            Flasher::setFlash('Gagal', 'Jam selesai harus lebih akhir dari jam mulai!', 'danger');
+            header('Location: ' . BASEURL . '/rapat/create');
+            exit;
+        }
+
+        // 4. Cek Waktu Lampau (Back Date)
+        $tglInput = $_POST['tanggal_rapat'];
+        $jamInput = $_POST['jam_mulai'];
+        $waktuRapat = strtotime("$tglInput $jamInput"); // Gabung jadi timestamp
+        $waktuSekarang = time();
+
+        if ($waktuRapat < $waktuSekarang) {
+            Flasher::setFlash('Gagal', 'Tidak bisa mengajukan rapat di waktu lampau!', 'danger');
+            header('Location: ' . BASEURL . '/rapat/create');
+            exit;
+        }
+        // ---------------------------------------------
+
+        // C. Tentukan Status
         if ($_SESSION['role'] == 'admin') {
             $_POST['status'] = 'terjadwal';
             $pesan = 'Rapat berhasil diterbitkan dan undangan dikirim.';
@@ -87,8 +123,9 @@ class RapatController extends Controller {
             $pesan = 'Pengajuan berhasil dikirim! Mohon tunggu persetujuan Admin TU.';
         }
 
+        // D. Simpan ke Database
         if ($this->model('Rapat')->tambahRapat($_POST, $_SESSION['user_id']) > 0) {
-            $_SESSION['popup_type']  = 'success';
+            $_SESSION['popup_type'] = 'success';
             $_SESSION['popup_title'] = 'Berhasil!';
             $_SESSION['popup_text']  = $pesan;
             header('Location: ' . BASEURL . '/rapat');
@@ -100,7 +137,7 @@ class RapatController extends Controller {
         }
     }
 
-    // 4. DETAIL RAPAT
+    // 4. HALAMAN DETAIL
     public function detail($id)
     {
         $data['judul'] = 'Detail Rapat';
@@ -112,9 +149,9 @@ class RapatController extends Controller {
             exit;
         }
 
-        $userId     = $_SESSION['user_id'];
-        $role       = $_SESSION['role'];
-        $pembuatId  = $data['rapat']['id_pembuat'];
+        $userId = $_SESSION['user_id'];
+        $role = $_SESSION['role'];
+        $pembuatId = $data['rapat']['id_pembuat'];
         $pesertaIds = $this->model('Rapat')->getPesertaIds($id);
 
         $isAllowed = ($userId == $pembuatId) || in_array($userId, $pesertaIds) || ($role == 'admin');
@@ -132,7 +169,7 @@ class RapatController extends Controller {
         $this->view('templates/footer');
     }
 
-    // 5. EDIT RAPAT
+    // 5. HALAMAN EDIT
     public function edit($id)
     {
         $data['judul'] = 'Edit Rapat';
@@ -148,7 +185,7 @@ class RapatController extends Controller {
             exit;
         }
 
-        $data['users']       = $this->model('User')->getAllUsers();
+        $data['users'] = $this->model('User')->getAllUsers();
         $data['peserta_ids'] = $this->model('Rapat')->getPesertaIds($id);
 
         $this->view('templates/header', $data);
@@ -159,18 +196,13 @@ class RapatController extends Controller {
     // 6. PROSES UPDATE
     public function update()
     {
+        // LOGIKA GRUP DOSEN (Sama seperti store)
         if (isset($_POST['target_rapat']) && in_array('dosen', $_POST['target_rapat'])) {
             $allUsers = $this->model('User')->getAllUsers();
-            
-            if (!isset($_POST['peserta'])) {
-                $_POST['peserta'] = [];
-            }
-
+            if (!isset($_POST['peserta'])) $_POST['peserta'] = [];
             foreach ($allUsers as $user) {
                 if ($user['jabatan'] != 'admin' && $user['id_user'] != $_SESSION['user_id']) {
-                    if (!in_array($user['id_user'], $_POST['peserta'])) {
-                        $_POST['peserta'][] = $user['id_user'];
-                    }
+                    if (!in_array($user['id_user'], $_POST['peserta'])) $_POST['peserta'][] = $user['id_user'];
                 }
             }
         }
@@ -201,6 +233,7 @@ class RapatController extends Controller {
     {
         if ($_SESSION['role'] != 'admin') { header('Location: ' . BASEURL); exit; }
 
+        // Pastikan status di database ENUM mendukung 'dibatalkan'
         if ($this->model('Rapat')->updateStatusRapat($id, 'dibatalkan') > 0) {
             Flasher::setFlash('Ditolak', 'Pengajuan rapat ditolak.', 'warning');
         }
@@ -211,8 +244,8 @@ class RapatController extends Controller {
     // 9. HALAMAN ABSENSI
     public function absensi($id)
     {
-        $data['judul']   = 'Absensi Rapat';
-        $data['rapat']   = $this->model('Rapat')->getRapatById($id);
+        $data['judul'] = 'Absensi Rapat';
+        $data['rapat'] = $this->model('Rapat')->getRapatById($id);
         $data['peserta'] = $this->model('Rapat')->getPesertaByRapat($id);
 
         if($data['rapat']['id_pembuat'] != $_SESSION['user_id']) {
@@ -229,12 +262,17 @@ class RapatController extends Controller {
     // 10. PROSES ABSENSI & NOTULEN
     public function processAbsensi()
     {
+        // 1. Simpan Absensi
         $this->model('Rapat')->updatePresensi($_POST);
 
+        // [FIX BUG] STATUS HARUS JADI SELESAI
+        $this->model('Rapat')->updateStatusRapat($_POST['id_rapat'], 'selesai');
+
+        // 2. Upload Notulen (Opsional)
         if (isset($_FILES['file_notulen']) && $_FILES['file_notulen']['error'] === 0) {
             $namaFile = $_FILES['file_notulen']['name'];
             $tmpName  = $_FILES['file_notulen']['tmp_name'];
-            $ext      = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
+            $ext = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
             
             if (!in_array($ext, ['pdf', 'doc', 'docx']) || $_FILES['file_notulen']['size'] > 5000000) {
                 Flasher::setFlash('Gagal', 'File harus PDF/Word max 5MB', 'danger');
@@ -248,12 +286,12 @@ class RapatController extends Controller {
             }
         }
         
-        Flasher::setFlash('Berhasil', 'Absensi & Data tersimpan!', 'success');
+        Flasher::setFlash('Berhasil', 'Rapat diselesaikan & Data tersimpan!', 'success');
         header('Location: ' . BASEURL . '/rapat/detail/' . $_POST['id_rapat']);
         exit;
     }
 
-    // 11. CANCEL (Manual)
+    // 11. CANCEL RAPAT
     public function cancel($id)
     {
         if ($this->model('Rapat')->batalkanRapat($id, $_SESSION['user_id']) > 0) {
@@ -262,81 +300,30 @@ class RapatController extends Controller {
         header('Location: ' . BASEURL . '/rapat');
         exit;
     }
-    
+
     // 12. UPLOAD NOTULEN (Dari Dashboard)
     public function uploadNotulen()
     {
         if (isset($_FILES['file_notulen']) && $_FILES['file_notulen']['error'] === 0) {
-            
-            $idRapat  = $_POST['id_rapat'];
+            $idRapat = $_POST['id_rapat'];
             $namaFile = $_FILES['file_notulen']['name'];
             $tmpName  = $_FILES['file_notulen']['tmp_name'];
-            $fileSize = $_FILES['file_notulen']['size'];
-            
             $ext = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
+            
             if (!in_array($ext, ['pdf', 'doc', 'docx'])) {
-                Flasher::setFlash('Gagal', 'Hanya file PDF atau Word yang diperbolehkan!', 'danger');
-                header('Location: ' . BASEURL . '/rapat');
-                exit;
-            }
-
-            if ($fileSize > 5000000) {
-                Flasher::setFlash('Gagal', 'Ukuran file terlalu besar (Max 5MB)!', 'danger');
-                header('Location: ' . BASEURL . '/rapat');
-                exit;
+                Flasher::setFlash('Gagal', 'Format salah!', 'danger');
+                header('Location: ' . BASEURL . '/rapat'); exit;
             }
 
             $namaBaru = 'notulen_' . $idRapat . '_' . time() . '.' . $ext;
             $tujuan   = '../public/files/notulen/' . $namaBaru;
-
-            if (!file_exists('../public/files/notulen/')) {
-                mkdir('../public/files/notulen/', 0755, true);
-            }
+            if (!file_exists('../public/files/notulen/')) mkdir('../public/files/notulen/', 0755, true);
 
             if (move_uploaded_file($tmpName, $tujuan)) {
                 $this->model('Rapat')->updateNotulen($idRapat, $namaBaru);
-                Flasher::setFlash('Berhasil', 'Notulen berhasil diunggah!', 'success');
-            } else {
-                Flasher::setFlash('Gagal', 'Gagal mengunggah file ke server.', 'danger');
+                Flasher::setFlash('Berhasil', 'Notulen diunggah!', 'success');
             }
-        } else {
-            Flasher::setFlash('Gagal', 'Tidak ada file yang dipilih.', 'danger');
         }
-
-        header('Location: ' . BASEURL . '/rapat');
-        exit;
-    }
-    public function delete($id)
-    {
-        // Cek data rapat dulu
-        $rapat = $this->model('Rapat')->getRapatById($id);
-        
-        if (!$rapat) {
-            Flasher::setFlash('Gagal', 'Data tidak ditemukan', 'danger');
-            header('Location: ' . BASEURL . '/rapat');
-            exit;
-        }
-
-        // Validasi: Hanya Pembuat atau Admin yang boleh hapus
-        if ($rapat['id_pembuat'] != $_SESSION['user_id'] && $_SESSION['role'] != 'admin') {
-            Flasher::setFlash('Gagal', 'Akses ditolak!', 'danger');
-            header('Location: ' . BASEURL . '/rapat');
-            exit;
-        }
-
-        // Validasi: JANGAN HAPUS YANG SUDAH SELESAI (Kecuali Admin maksa)
-        if ($rapat['status'] == 'selesai' && $_SESSION['role'] != 'admin') {
-            Flasher::setFlash('Gagal', 'Rapat yang sudah selesai tidak boleh dihapus demi arsip!', 'warning');
-            header('Location: ' . BASEURL . '/rapat');
-            exit;
-        }
-
-        if ($this->model('Rapat')->hapusRapat($id) > 0) {
-            Flasher::setFlash('Berhasil', 'Rapat telah dihapus permanen.', 'success');
-        } else {
-            Flasher::setFlash('Gagal', 'Terjadi kesalahan penghapusan.', 'danger');
-        }
-
         header('Location: ' . BASEURL . '/rapat');
         exit;
     }

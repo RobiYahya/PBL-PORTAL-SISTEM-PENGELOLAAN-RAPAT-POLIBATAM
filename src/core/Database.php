@@ -1,8 +1,6 @@
 <?php
 // Nama File: Database.php
 // Deskripsi: Wrapper untuk koneksi database menggunakan PDO (PHP Data Objects).
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class Database {
     private $host = DB_HOST;

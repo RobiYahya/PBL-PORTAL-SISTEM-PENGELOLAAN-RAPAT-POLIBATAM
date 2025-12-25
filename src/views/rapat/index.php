@@ -1,8 +1,6 @@
 <?php
 // Nama File: index.php
 // Deskripsi: Dashboard utama menampilkan daftar rapat (terjadwal, selesai, batal).
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 ?>
 <main>
     <?php if ($_SESSION['role'] == 'admin'): ?>
@@ -12,17 +10,31 @@
             });
         ?>
         <?php if (!empty($pengajuan)): ?>
-        <div class="neu-card alert-warning">
-            <h3 class="alert-title">🔔 Permintaan Persetujuan (<?= count($pengajuan); ?>)</h3>
+        <div class="neu-card alert-warning" style="border: 2px solid #ffc107; background-color: #fffbf0;">
+            <h3 class="alert-title" style="color: #856404; margin-top: 0;">🔔 Permintaan Persetujuan (<?= count($pengajuan); ?>)</h3>
+            
             <?php foreach ($pengajuan as $p): ?>
-                <div class="approval-item">
+                <div class="approval-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0;">
                     <div>
-                        <strong class="font-bold" style="font-size: 1.1em;"><?= htmlspecialchars($p['judul_rapat']); ?></strong><br />
-                        <small>Oleh: <?= htmlspecialchars($p['pembuat']); ?></small>
+                        <strong class="font-bold" style="font-size: 1.1em; color: #333;"><?= htmlspecialchars($p['judul_rapat']); ?></strong><br />
+                        <small style="color: #666;">Oleh: <?= htmlspecialchars($p['pembuat']); ?></small>
                     </div>
-                    <div>
-                        <a href="<?= BASEURL; ?>/rapat/edit/<?= htmlspecialchars($p['id_rapat']); ?>" class="neu-btn btn-secondary" style="font-size: 0.8rem;">Review</a>
-                        <a href="<?= BASEURL; ?>/rapat/approve/<?= htmlspecialchars($p['id_rapat']); ?>" class="neu-btn btn-success" style="font-size: 0.8rem;">✔ ACC</a>
+                    <div style="display: flex; gap: 5px;">
+                        <a href="<?= BASEURL; ?>/rapat/edit/<?= htmlspecialchars($p['id_rapat']); ?>" class="neu-btn btn-secondary" style="font-size: 0.8rem; padding: 5px 10px;">Review</a>
+                        
+                        <a href="<?= BASEURL; ?>/rapat/reject/<?= htmlspecialchars($p['id_rapat']); ?>" 
+                           class="neu-btn btn-danger" 
+                           style="font-size: 0.8rem; padding: 5px 10px;" 
+                           onclick="return confirm('Yakin ingin MENOLAK pengajuan rapat ini?')">
+                           ❌ Tolak
+                        </a>
+
+                        <a href="<?= BASEURL; ?>/rapat/approve/<?= htmlspecialchars($p['id_rapat']); ?>" 
+                           class="neu-btn btn-success" 
+                           style="font-size: 0.8rem; padding: 5px 10px;" 
+                           onclick="return confirm('Setujui dan terbitkan rapat ini?')">
+                           ✔ ACC
+                        </a>
                     </div>
                 </div>
             <?php endforeach; ?>

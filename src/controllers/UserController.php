@@ -1,8 +1,6 @@
 <?php
 // Nama File: UserController.php
 // Deskripsi: Mengelola data Profil Pengguna dan CRUD User (Admin).
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class UserController extends Controller {
     

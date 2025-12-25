@@ -1,8 +1,6 @@
 <?php
 // Nama File: User.php
 // Deskripsi: Model untuk mengelola data pengguna (CRUD User, Login, Profil).
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class User {
     private $table = 'users';
@@ -26,6 +24,15 @@ class User {
         $this->db->query("SELECT * FROM " . $this->table . " WHERE id_user=:id");
         $this->db->bind('id', $id);
         return $this->db->single();
+    }
+
+    // [BARU] Cek apakah email sudah ada (Untuk Validasi Register)
+    public function cekEmail($email)
+    {
+        $this->db->query("SELECT email FROM " . $this->table . " WHERE email = :email");
+        $this->db->bind('email', $email);
+        $this->db->execute();
+        return $this->db->rowCount(); // Mengembalikan 1 jika ada, 0 jika tidak
     }
 
     // 3. Tambah User Baru (Register)

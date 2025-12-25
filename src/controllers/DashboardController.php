@@ -1,8 +1,6 @@
 <?php
 // Nama File: DashboardController.php
 // Deskripsi: Controller untuk halaman dashboard utama (opsional jika redirect ke RapatController).
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class DashboardController extends Controller {
     

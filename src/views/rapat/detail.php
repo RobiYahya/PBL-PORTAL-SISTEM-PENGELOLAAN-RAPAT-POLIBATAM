@@ -1,8 +1,6 @@
 <?php
 // Nama File: detail.php
 // Deskripsi: Menampilkan detail lengkap rapat, agenda, dan peserta.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 ?>
 <main>
     <section class="detail-section" style="padding: 40px 0;">
@@ -16,19 +14,44 @@
                     
                     <?php 
                         $st = strtolower($data['rapat']['status']); 
-                        $statusClass = 'st-terjadwal';
-                        if ($st == 'selesai') $statusClass = 'st-selesai';
-                        elseif ($st == 'batal' || $st == 'dibatalkan') $statusClass = 'st-batal';
-                        elseif ($st == 'draft') $statusClass = 'st-draft';
+                        $statusClass = 'st-terjadwal'; // Default
+                        
+                        // [PERBAIKAN] Logika Class CSS Status agar warnanya benar
+                        if ($st == 'selesai') {
+                            $statusClass = 'st-selesai'; // Hijau
+                        } elseif ($st == 'dibatalkan' || $st == 'batal') {
+                            $statusClass = 'st-batal';   // Merah
+                        } elseif ($st == 'menunggu_konfirmasi') {
+                            $statusClass = 'st-draft';   // Abu/Kuning
+                        }
                     ?>
                     <span class="status-tag <?= $statusClass; ?> mt-10">
-                        <?= ucfirst($st); ?>
+                        <?= ucfirst(str_replace('_', ' ', $st)); ?>
                     </span>
                 </div>
 
-                <?php if ($data['rapat']['id_pembuat'] == $_SESSION['user_id'] && $st == 'terjadwal'): ?>
-                    <a href="<?= BASEURL; ?>/rapat/cancel/<?= htmlspecialchars($data['rapat']['id_rapat']); ?>" class="neu-btn btn-danger" onclick="return confirm('Yakin batalkan rapat ini?')">🚫 Batal Rapat</a>
-                <?php endif; ?>
+                <div style="display: flex; gap: 10px;">
+                    
+                    <?php if ($_SESSION['role'] == 'admin' && $st == 'menunggu_konfirmasi'): ?>
+                        
+                        <a href="<?= BASEURL; ?>/rapat/reject/<?= htmlspecialchars($data['rapat']['id_rapat']); ?>" 
+                           class="neu-btn btn-danger" 
+                           onclick="return confirm('Yakin ingin MENOLAK pengajuan rapat ini?')">
+                           ❌ Tolak
+                        </a>
+
+                        <a href="<?= BASEURL; ?>/rapat/approve/<?= htmlspecialchars($data['rapat']['id_rapat']); ?>" 
+                           class="neu-btn btn-success" 
+                           onclick="return confirm('Setujui dan terbitkan rapat ini?')">
+                           ✅ Setujui (ACC)
+                        </a>
+
+                    <?php endif; ?>
+                    <?php if ($data['rapat']['id_pembuat'] == $_SESSION['user_id'] && $st == 'terjadwal'): ?>
+                        <a href="<?= BASEURL; ?>/rapat/cancel/<?= htmlspecialchars($data['rapat']['id_rapat']); ?>" class="neu-btn btn-danger" onclick="return confirm('Yakin batalkan rapat ini?')">🚫 Batal Rapat</a>
+                    <?php endif; ?>
+
+                </div>
             </div>
 
             <div class="detail-grid">

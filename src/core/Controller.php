@@ -1,8 +1,6 @@
 <?php
 // Nama File: Controller.php
 // Deskripsi: Kelas induk (Base Controller) untuk memuat View dan Model.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class Controller {
     

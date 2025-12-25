@@ -1,8 +1,6 @@
 <?php
 // Nama File: HomeController.php
 // Deskripsi: Controller untuk halaman depan (Landing Page).
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class HomeController extends Controller {
     public function index()

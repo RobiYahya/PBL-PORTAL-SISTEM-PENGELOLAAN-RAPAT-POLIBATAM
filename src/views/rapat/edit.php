@@ -1,13 +1,7 @@
-<?php
-// Nama File: edit.php
-// Deskripsi: Form untuk mengubah data rapat yang sudah ada.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
-?>
 <main>
     <section class="meeting-creation-section" style="padding: 40px 0;">
         <div class="container">
-            <h1 class="text-center text-secondary mb-10">
+            <h1 style="text-align: center; color: var(--secondary); margin-bottom: 10px;">
                 <?= ($_SESSION['role'] == 'admin') ? 'Review & Edit Rapat 📝' : 'Edit Rapat ✏️'; ?>
             </h1>
             
@@ -24,6 +18,7 @@
                     <div class="form-group half-width">
                         <label class="form-label">Lokasi / Ruangan</label>
                         <?php 
+                            // Daftar ruangan disamakan dengan create.php
                             $daftar_ruangan = [
                                 "GU 601" => "GU 601", "GU 604" => "GU 604", "GU 606" => "GU 606",
                                 "GU 701" => "GU 701", "GU 702" => "GU 702", "GU 704" => "GU 704",
@@ -81,7 +76,7 @@
                     <label class="form-label">Undang Peserta</label>
                     <div class="neu-input" style="height: 250px; overflow-y: auto; padding: 15px;">
                         <div class="mb-20" style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
-                            <strong class="d-block mb-10">Grup:</strong>
+                            <strong style="display:block; margin-bottom:10px;">Grup:</strong>
                             <label style="display: flex; align-items: center; margin: 5px 0; cursor: pointer;">
                                 <input type="checkbox" name="target_rapat[]" value="dosen" style="margin-right: 10px; transform: scale(1.2);" /> 
                                 <span>Seluruh Dosen</span>
@@ -89,7 +84,7 @@
                         </div>
 
                         <div>
-                            <strong class="d-block mb-10">Perorangan:</strong>
+                            <strong style="display:block; margin-bottom:10px;">Perorangan:</strong>
                             <?php if (!empty($data['users'])): ?>
                                 <?php foreach ($data['users'] as $u): ?>
                                     <?php if ($u['id_user'] != $_SESSION['user_id'] && $u['jabatan'] != 'admin'): ?>
@@ -97,24 +92,40 @@
                                         <label style="display: flex; align-items: center; margin-bottom: 8px; cursor: pointer;">
                                             <input type="checkbox" name="peserta[]" value="<?= $u['id_user']; ?>" <?= $isChecked; ?> style="margin-right: 10px; transform: scale(1.2);" />
                                             <span>
-                                                <b><?= htmlspecialchars($u['nama_lengkap']); ?></b> <small class="text-muted">(<?= ucfirst($u['jabatan']); ?>)</small>
+                                                <b><?= htmlspecialchars($u['nama_lengkap']); ?></b> <small style="color:#666;">(<?= ucfirst($u['jabatan']); ?>)</small>
                                             </span>
                                         </label>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                                <p class="text-muted">Tidak ada user lain.</p>
+                                <p style="color: #999;">Tidak ada user lain.</p>
                             <?php endif; ?>
                         </div>
                     </div>
                 </div>
 
-                <div class="button-group text-right mt-20">
-                    <a href="<?= BASEURL; ?>/rapat" class="neu-btn btn-danger mr-10">Batal</a>
+                <div class="button-group" style="text-align: right; margin-top: 20px;">
+                    <a href="<?= BASEURL; ?>/rapat" class="neu-btn btn-secondary" style="margin-right: 10px;">Kembali</a>
+
+                    <?php if ($_SESSION['role'] == 'admin' && $data['rapat']['status'] == 'menunggu_konfirmasi'): ?>
+                        <a href="<?= BASEURL; ?>/rapat/reject/<?= $data['rapat']['id_rapat']; ?>" 
+                           class="neu-btn btn-danger" 
+                           onclick="return confirm('Yakin ingin MENOLAK rapat ini?')"
+                           style="margin-right: 10px;">
+                           ❌ Tolak
+                        </a>
+                        <a href="<?= BASEURL; ?>/rapat/approve/<?= $data['rapat']['id_rapat']; ?>" 
+                           class="neu-btn btn-success" 
+                           onclick="return confirm('Setujui dan terbitkan rapat ini?')"
+                           style="margin-right: 10px;">
+                           ✔ ACC
+                        </a>
+                    <?php endif; ?>
                     <button type="submit" class="neu-btn btn-primary">💾 Simpan Perubahan</button>
                 </div>
             </form>
         </div>
+        
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 flatpickr(".timepicker", {

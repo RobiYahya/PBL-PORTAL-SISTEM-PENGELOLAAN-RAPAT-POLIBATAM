@@ -1,8 +1,6 @@
 <?php
 // Nama File: Flasher.php
 // Deskripsi: Menangani pesan notifikasi flash (alert) menggunakan session.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class Flasher {
     public static function setFlash($pesan, $aksi, $tipe)

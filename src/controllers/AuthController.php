@@ -1,8 +1,6 @@
 <?php
 // Nama File: AuthController.php
 // Deskripsi: Mengelola proses Autentikasi (Login, Register, Logout).
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class AuthController extends Controller {
     
@@ -75,22 +73,40 @@ class AuthController extends Controller {
         $this->view('templates/footer_auth');
     }
 
-    // 4. PROSES REGISTER
+    // 4. PROSES REGISTER (PERBAIKAN DI SINI)
     public function prosesRegister()
     {
+        // [FIX BUG 1] VALIDASI PANJANG PASSWORD (MIN 8 KARAKTER)
+        if (strlen($_POST['password']) < 8) {
+            Flasher::setFlash('Gagal', 'Password minimal 8 karakter!', 'danger');
+            header('Location: ' . BASEURL . '/auth/register');
+            exit;
+        }
+
+        // VALIDASI KONFIRMASI PASSWORD
         if ($_POST['password'] !== $_POST['ulangi_password']) {
             Flasher::setFlash('Gagal', 'Konfirmasi password tidak cocok', 'danger');
+            header('Location: ' . BASEURL . '/auth/register');
+            exit;
+        }
+
+        // [FIX BUG 2] VALIDASI EMAIL DUPLIKAT
+        // Kita panggil fungsi 'cekEmail' di model (Harus dibuat di User_model)
+        if ($this->model('User')->cekEmail($_POST['email']) > 0) {
+            Flasher::setFlash('Gagal', 'Email sudah terdaftar! Gunakan email lain.', 'danger');
             header('Location: ' . BASEURL . '/auth/register');
             exit;
         }
         
         $data['jabatan'] = 'dosen'; // Default role
         
+        // SIMPAN DATA
         if ($this->model('User')->tambahDataUser($_POST) > 0) {
             Flasher::setFlash('Berhasil', 'Akun berhasil dibuat, silakan login', 'success');
             header('Location: ' . BASEURL . '/auth');
             exit;
         } else {
+            // Jika gagal di sini, berarti NIK Duplikat (karena email sudah dicek di atas)
             Flasher::setFlash('Gagal', 'NIK sudah terdaftar', 'danger');
             header('Location: ' . BASEURL . '/auth/register');
             exit;

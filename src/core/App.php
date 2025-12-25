@@ -1,8 +1,6 @@
 <?php
 // Nama File: App.php
 // Deskripsi: Kelas Router utama yang memproses URL dan memanggil Controller/Method yang sesuai.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class App {
     // Default controller

@@ -1,8 +1,6 @@
 <?php
 // Nama File: NotulenController.php
 // Deskripsi: Mengelola upload file notulen rapat.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
 
 class NotulenController extends Controller {
     
