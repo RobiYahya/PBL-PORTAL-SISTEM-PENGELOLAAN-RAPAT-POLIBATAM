@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2025 at 04:54 AM
+-- Generation Time: Dec 29, 2025 at 02:00 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `peserta` (
   `id_peserta` int(11) NOT NULL,
   `id_rapat` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `status_kehadiran` enum('hadir','tidak_hadir','izin') DEFAULT 'hadir',
+  `status_kehadiran` enum('hadir','sakit','izin','alpa') DEFAULT 'hadir',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `notifikasi_status` enum('unread','read') DEFAULT 'unread'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -57,7 +57,19 @@ INSERT INTO `peserta` (`id_peserta`, `id_rapat`, `id_user`, `status_kehadiran`, 
 (24, 5, 3, 'hadir', '2025-12-16 17:07:21', 'unread'),
 (25, 6, 4, 'hadir', '2025-12-17 07:17:04', 'read'),
 (26, 6, 2, 'izin', '2025-12-17 07:17:04', 'read'),
-(27, 6, 3, 'hadir', '2025-12-17 07:17:04', 'unread');
+(27, 6, 3, 'hadir', '2025-12-17 07:17:04', 'unread'),
+(29, 7, 4, '', '2025-12-18 04:01:32', 'unread'),
+(30, 7, 2, '', '2025-12-18 04:01:32', 'read'),
+(31, 7, 3, '', '2025-12-18 04:01:32', 'unread'),
+(32, 8, 4, '', '2025-12-22 01:56:39', 'unread'),
+(33, 8, 3, '', '2025-12-22 01:56:39', 'unread'),
+(34, 8, 1, '', '2025-12-22 01:56:39', 'read'),
+(35, 9, 4, '', '2025-12-25 12:15:18', 'unread'),
+(36, 9, 2, '', '2025-12-25 12:15:18', 'read'),
+(37, 9, 3, '', '2025-12-25 12:15:18', 'unread'),
+(42, 11, 4, 'hadir', '2025-12-29 12:59:21', 'unread'),
+(43, 11, 3, 'sakit', '2025-12-29 12:59:21', 'unread'),
+(44, 11, 1, 'alpa', '2025-12-29 12:59:21', 'unread');
 
 -- --------------------------------------------------------
 
@@ -88,7 +100,11 @@ INSERT INTO `rapat` (`id_rapat`, `judul_rapat`, `deskripsi`, `lokasi`, `tgl_rapa
 (3, 'Rapat Angsuran Masjid Polibatam', 'Membuat laporan RAB', 'TA lt 10.a', '2025-12-16', '13:00:00', '15:30:00', 'dibatalkan', NULL, 3),
 (4, 'rapat kinerja mingguan', 'Membahas RPS ', 'GU 704', '2025-12-16', '13:30:00', '15:30:00', 'selesai', NULL, 2),
 (5, 'Rapat HUT Polibatam', 'Membahas agenda hut polibatam', 'GU 705', '2025-12-17', '09:30:00', '12:00:00', 'selesai', NULL, 1),
-(6, 'Rapat Dosen IF', 'Membahas semester 2 prodi if', 'GU 705', '2025-12-22', '09:00:00', '15:00:00', 'selesai', 'notulen_6_1765956257.pdf', 1);
+(6, 'Rapat Dosen IF', 'Membahas semester 2 prodi if', 'GU 705', '2025-12-22', '09:00:00', '15:00:00', 'selesai', 'notulen_6_1765956257.pdf', 1),
+(7, 'Rapat Dosen IF', 'Membahas semester 2 prodi IF', 'GU 704', '2025-12-19', '10:00:00', '12:00:00', 'dibatalkan', NULL, 1),
+(8, 'rapat kinerja mingguan', 'qqq', 'GU 601', '2025-12-22', '09:00:00', '09:05:00', 'selesai', NULL, 2),
+(9, 'Rapat seminar dengan guest elon musk', 'Membahas rundown acara seminar', 'Auditorium Utama', '2025-12-27', '12:00:00', '15:00:00', 'dibatalkan', NULL, 1),
+(11, 'Rapat Dosen IF', 'Testing and debugging', 'TA 12.3A', '2025-12-31', '12:00:00', '15:00:00', 'selesai', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -153,13 +169,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `peserta`
 --
 ALTER TABLE `peserta`
-  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `rapat`
 --
 ALTER TABLE `rapat`
-  MODIFY `id_rapat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_rapat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`

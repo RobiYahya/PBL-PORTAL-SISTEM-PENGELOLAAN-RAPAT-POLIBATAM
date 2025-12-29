@@ -1,8 +1,6 @@
 <?php
 // Nama File: header.php
-// Deskripsi: Header global untuk template utama aplikasi, memuat resource CSS/JS dan navigasi.
-// Dibuat oleh: [NAMA_PENULIS] - NIM: [NIM]
-// Tanggal: [TANGGAL_HARI_INI]
+// Deskripsi: Header global dengan perbaikan Sticky Footer.
 
 // MATIKAN CACHE
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -26,6 +24,18 @@ header("Pragma: no-cache");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Tinggi minimal seukuran layar */
+            margin: 0;
+        }
+        main {
+            flex: 1; /* Mendorong footer ke bawah */
+        }
+    </style>
 </head>
 
 <body>

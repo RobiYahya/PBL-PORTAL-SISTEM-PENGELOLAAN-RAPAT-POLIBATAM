@@ -13,16 +13,15 @@
                     <p class="text-muted mt-10">Dibuat oleh: <strong><?= htmlspecialchars($data['rapat']['pembuat']); ?></strong></p>
                     
                     <?php 
-                        $st = strtolower($data['rapat']['status']); 
+                        $st = strtolower(trim($data['rapat']['status'])); 
                         $statusClass = 'st-terjadwal'; // Default
                         
-                        // [PERBAIKAN] Logika Class CSS Status agar warnanya benar
                         if ($st == 'selesai') {
-                            $statusClass = 'st-selesai'; // Hijau
+                            $statusClass = 'st-selesai'; 
                         } elseif ($st == 'dibatalkan' || $st == 'batal') {
-                            $statusClass = 'st-batal';   // Merah
+                            $statusClass = 'st-batal';   
                         } elseif ($st == 'menunggu_konfirmasi') {
-                            $statusClass = 'st-draft';   // Abu/Kuning
+                            $statusClass = 'st-draft';   
                         }
                     ?>
                     <span class="status-tag <?= $statusClass; ?> mt-10">
@@ -122,13 +121,19 @@
                                         </td>
                                         <td class="text-right">
                                             <?php 
-                                                $statusHadir = strtolower($p['status_kehadiran']);
+                                                // [PERBAIKAN] Logika Cek Status Kehadiran agar tidak "Menunggu" terus
+                                                $statusHadir = strtolower(trim($p['status_kehadiran']));
                                                 $bgClass = 'bg-secondary';
                                                 
-                                                if($statusHadir == 'hadir') $bgClass = 'bg-success';
-                                                elseif($statusHadir == 'izin') $bgClass = 'bg-warning';
-                                                elseif($statusHadir == 'sakit') $bgClass = 'bg-info';
-                                                elseif($statusHadir == 'alpa') $bgClass = 'bg-danger';
+                                                if($statusHadir == 'hadir') {
+                                                    $bgClass = 'bg-success';
+                                                } elseif($statusHadir == 'izin') {
+                                                    $bgClass = 'bg-warning';
+                                                } elseif($statusHadir == 'sakit') {
+                                                    $bgClass = 'bg-info';
+                                                } elseif($statusHadir == 'alpa' || $statusHadir == 'alpha') {
+                                                    $bgClass = 'bg-danger';
+                                                }
                                             ?>
                                             <span class="status-badge <?= $bgClass; ?>">
                                                 <?= ucfirst($p['status_kehadiran'] ?: 'Menunggu'); ?>

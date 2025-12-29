@@ -20,12 +20,15 @@
                     </thead>
                     <tbody>
                         <?php foreach ($data['peserta'] as $p): ?>
+                            <?php $st = strtolower(trim($p['status_kehadiran'])); ?>
                             <tr style="border-bottom: 1px solid #eee;">
                                 <td style="padding: 10px;"><?= htmlspecialchars($p['nama_lengkap']); ?></td>
-                                <td align="center"><input type="radio" name="status[<?= $p['id_user']; ?>]" value="hadir" <?= ($p['status_kehadiran']=='hadir')?'checked':''; ?> /></td>
-                                <td align="center"><input type="radio" name="status[<?= $p['id_user']; ?>]" value="izin" <?= ($p['status_kehadiran']=='izin')?'checked':''; ?> /></td>
-                                <td align="center"><input type="radio" name="status[<?= $p['id_user']; ?>]" value="sakit" <?= ($p['status_kehadiran']=='sakit')?'checked':''; ?> /></td>
-                                <td align="center"><input type="radio" name="status[<?= $p['id_user']; ?>]" value="alpa" <?= ($p['status_kehadiran']=='alpa'||!$p['status_kehadiran'])?'checked':''; ?> /></td>
+                                <td align="center"><input type="radio" name="status[<?= $p['id_user']; ?>]" value="hadir" <?= ($st=='hadir')?'checked':''; ?> /></td>
+                                <td align="center"><input type="radio" name="status[<?= $p['id_user']; ?>]" value="izin" <?= ($st=='izin')?'checked':''; ?> /></td>
+                                <td align="center"><input type="radio" name="status[<?= $p['id_user']; ?>]" value="sakit" <?= ($st=='sakit')?'checked':''; ?> /></td>
+                                <td align="center">
+                                    <input type="radio" name="status[<?= $p['id_user']; ?>]" value="alpa" <?= ($st=='alpa'|| $st=='alpha' || empty($st))?'checked':''; ?> />
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
